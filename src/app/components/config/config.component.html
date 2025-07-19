@@ -1,0 +1,432 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Sidebar (tu código existente) -->
+  <!-- ... -->
+
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white">
+            Configuración del Sistema
+          </h1>
+          <p class="text-sm text-gray-400">Ajustes globales y administración</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Config Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <div class="max-w-5xl mx-auto space-y-8">
+        <!-- Administrators Section -->
+        <div class="bg-[#1F2937] rounded-lg shadow overflow-hidden">
+          <div
+            class="px-6 py-4 border-b border-gray-700 flex items-center justify-between"
+          >
+            <h2 class="text-lg font-semibold text-white">
+              <i class="fas fa-users-cog mr-2 text-indigo-400"></i
+              >Administradores
+            </h2>
+            <button
+              class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm flex items-center"
+            >
+              <i class="fas fa-user-plus mr-2"></i> Añadir Administrador
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-700">
+              <thead class="bg-gray-800">
+                <tr>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  >
+                    Nombre
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  >
+                    Email
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  >
+                    Rol
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  >
+                    Último Acceso
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  >
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-[#1F2937] divide-y divide-gray-700">
+                <!-- Admin 1 -->
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <img
+                          class="h-10 w-10 rounded-full"
+                          src="https://via.placeholder.com/40"
+                          alt=""
+                        />
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-white">
+                          Julio Sánchez
+                        </div>
+                        <div class="text-xs text-gray-400">
+                          Creado: 15/01/2023
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    julio/visualcore.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs rounded-full bg-purple-900/30 text-purple-300"
+                      >Super Admin</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    10 min ago
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                  >
+                    <button class="text-indigo-400 hover:text-indigo-300 mr-3">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-gray-300">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </td>
+                </tr>
+                <!-- Admin 2 -->
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <img
+                          class="h-10 w-10 rounded-full"
+                          src="https://via.placeholder.com/40"
+                          alt=""
+                        />
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-white">
+                          María Gómez
+                        </div>
+                        <div class="text-xs text-gray-400">
+                          Creado: 20/03/2023
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    maria/visualcore.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300"
+                      >Administrador</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    1 hora ago
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                  >
+                    <button class="text-indigo-400 hover:text-indigo-300 mr-3">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-gray-300">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Price Configuration -->
+        <div class="bg-[#1F2937] rounded-lg shadow overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h2 class="text-lg font-semibold text-white">
+              <i class="fas fa-tags mr-2 text-green-400"></i>Configuración de
+              Precios
+            </h2>
+            <p class="text-sm text-gray-400 mt-1">
+              Define los precios base por tipo de camisa
+            </p>
+          </div>
+          <div class="p-6">
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Premium Price -->
+                <div class="bg-gray-800/50 p-4 rounded-lg">
+                  <h3
+                    class="text-md font-medium text-white mb-3 flex items-center"
+                  >
+                    <span
+                      class="w-3 h-3 rounded-full bg-indigo-500 mr-2"
+                    ></span>
+                    Camisas Premium
+                  </h3>
+                  <div class="flex items-center">
+                    <span class="text-gray-400 mr-2">$</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="89.95"
+                    />
+                  </div>
+                  <div class="mt-2 flex items-center text-sm text-gray-400">
+                    <i class="fas fa-info-circle mr-1"></i> Precio base para
+                    todas las camisas premium
+                  </div>
+                </div>
+
+                <!-- Basic Price -->
+                <div class="bg-gray-800/50 p-4 rounded-lg">
+                  <h3
+                    class="text-md font-medium text-white mb-3 flex items-center"
+                  >
+                    <span class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>
+                    Camisas Básicas
+                  </h3>
+                  <div class="flex items-center">
+                    <span class="text-gray-400 mr-2">$</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="59.95"
+                    />
+                  </div>
+                  <div class="mt-2 flex items-center text-sm text-gray-400">
+                    <i class="fas fa-info-circle mr-1"></i> Precio base para
+                    camisas estándar
+                  </div>
+                </div>
+
+                <!-- Limited Edition Price -->
+                <div class="bg-gray-800/50 p-4 rounded-lg">
+                  <h3
+                    class="text-md font-medium text-white mb-3 flex items-center"
+                  >
+                    <span
+                      class="w-3 h-3 rounded-full bg-purple-500 mr-2"
+                    ></span>
+                    Ediciones Limitadas
+                  </h3>
+                  <div class="flex items-center">
+                    <span class="text-gray-400 mr-2">$</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="129.95"
+                    />
+                  </div>
+                  <div class="mt-2 flex items-center text-sm text-gray-400">
+                    <i class="fas fa-info-circle mr-1"></i> Precio para
+                    colecciones especiales
+                  </div>
+                </div>
+              </div>
+
+              <!-- Discount Settings -->
+              <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-md font-medium text-white mb-3">
+                  <i class="fas fa-percentage mr-2 text-yellow-400"></i
+                  >Configuración de Descuentos
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Descuento por volumen (%)</label
+                    >
+                    <input
+                      type="number"
+                      min="0"
+                      max="50"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="10"
+                    />
+                    <p class="mt-1 text-xs text-gray-400">
+                      Aplicado al comprar 5+ unidades del mismo producto
+                    </p>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Descuento por temporada (%)</label
+                    >
+                    <input
+                      type="number"
+                      min="0"
+                      max="50"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="15"
+                    />
+                    <p class="mt-1 text-xs text-gray-400">
+                      Descuento especial en temporadas bajas
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Save Button -->
+              <div class="flex justify-end pt-4">
+                <button
+                  type="submit"
+                  class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  <i class="fas fa-save mr-2"></i>Guardar Configuración de
+                  Precios
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- System Settings -->
+        <div class="bg-[#1F2937] rounded-lg shadow overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h2 class="text-lg font-semibold text-white">
+              <i class="fas fa-cog mr-2 text-gray-400"></i>Ajustes del Sistema
+            </h2>
+          </div>
+          <div class="p-6">
+            <form class="space-y-6">
+              <!-- Notification Settings -->
+              <div>
+                <h3 class="text-md font-medium text-white mb-3">
+                  Notificaciones
+                </h3>
+                <div class="space-y-3">
+                  <label class="flex items-center">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      checked
+                    />
+                    <span class="ml-2 text-sm text-gray-300"
+                      >Alertas de bajo stock</span
+                    >
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      checked
+                    />
+                    <span class="ml-2 text-sm text-gray-300"
+                      >Notificaciones de ventas</span
+                    >
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                    <span class="ml-2 text-sm text-gray-300"
+                      >Recordatorios de inventario</span
+                    >
+                  </label>
+                </div>
+              </div>
+
+              <!-- System Preferences -->
+              <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-md font-medium text-white mb-3">
+                  Preferencias
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Tiempo de sesión (minutos)</label
+                    >
+                    <input
+                      type="number"
+                      min="5"
+                      max="1440"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="30"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Registros a mostrar</label
+                    >
+                    <select
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="10">10 registros</option>
+                      <option value="25" selected>25 registros</option>
+                      <option value="50">50 registros</option>
+                      <option value="100">100 registros</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Backup Section -->
+              <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-md font-medium text-white mb-3">
+                  Respaldo y Mantenimiento
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <button
+                    type="button"
+                    class="px-4 py-2 border border-gray-600 rounded-md text-sm font-medium text-white bg-transparent hover:bg-gray-700 flex items-center justify-center"
+                  >
+                    <i class="fas fa-database mr-2"></i>Generar Respaldo
+                  </button>
+                  <button
+                    type="button"
+                    class="px-4 py-2 border border-gray-600 rounded-md text-sm font-medium text-white bg-transparent hover:bg-gray-700 flex items-center justify-center"
+                  >
+                    <i class="fas fa-sync-alt mr-2"></i>Sincronizar Datos
+                  </button>
+                  <button
+                    type="button"
+                    class="px-4 py-2 border border-red-600 rounded-md text-sm font-medium text-white bg-red-600/20 hover:bg-red-700/30 flex items-center justify-center"
+                  >
+                    <i class="fas fa-trash-alt mr-2"></i>Limpiar Cache
+                  </button>
+                </div>
+              </div>
+
+              <!-- Save Button -->
+              <div class="flex justify-end pt-4">
+                <button
+                  type="submit"
+                  class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <i class="fas fa-save mr-2"></i>Guardar Ajustes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

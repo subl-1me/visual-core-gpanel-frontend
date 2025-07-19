@@ -1,0 +1,274 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white">
+            Registrar Venta Manual
+          </h1>
+          <p class="text-sm text-gray-400">Complete los datos de la venta</p>
+        </div>
+        <button class="text-gray-400 hover:text-white">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Form Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <div class="max-w-3xl mx-auto">
+        <form class="space-y-6">
+          <!-- Customer Section -->
+          <div class="bg-[#1F2937] rounded-lg shadow p-6">
+            <h2
+              class="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2"
+            >
+              <i class="fas fa-user mr-2 text-indigo-400"></i>Datos del Cliente
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Customer Selection -->
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-white mb-1"
+                  >Cliente *</label
+                >
+                <div class="relative">
+                  <select
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  >
+                    <option value="">Seleccionar cliente registrado</option>
+                    <option value="new">+ Registrar nuevo cliente</option>
+                    <option value="1">Juan Pérez (juan/email.com)</option>
+                    <option value="2">María González (maria/email.com)</option>
+                    <option value="3">Carlos Ruiz (carlos/email.com)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Section -->
+          <div class="bg-[#1F2937] rounded-lg shadow p-6">
+            <h2
+              class="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2"
+            >
+              <i class="fas fa-tshirt mr-2 text-green-400"></i>Productos
+              Vendidos
+            </h2>
+
+            <!-- Product List -->
+            <div class="space-y-4" id="product-list">
+              <!-- Product Item 1 -->
+              <div class="product-item bg-gray-800/50 p-4 rounded-lg">
+                <div class="grid grid-cols-12 gap-3 items-center">
+                  <div class="col-span-6 md:col-span-5">
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Producto *</label
+                    >
+                    <select
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="">Seleccionar producto</option>
+                      <option value="1">Camisa Basica - $120.00</option>
+                      <option value="2">
+                        Camisa por Temporada (MARVEL) - $400.99
+                      </option>
+                      <option value="3">Camisa Edicion Limitada - $500</option>
+                    </select>
+                  </div>
+                  <div class="col-span-3 md:col-span-2">
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Talla *</label
+                    >
+                    <select
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="">Talla</option>
+                      <option value="XS">XS</option>
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                    </select>
+                  </div>
+                  <div class="col-span-2">
+                    <label class="block text-sm font-medium text-white mb-1"
+                      >Cantidad *</label
+                    >
+                    <input
+                      type="number"
+                      min="1"
+                      value="1"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+                  <div class="col-span-1 flex items-end">
+                    <button
+                      type="button"
+                      class="text-red-400 hover:text-red-300 p-1"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add Product Button -->
+            <button
+              type="button"
+              id="add-product"
+              class="mt-4 w-full py-2 border-2 border-dashed border-gray-600 rounded-md text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
+            >
+              <i class="fas fa-plus mr-2"></i>Añadir otro producto
+            </button>
+          </div>
+
+          <!-- Payment Section -->
+          <div class="bg-[#1F2937] rounded-lg shadow p-6">
+            <h2
+              class="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2"
+            >
+              <i class="fas fa-money-bill-wave mr-2 text-yellow-400"></i>Datos
+              de Pago
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Payment Method -->
+              <div>
+                <label class="block text-sm font-medium text-white mb-1"
+                  >Método de Pago*</label
+                >
+                <div class="grid grid-cols-3 gap-2">
+                  <label class="payment-method">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="cash"
+                      class="sr-only"
+                      checked
+                    />
+                    <span
+                      class="block p-2 border border-gray-600 rounded-md text-center cursor-pointer hover:bg-gray-700"
+                    >
+                      <i
+                        class="fas fa-money-bill-wave text-green-400 block text-xl mb-1"
+                      ></i>
+                      <span class="text-xs text-white">Efectivo</span>
+                    </span>
+                  </label>
+                  <label class="payment-method">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="card"
+                      class="sr-only"
+                    />
+                    <span
+                      class="block p-2 border border-gray-600 rounded-md text-center cursor-pointer hover:bg-gray-700"
+                    >
+                      <i
+                        class="fas fa-credit-card text-blue-400 block text-xl mb-1"
+                      ></i>
+                      <span class="text-xs text-white">Tarjeta</span>
+                    </span>
+                  </label>
+                  <label class="payment-method">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="transfer"
+                      class="sr-only"
+                    />
+                    <span
+                      class="block p-2 border border-gray-600 rounded-md text-center cursor-pointer hover:bg-gray-700"
+                    >
+                      <i
+                        class="fas fa-exchange-alt text-purple-400 block text-xl mb-1"
+                      ></i>
+                      <span class="text-xs text-white">Transferencia</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Payment Details -->
+              <div>
+                <label class="block text-sm font-medium text-white mb-1"
+                  >Total</label
+                >
+                <div class="bg-gray-800 rounded-lg p-4">
+                  <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Subtotal:</span>
+                    <span class="text-white">$0</span>
+                  </div>
+                  <!-- <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Descuento:</span>
+                    <div class="flex items-center">
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value="0"
+                        class="w-16 bg-gray-700 border border-gray-600 rounded-md py-1 px-2 text-white text-right mr-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      />
+                      <span class="text-white">$0.00</span>
+                    </div>
+                  </div> -->
+                  <div
+                    class="flex justify-between text-lg font-semibold border-t border-gray-700 pt-2 mt-2"
+                  >
+                    <span class="text-white">Total:</span>
+                    <span class="text-green-400">$0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Info -->
+          <div class="bg-[#1F2937] rounded-lg shadow p-6">
+            <h2
+              class="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2"
+            >
+              <i class="fas fa-info-circle mr-2 text-blue-400"></i>Información
+              Adicional
+            </h2>
+
+            <div>
+              <label
+                for="notes"
+                class="block text-sm font-medium text-white mb-1"
+                >Notas</label
+              >
+              <textarea
+                id="notes"
+                rows="3"
+                class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Observaciones sobre la venta..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-4 pt-4">
+            <button
+              type="button"
+              class="px-6 py-2 border border-gray-600 rounded-md text-sm font-medium text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <i class="fas fa-save mr-2"></i>Guardar Venta
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

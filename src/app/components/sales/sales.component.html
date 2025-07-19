@@ -1,0 +1,442 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Sidebar (tu código existente) -->
+  <!-- ... -->
+
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white">Gestión de Ventas</h1>
+          <p class="text-sm text-gray-400">Registro y seguimiento de ventas</p>
+        </div>
+        <button
+          class="px-4 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm flex items-center"
+          (click)="navigateToAddSale()"
+        >
+          <i class="fas fa-plus-circle mr-2"></i> Ingresar venta manualmente
+        </button>
+      </div>
+    </header>
+
+    <!-- Sales Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <!-- Sales Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- Total Sales -->
+        <div
+          class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-green-500"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-400">Ventas Totales</p>
+              <p class="text-2xl font-semibold text-white">$24,850</p>
+            </div>
+            <div class="p-3 rounded-full bg-green-900/30 text-green-400">
+              <i class="fas fa-shopping-cart text-xl"></i>
+            </div>
+          </div>
+          <p class="mt-2 text-sm text-green-500">
+            <i class="fas fa-arrow-up mr-1"></i> 15% vs mes anterior
+          </p>
+        </div>
+
+        <!-- Automatic Sales -->
+        <div
+          class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-blue-500"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-400">
+                Ventas Automáticas
+              </p>
+              <p class="text-2xl font-semibold text-white">142</p>
+            </div>
+            <div class="p-3 rounded-full bg-blue-900/30 text-blue-400">
+              <i class="fas fa-robot text-xl"></i>
+            </div>
+          </div>
+          <p class="mt-2 text-sm text-blue-400">
+            <i class="fas fa-sync-alt mr-1"></i> Sincronizadas en tiempo real
+          </p>
+        </div>
+
+        <!-- Manual Sales -->
+        <div
+          class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-purple-500"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-400">Ventas Manuales</p>
+              <p class="text-2xl font-semibold text-white">28</p>
+            </div>
+            <div class="p-3 rounded-full bg-purple-900/30 text-purple-400">
+              <i class="fas fa-hand-paper text-xl"></i>
+            </div>
+          </div>
+          <p class="mt-2 text-sm text-purple-400">
+            <i class="fas fa-user-edit mr-1"></i> Registradas por el equipo
+          </p>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="bg-[#1F2937] rounded-lg shadow p-4 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <!-- Date Range -->
+          <div class="md:col-span-2">
+            <label
+              for="date-range"
+              class="block text-sm font-medium text-white mb-1"
+              >Rango de Fechas</label
+            >
+            <div class="flex">
+              <input
+                type="date"
+                id="start-date"
+                class="w-full bg-gray-700 border border-gray-600 rounded-l-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <span
+                class="flex items-center justify-center px-2 bg-gray-600 text-gray-300"
+                >a</span
+              >
+              <input
+                type="date"
+                id="end-date"
+                class="w-full bg-gray-700 border border-gray-600 rounded-r-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+          </div>
+
+          <!-- Sales Type -->
+          <div>
+            <label
+              for="sales-type"
+              class="block text-sm font-medium text-white mb-1"
+              >Tipo de Venta</label
+            >
+            <select
+              id="sales-type"
+              class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Todos los tipos</option>
+              <option value="automatic">Automáticas</option>
+              <option value="manual">Manuales</option>
+            </select>
+          </div>
+
+          <!-- Payment Method -->
+          <div>
+            <label
+              for="payment-method"
+              class="block text-sm font-medium text-white mb-1"
+              >Método de Pago</label
+            >
+            <select
+              id="payment-method"
+              class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Todos los métodos</option>
+              <option value="cash">Efectivo</option>
+              <option value="card">Tarjeta</option>
+              <option value="transfer">Transferencia</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md flex items-center justify-center"
+            >
+              <i class="fas fa-search mr-2"></i> Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Table -->
+      <div class="bg-[#1F2937] rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-700">
+            <thead class="bg-gray-800">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  ID Venta
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Fecha
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Cliente
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Productos
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Total
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Tipo
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Estado
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-[#1F2937] divide-y divide-gray-700">
+              <!-- Automatic Sale -->
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-white">#VC-10024</div>
+                  <div class="text-xs text-gray-400">Online</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  15/06/2023 10:45
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-white">María González</div>
+                  <div class="text-xs text-gray-400">maria/mail.com</div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-gray-300">2 productos</div>
+                  <div class="text-xs text-gray-500">
+                    Camisa Elegance (M), Camisa Classic (S)
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
+                >
+                  $189.90
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300 flex items-center"
+                  >
+                    <i class="fas fa-robot mr-1"></i> Automática
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-green-900/30 text-green-300"
+                    >Completada</span
+                  >
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                >
+                  <button
+                    class="text-indigo-400 hover:text-indigo-300 mr-3"
+                    title="Ver detalle"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    class="text-gray-400 hover:text-gray-300"
+                    title="Más opciones"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Manual Sale -->
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-white">#VC-10023</div>
+                  <div class="text-xs text-gray-400">Tienda física</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  14/06/2023 16:30
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-white">Venta directa</div>
+                  <div class="text-xs text-gray-400">
+                    Sin cliente registrado
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-gray-300">1 producto</div>
+                  <div class="text-xs text-gray-500">Camisa Limited (L)</div>
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
+                >
+                  $129.90
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-purple-900/30 text-purple-300 flex items-center"
+                  >
+                    <i class="fas fa-hand-paper mr-1"></i> Manual
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-green-900/30 text-green-300"
+                    >Completada</span
+                  >
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                >
+                  <button
+                    class="text-indigo-400 hover:text-indigo-300 mr-3"
+                    title="Ver detalle"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    class="text-gray-400 hover:text-gray-300"
+                    title="Más opciones"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Another Automatic Sale -->
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-white">#VC-10022</div>
+                  <div class="text-xs text-gray-400">Online</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  14/06/2023 09:15
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-white">Carlos Martínez</div>
+                  <div class="text-xs text-gray-400">carlos/email.com</div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-gray-300">3 productos</div>
+                  <div class="text-xs text-gray-500">
+                    Camisa Classic (M x2), Camisa Basic (XL)
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
+                >
+                  $245.85
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300 flex items-center"
+                  >
+                    <i class="fas fa-robot mr-1"></i> Automática
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-yellow-900/30 text-yellow-300"
+                    >En proceso</span
+                  >
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                >
+                  <button
+                    class="text-indigo-400 hover:text-indigo-300 mr-3"
+                    title="Ver detalle"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    class="text-gray-400 hover:text-gray-300"
+                    title="Más opciones"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div
+          class="bg-gray-800 px-6 py-3 flex items-center justify-between border-t border-gray-700"
+        >
+          <div
+            class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+          >
+            <div>
+              <p class="text-sm text-gray-400">
+                Mostrando <span class="font-medium">1</span> a
+                <span class="font-medium">3</span> de
+                <span class="font-medium">24</span> ventas
+              </p>
+            </div>
+            <div>
+              <nav
+                class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                aria-label="Pagination"
+              >
+                <a
+                  href="#"
+                  class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-600 bg-[#1F2937] text-sm font-medium text-gray-400 hover:bg-gray-700"
+                >
+                  <span class="sr-only">Anterior</span>
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+                <a
+                  href="#"
+                  aria-current="page"
+                  class="z-10 bg-indigo-600 border-indigo-600 text-white relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                >
+                  1
+                </a>
+                <a
+                  href="#"
+                  class="bg-[#1F2937] border-gray-600 text-gray-400 hover:bg-gray-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                >
+                  2
+                </a>
+                <a
+                  href="#"
+                  class="bg-[#1F2937] border-gray-600 text-gray-400 hover:bg-gray-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                >
+                  3
+                </a>
+                <a
+                  href="#"
+                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-600 bg-[#1F2937] text-sm font-medium text-gray-400 hover:bg-gray-700"
+                >
+                  <span class="sr-only">Siguiente</span>
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

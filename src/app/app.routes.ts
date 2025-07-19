@@ -6,6 +6,7 @@ import { AddShirtComponent } from './components/add-shirt/add-shirt.component';
 import { SalesComponent } from './components/sales/sales.component';
 import { AddManualSaleComponent } from './components/add-manual-sale/add-manual-sale.component';
 import { ConfigComponent } from './components/config/config.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -31,5 +32,9 @@ export const routes: Routes = [
   {
     path: 'config',
     component: ConfigComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
 ];

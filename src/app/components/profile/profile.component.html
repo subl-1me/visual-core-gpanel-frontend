@@ -1,0 +1,504 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white">Mi Perfil</h1>
+          <p class="text-sm text-gray-400">
+            Administra tu información personal y configuración
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Profile Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <div class="max-w-3xl mx-auto">
+        <!-- Profile Card -->
+        <div class="bg-[#1F2937] rounded-lg shadow overflow-hidden">
+          <!-- Profile Header -->
+          <div class="px-6 py-4 border-b border-gray-700 flex items-center">
+            <div class="relative">
+              <img
+                class="h-16 w-16 rounded-full border-2 border-indigo-500"
+                src="https://via.placeholder.com/150"
+                alt=""
+              />
+              <button
+                class="absolute bottom-0 right-0 bg-indigo-600 rounded-full p-1 border-2 border-[#1F2937] hover:bg-indigo-700"
+              >
+                <i class="fas fa-camera text-white text-xs"></i>
+              </button>
+            </div>
+            <div class="ml-4">
+              <h2 class="text-lg font-semibold text-white">Julio Sánchez</h2>
+              <p class="text-sm text-gray-400">Super Administrador</p>
+            </div>
+          </div>
+
+          <!-- Profile Tabs -->
+          <div class="border-b border-gray-700">
+            <nav class="flex -mb-px">
+              <button
+                class="tab-active whitespace-nowrap py-4 px-6 border-b-2 border-indigo-500 text-sm font-medium text-white"
+              >
+                Información Personal
+              </button>
+              <button
+                class="tab-inactive whitespace-nowrap py-4 px-6 border-b-2 border-transparent text-sm font-medium text-gray-400 hover:text-gray-300"
+              >
+                Seguridad
+              </button>
+              <button
+                class="tab-inactive whitespace-nowrap py-4 px-6 border-b-2 border-transparent text-sm font-medium text-gray-400 hover:text-gray-300"
+              >
+                Notificaciones
+              </button>
+            </nav>
+          </div>
+
+          <!-- Personal Information Form -->
+          <div class="p-6">
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- First Name -->
+                <div>
+                  <label
+                    for="first-name"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Nombre*</label
+                  >
+                  <input
+                    type="text"
+                    id="first-name"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value="Julio"
+                    required
+                  />
+                </div>
+
+                <!-- Last Name -->
+                <div>
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Apellido*</label
+                  >
+                  <input
+                    type="text"
+                    id="last-name"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value="Sánchez"
+                    required
+                  />
+                </div>
+
+                <!-- Username -->
+                <div>
+                  <label
+                    for="username"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Nombre de usuario*</label
+                  >
+                  <div class="relative">
+                    <span
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"
+                      >/</span
+                    >
+                    <input
+                      type="text"
+                      id="username"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 pl-8 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      value="julio_admin"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="md:col-span-2">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Correo electrónico*</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value="julio@visualcore.com"
+                    required
+                  />
+                </div>
+
+                <!-- Phone -->
+                <div>
+                  <label
+                    for="phone"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Teléfono</label
+                  >
+                  <input
+                    type="tel"
+                    id="phone"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value="+52 55 1234 5678"
+                  />
+                </div>
+
+                <!-- Position -->
+                <div>
+                  <label
+                    for="position"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Cargo</label
+                  >
+                  <input
+                    type="text"
+                    id="position"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value="Super Administrador"
+                    disabled
+                  />
+                </div>
+
+                <!-- Bio -->
+                <div class="md:col-span-2">
+                  <label
+                    for="bio"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Biografía</label
+                  >
+                  <textarea
+                    id="bio"
+                    rows="3"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Describe tu rol en la empresa..."
+                  >
+Responsable de la administración general del sistema y configuración de seguridad.</textarea
+                  >
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="flex justify-end pt-4 border-t border-gray-700">
+                <button
+                  type="button"
+                  class="px-6 py-2 border border-gray-600 rounded-md text-sm font-medium text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="ml-4 px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <i class="fas fa-save mr-2"></i>Guardar Cambios
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Security Card (Hidden by default) -->
+        <div
+          class="bg-[#1F2937] rounded-lg shadow overflow-hidden mt-6 hidden"
+          id="security-tab"
+        >
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h2 class="text-lg font-semibold text-white">
+              <i class="fas fa-shield-alt mr-2 text-yellow-400"></i>Seguridad y
+              Acceso
+            </h2>
+          </div>
+          <div class="p-6">
+            <form class="space-y-6">
+              <!-- Current Password -->
+              <div>
+                <label
+                  for="current-password"
+                  class="block text-sm font-medium text-white mb-1"
+                  >Contraseña actual*</label
+                >
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="current-password"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Ingresa tu contraseña actual"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                  >
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- New Password -->
+              <div>
+                <label
+                  for="new-password"
+                  class="block text-sm font-medium text-white mb-1"
+                  >Nueva contraseña*</label
+                >
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="new-password"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Ingresa tu nueva contraseña"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                  >
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+                <p class="mt-1 text-xs text-gray-400">
+                  Mínimo 8 caracteres, incluyendo mayúsculas, números y símbolos
+                </p>
+              </div>
+
+              <!-- Confirm Password -->
+              <div>
+                <label
+                  for="confirm-password"
+                  class="block text-sm font-medium text-white mb-1"
+                  >Confirmar nueva contraseña*</label
+                >
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="confirm-password"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Confirma tu nueva contraseña"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                  >
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Two-Factor Authentication -->
+              <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-md font-medium text-white mb-3">
+                  <i class="fas fa-mobile-alt mr-2 text-blue-400"></i
+                  >Autenticación de Dos Factores
+                </h3>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm text-gray-300">
+                      Protege tu cuenta con un segundo factor de autenticación
+                    </p>
+                    <p class="text-xs text-gray-500">
+                      Recomendado para todos los administradores
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-sm flex items-center"
+                  >
+                    <i class="fas fa-toggle-off mr-2"></i> Activar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Active Sessions -->
+              <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-md font-medium text-white mb-3">
+                  <i class="fas fa-laptop mr-2 text-green-400"></i>Sesiones
+                  Activas
+                </h3>
+                <div class="space-y-3">
+                  <div
+                    class="flex items-center justify-between p-3 bg-gray-800/50 rounded-md"
+                  >
+                    <div class="flex items-center">
+                      <i
+                        class="fas fa-desktop text-lg text-indigo-400 mr-3"
+                      ></i>
+                      <div>
+                        <p class="text-sm text-white">Windows 10 - Chrome</p>
+                        <p class="text-xs text-gray-400">
+                          CDMX, México • Ahora mismo
+                        </p>
+                      </div>
+                    </div>
+                    <button class="text-red-400 hover:text-red-300">
+                      <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-3 bg-gray-800/50 rounded-md"
+                  >
+                    <div class="flex items-center">
+                      <i
+                        class="fas fa-mobile-alt text-lg text-blue-400 mr-3"
+                      ></i>
+                      <div>
+                        <p class="text-sm text-white">iPhone 13 - Safari</p>
+                        <p class="text-xs text-gray-400">
+                          CDMX, México • Hace 2 horas
+                        </p>
+                      </div>
+                    </div>
+                    <button class="text-red-400 hover:text-red-300">
+                      <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="flex justify-end pt-4">
+                <button
+                  type="submit"
+                  class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  <i class="fas fa-key mr-2"></i>Actualizar Seguridad
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Notifications Card (Hidden by default) -->
+        <div
+          class="bg-[#1F2937] rounded-lg shadow overflow-hidden mt-6 hidden"
+          id="notifications-tab"
+        >
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h2 class="text-lg font-semibold text-white">
+              <i class="fas fa-bell mr-2 text-purple-400"></i>Preferencias de
+              Notificaciones
+            </h2>
+          </div>
+          <div class="p-6">
+            <form class="space-y-6">
+              <!-- Notification Channels -->
+              <div>
+                <h3 class="text-md font-medium text-white mb-3">
+                  Canales de Notificación
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <label
+                    class="flex items-start p-3 border border-gray-600 rounded-md hover:bg-gray-700/50"
+                  >
+                    <input
+                      type="checkbox"
+                      class="mt-1 rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      checked
+                    />
+                    <div class="ml-3">
+                      <p class="text-sm font-medium text-white">
+                        Correo electrónico
+                      </p>
+                      <p class="text-xs text-gray-400">
+                        Recibir notificaciones por email
+                      </p>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-start p-3 border border-gray-600 rounded-md hover:bg-gray-700/50"
+                  >
+                    <input
+                      type="checkbox"
+                      class="mt-1 rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                    <div class="ml-3">
+                      <p class="text-sm font-medium text-white">
+                        Notificaciones push
+                      </p>
+                      <p class="text-xs text-gray-400">
+                        Alertas en el navegador
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Notification Types -->
+              <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-md font-medium text-white mb-3">
+                  Tipos de Notificaciones
+                </h3>
+                <div class="space-y-3">
+                  <label
+                    class="flex items-center justify-between p-3 bg-gray-800/50 rounded-md"
+                  >
+                    <div>
+                      <p class="text-sm font-medium text-white">
+                        Alertas de seguridad
+                      </p>
+                      <p class="text-xs text-gray-400">
+                        Inicios de sesión sospechosos o cambios importantes
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      checked
+                    />
+                  </label>
+                  <label
+                    class="flex items-center justify-between p-3 bg-gray-800/50 rounded-md"
+                  >
+                    <div>
+                      <p class="text-sm font-medium text-white">
+                        Actualizaciones del sistema
+                      </p>
+                      <p class="text-xs text-gray-400">
+                        Nuevas características o mantenimiento programado
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      checked
+                    />
+                  </label>
+                  <label
+                    class="flex items-center justify-between p-3 bg-gray-800/50 rounded-md"
+                  >
+                    <div>
+                      <p class="text-sm font-medium text-white">
+                        Resúmenes semanales
+                      </p>
+                      <p class="text-xs text-gray-400">
+                        Reportes de actividad y métricas
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="flex justify-end pt-4">
+                <button
+                  type="submit"
+                  class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <i class="fas fa-bell mr-2"></i>Guardar Preferencias
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

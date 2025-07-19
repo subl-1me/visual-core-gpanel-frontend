@@ -1,0 +1,325 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    <!-- <header class="bg-[#111827] border-b border-gray-700 p-4 text-center">
+      <div class="flex text-center">
+        <h1 class="text-xl font-semibold text-white">Alta de Nueva Camisa</h1>
+        <button class="text-gray-400 hover:text-white">
+          <i class="fas fa-question-circle text-xl"></i>
+        </button>
+      </div>
+    </header> -->
+
+    <!-- Form Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <div class="max-w-4xl mx-auto">
+        <!-- Form Card -->
+        <div class="bg-[#1F2937] rounded-lg shadow-lg overflow-hidden">
+          <!-- Form Header -->
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h2 class="text-lg font-semibold text-white">
+              Ingresar nueva camisa
+            </h2>
+            <p class="text-sm text-gray-400">
+              Complete todos los campos requeridos
+            </p>
+          </div>
+
+          <!-- Form Body -->
+          <div class="p-6">
+            <form class="space-y-6">
+              <!-- Basic Info Section -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Name -->
+                <div>
+                  <label
+                    for="name"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Nombre del Producto *</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Ej: Camisa Edición V8 Engine Motors"
+                    required
+                  />
+                </div>
+
+                <!-- SKU -->
+                <div>
+                  <label
+                    for="sku"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Identificador único (generado automaticamente)
+                  </label>
+                  <input
+                    type="text"
+                    id="sku"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Ej: CEL-2024-001"
+                    required
+                  />
+                </div>
+
+                <!-- Price -->
+                <div>
+                  <label
+                    for="price"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Precio*</label
+                  >
+                  <div class="relative">
+                    <span
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"
+                      >$</span
+                    >
+                    <input
+                      type="number"
+                      id="price"
+                      step="0.01"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 pl-8 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0.00"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Stock -->
+                <div>
+                  <label
+                    for="stock"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Stock Inicial*</label
+                  >
+                  <input
+                    type="number"
+                    id="stock"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="0"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div>
+                <label
+                  for="description"
+                  class="block text-sm font-medium text-white mb-1"
+                  >Descripción</label
+                >
+                <textarea
+                  id="description"
+                  rows="3"
+                  class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Descripción detallada de la camisa..."
+                ></textarea>
+              </div>
+
+              <!-- Category & Attributes -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Category -->
+                <div>
+                  <label class="block text-sm font-medium text-white mb-1"
+                    >Categoría*</label
+                  >
+                  <select
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  >
+                    <option value="">Seleccione una categoría</option>
+                    <option value="premium">Premium</option>
+                    <option value="basica">Básica</option>
+                    <option value="limitada">Edición Limitada</option>
+                    <option value="temporada">Temporada</option>
+                  </select>
+                </div>
+
+                <!-- Size -->
+                <div>
+                  <label class="block text-sm font-medium text-white mb-1"
+                    >Tallas Disponibles*</label
+                  >
+                  <div class="flex flex-wrap gap-2">
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <span class="ml-2 text-sm text-gray-300">XS</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <span class="ml-2 text-sm text-gray-300">S</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                        checked
+                      />
+                      <span class="ml-2 text-sm text-gray-300">M</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                        checked
+                      />
+                      <span class="ml-2 text-sm text-gray-300">L</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <span class="ml-2 text-sm text-gray-300">XL</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Colors -->
+              <div>
+                <label class="block text-sm font-medium text-white mb-1"
+                  >Colores Disponibles*</label
+                >
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div class="flex items-center">
+                    <input
+                      id="color-black"
+                      name="color"
+                      type="radio"
+                      class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                    <label
+                      for="color-black"
+                      class="ml-2 block text-sm text-gray-300"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 rounded-full bg-black border border-gray-500 mr-1"
+                      ></span>
+                      Negro
+                    </label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="color-white"
+                      name="color"
+                      type="radio"
+                      class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                    <label
+                      for="color-white"
+                      class="ml-2 block text-sm text-gray-300"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 rounded-full bg-white border border-gray-500 mr-1"
+                      ></span>
+                      Blanco
+                    </label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="color-blue"
+                      name="color"
+                      type="radio"
+                      checked
+                      class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                    <label
+                      for="color-blue"
+                      class="ml-2 block text-sm text-gray-300"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 rounded-full bg-blue-600 border border-gray-500 mr-1"
+                      ></span>
+                      Azul
+                    </label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="color-red"
+                      name="color"
+                      type="radio"
+                      class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                    />
+                    <label
+                      for="color-red"
+                      class="ml-2 block text-sm text-gray-300"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 rounded-full bg-red-600 border border-gray-500 mr-1"
+                      ></span>
+                      Rojo
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Image Upload -->
+              <div>
+                <label class="block text-sm font-medium text-white mb-1"
+                  >Imágenes del Producto</label
+                >
+                <div
+                  class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md"
+                >
+                  <div class="space-y-1 text-center">
+                    <div class="flex text-sm text-gray-400">
+                      <label
+                        class="relative cursor-pointer bg-gray-700 rounded-md font-medium text-indigo-400 hover:text-indigo-300 focus-within:outline-none"
+                      >
+                        <span>Subir imágenes</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          class="sr-only"
+                          multiple
+                        />
+                      </label>
+                      <p class="pl-1">o arrastrar y soltar</p>
+                    </div>
+                    <p class="text-xs text-gray-500">
+                      PNG, JPG, GIF hasta 10MB
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-3 gap-2 mt-2 hidden"
+                  id="preview-container"
+                >
+                  <!-- Preview images will appear here -->
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div
+                class="flex justify-end space-x-4 pt-4 border-t border-gray-700"
+              >
+                <button
+                  type="button"
+                  class="px-4 py-2 border border-gray-600 rounded-md text-sm font-medium text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <i class="fas fa-save mr-2"></i>
+                  Guardar Camisa
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

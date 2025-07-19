@@ -1,0 +1,48 @@
+<!-- Centrado dentro del router-outlet -->
+<div class="flex items-center justify-center h-full">
+  <div class="w-1/2 max-w-md">
+    <div class="bg-[#1F2937] p-8 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold text-center mb-6 text-white">
+        Iniciar Sesión en Visual Core
+      </h2>
+      <form>
+        <div class="mb-4">
+          <label
+            class="block text-sm font-semibold mb-2 text-white"
+            for="email"
+          >
+            Usuario
+          </label>
+          <input
+            type="email"
+            id="email"
+            class="w-full text-white p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="elpiernas"
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            class="block text-sm font-semibold mb-2 text-white"
+            for="password"
+          >
+            Contraseña
+          </label>
+          <input
+            type="password"
+            id="password"
+            class="w-full text-white p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="********"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-primary font-semibold text-white p-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          Iniciar Sesión
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

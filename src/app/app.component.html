@@ -1,7 +1,7 @@
 <!-- Main container -->
 <div class="flex h-screen overflow-hidden bg-[#111827] font-sans">
   <!-- Sidebar -->
-  <app-sidebar></app-sidebar>
+  <app-sidebar *ngIf="isAuth"></app-sidebar>
 
   <!-- Main content -->
   <div class="flex-1 overflow-y-auto p-4">

@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { routes } from './app.routes';
+import { NgIf } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [

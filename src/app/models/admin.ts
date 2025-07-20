@@ -3,6 +3,6 @@ export default interface Admin {
   password?: string;
   username: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

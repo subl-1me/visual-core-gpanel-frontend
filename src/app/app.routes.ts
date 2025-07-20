@@ -7,6 +7,7 @@ import { SalesComponent } from './components/sales/sales.component';
 import { AddManualSaleComponent } from './components/add-manual-sale/add-manual-sale.component';
 import { ConfigComponent } from './components/config/config.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AddAdmComponent } from './components/config/add-adm/add-adm.component';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,9 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+  },
+  {
+    path: 'add-adm',
+    component: AddAdmComponent,
   },
 ];

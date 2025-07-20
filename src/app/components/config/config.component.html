@@ -68,9 +68,58 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-[#1F2937] divide-y divide-gray-700">
-                <!-- Admin 1 -->
+              <tbody
+                class="bg-[#1F2937] divide-y divide-gray-700"
+                *ngFor="let admin of adminList"
+              >
                 <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <img
+                          class="h-10 w-10 rounded-full"
+                          src="https://via.placeholder.com/40"
+                          alt=""
+                        />
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-white">
+                          {{ admin.username }}
+                        </div>
+                        <div class="text-xs text-gray-400">
+                          Creado: {{ admin.createdAt | date }}
+                        </div>
+                        <div class="text-xs text-gray-400">
+                          Actualizado: {{ admin.updatedAt | date }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    {{ admin.email }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs rounded-full bg-purple-900/30 text-purple-300"
+                      >Super Admin</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    10 min ago
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                  >
+                    <button class="text-indigo-400 hover:text-indigo-300 mr-3">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-gray-300">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </td>
+                </tr>
+                <!-- Admin 1 -->
+                <!-- <tr>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="flex-shrink-0 h-10 w-10">
@@ -112,9 +161,9 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </button>
                   </td>
-                </tr>
+                </tr> -->
                 <!-- Admin 2 -->
-                <tr>
+                <!-- <tr>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="flex-shrink-0 h-10 w-10">
@@ -156,7 +205,7 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </button>
                   </td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>

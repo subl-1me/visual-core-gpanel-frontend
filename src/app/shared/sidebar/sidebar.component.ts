@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TAB_NAMES } from '../../const';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -9,7 +9,9 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
+  public session: any;
+
   constructor(
     private router: Router,
     private authService: AuthenticationService
@@ -23,5 +25,9 @@ export class SidebarComponent {
   public logOut(): void {
     this.authService.logOut();
     this.router.navigate(['/login']);
+  }
+
+  ngOnInit(): void {
+    this.session = this.authService.getLoginSession();
   }
 }

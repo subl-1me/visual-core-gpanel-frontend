@@ -2,14 +2,17 @@
   <!-- Main Content -->
   <div class="flex flex-col flex-1 overflow-hidden">
     <!-- Header -->
-    <!-- <header class="bg-[#111827] border-b border-gray-700 p-4 text-center">
-      <div class="flex text-center">
-        <h1 class="text-xl font-semibold text-white">Alta de Nueva Camisa</h1>
-        <button class="text-gray-400 hover:text-white">
-          <i class="fas fa-question-circle text-xl"></i>
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white">Agregar nuevo stock</h1>
+          <p class="text-sm text-gray-400">Complete los datos siguientes</p>
+        </div>
+        <button class="text-gray-600 hover:text-white" (click)="back()">
+          <i class="fas fa-chevron-left text-xl"> Volver </i>
         </button>
       </div>
-    </header> -->
+    </header>
 
     <!-- Form Content -->
     <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">

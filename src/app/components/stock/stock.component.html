@@ -16,37 +16,262 @@
           <button
             class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm flex items-center"
           >
-            <i class="fas fa-file-export mr-2"></i> Exportar
+            <i class="fas fa-file-export mr-2"></i> Exportar tabla
           </button>
           <button
             class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm flex items-center"
             (click)="addShirt()"
           >
-            <i class="fas fa-plus-circle mr-2"></i> Agregar nuevo
+            <i class="fas fa-plus-circle mr-2"></i> Agregar stock de camisas
           </button>
         </div>
       </div>
     </header>
 
     <!-- Inventory Content -->
-    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]" *ngIf="!isLoading">
       <!-- Summary Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <!-- Total Products -->
-        <!-- <div
-          class="bg-[#1F2937] rounded-lg shadow p-4 border-l-4 border-blue-500"
+        <div
+          class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-blue-500"
         >
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-gray-400">Productos Totales</p>
-              <p class="text-2xl font-semibold text-white">248</p>
+              <p class="text-2xl font-semibold text-white">0</p>
             </div>
-            <div class="p-2 rounded-full bg-blue-900/30 text-blue-400">
+            <div class="p-3 rounded-full bg-blue-900/30 text-blue-400">
               <i class="fas fa-boxes text-xl"></i>
             </div>
           </div>
-        </div> -->
+        </div>
+        <div
+          class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-blue-500"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <div
+                class="h-4 w-24 bg-gray-600 rounded mb-3 animate-pulse"
+              ></div>
+              <div
+                class="h-4 w-4 bg-gray-600 rounded-full mb-3 animate-pulse"
+              ></div>
+            </div>
+            <div class="p-3 rounded-full bg-gray-700 text-gray-400 h-12 w-12">
+              <div class="h-6 w-6 bg-gray-600 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-blue-500"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <div
+                class="h-4 w-24 bg-gray-600 rounded mb-3 animate-pulse"
+              ></div>
+              <div
+                class="h-4 w-4 bg-gray-600 rounded-full mb-3 animate-pulse"
+              ></div>
+            </div>
+            <div class="p-3 rounded-full bg-gray-700 text-gray-400 h-12 w-12">
+              <div class="h-6 w-6 bg-gray-600 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Filters and Search -->
+      <div class="bg-[#1F2937] rounded-lg shadow p-4 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <!-- Search -->
+          <div class="md:col-span-2">
+            <label for="search" class="sr-only">Buscar</label>
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <i class="fas fa-search text-gray-400"></i>
+              </div>
+              <input
+                type="text"
+                id="search"
+                class="block w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Buscar productos..."
+              />
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div>
+            <label for="category" class="sr-only">Categoría</label>
+            <select
+              id="category"
+              class="block w-full pl-3 pr-10 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Todas las categorías</option>
+              <option value="premium">Por temporada</option>
+              <option value="basica">Básica</option>
+              <option value="limitada">Edición Limitada</option>
+            </select>
+          </div>
+
+          <!-- Stock Filter -->
+          <div>
+            <label for="stock-status" class="sr-only">Estado de stock</label>
+            <select
+              id="stock-status"
+              class="block w-full pl-3 pr-10 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Todos los estados</option>
+              <option value="in-stock">En stock</option>
+              <option value="low">Bajo stock</option>
+              <option value="out">Agotado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory Table -->
+      <div class="bg-[#1F2937] rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-700">
+            <thead class="bg-gray-800">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Producto
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Categoría
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Identificador
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Tallas
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Stock
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Estado
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-[#1F2937] divide-y divide-gray-700"
+              *ngFor="let product of stock"
+            >
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <img
+                        class="h-10 w-10 rounded"
+                        src="https://via.placeholder.com/40"
+                        alt=""
+                      />
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-white">
+                        Camisa Elegance Premium
+                      </div>
+                      <div class="text-sm text-gray-400">#CEL-001</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300"
+                    >Premium</span
+                  >
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  CEL-2024-001
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex space-x-1">
+                    <span
+                      class="text-xs px-1.5 py-0.5 rounded bg-gray-600 text-gray-300"
+                      >S</span
+                    >
+                    <span
+                      class="text-xs px-1.5 py-0.5 rounded bg-gray-600 text-gray-300"
+                      >M</span
+                    >
+                    <span
+                      class="text-xs px-1.5 py-0.5 rounded bg-gray-600 text-gray-300"
+                      >L</span
+                    >
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  42 unidades
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-green-900/30 text-green-300"
+                    >En stock</span
+                  >
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                >
+                  <button class="text-indigo-400 hover:text-indigo-300 mr-3">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="text-gray-400 hover:text-gray-300">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="stock.length === 0">
+              <tr>
+                <td
+                  colspan="100%"
+                  class="text-center p-4 text-gray-600 font-bold"
+                >
+                  No se encontraron productos. Agrega uno nuevo en la parte
+                  superior.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!--- Inventory content placeholder -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]" *ngIf="isLoading">
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- Total Products -->
         <!--- placeholders -->
         <div
           class="bg-[#1F2937] rounded-lg shadow p-6 border-l-4 border-blue-500"
@@ -60,6 +285,7 @@
               <div
                 class="h-4 w-10 bg-gray-600 rounded mb-3 animate-pulse"
               ></div>
+              <div class="h-4 w-24 bg-gray-600 rounded animate-pulse"></div>
             </div>
             <div class="p-3 rounded-full bg-gray-600 opacity-50">
               <div class="h-6 w-6 bg-gray-500 rounded-full animate-pulse"></div>
@@ -78,6 +304,7 @@
               <div
                 class="h-4 w-10 bg-gray-600 rounded mb-3 animate-pulse"
               ></div>
+              <div class="h-4 w-24 bg-gray-600 rounded animate-pulse"></div>
             </div>
             <div class="p-3 rounded-full bg-gray-600 opacity-50">
               <div class="h-6 w-6 bg-gray-500 rounded-full animate-pulse"></div>
@@ -96,6 +323,7 @@
               <div
                 class="h-4 w-10 bg-gray-600 rounded mb-3 animate-pulse"
               ></div>
+              <div class="h-4 w-24 bg-gray-600 rounded animate-pulse"></div>
             </div>
             <div class="p-3 rounded-full bg-gray-600 opacity-50">
               <div class="h-6 w-6 bg-gray-500 rounded-full animate-pulse"></div>

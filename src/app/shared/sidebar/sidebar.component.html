@@ -132,13 +132,15 @@
         </div>
 
         <footer class="border-t border-gray-700 text-center justify-center">
-          <div class="flex items-center">
-            <div>
-              <h1 class="font-bold font-medium text-gray-700 m-auto">
-                Visual Core Team
-              </h1>
-            </div>
+          <div class="flex items-center p-2">
+            <h1 class="font-bold font-bold text-gray-700">Visual Core Team</h1>
           </div>
+          <p
+            class="text-xs text-gray-700 underline hover:text-gray-500"
+            (click)="logOut()"
+          >
+            Logout
+          </p>
         </footer>
       </div>
     </div>

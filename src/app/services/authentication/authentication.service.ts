@@ -3,11 +3,15 @@ import Admin from '../../models/admin';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.isAuth());
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+
   private headers: HttpHeaders = new HttpHeaders().set(
     'content-type',
     'application/json'
@@ -27,10 +31,16 @@ export class AuthenticationService {
 
   public saveLoginSession(session: any): void {
     localStorage.setItem('session', JSON.stringify(session));
+    this.isAuthenticatedSubject.next(true);
   }
 
   public getLoginSession(): any {
     const session = JSON.parse(localStorage.getItem('session') || '{}');
     return session.id ? session : null;
+  }
+
+  public logOut(): void {
+    localStorage.removeItem('session');
+    this.isAuthenticatedSubject.next(false);
   }
 }

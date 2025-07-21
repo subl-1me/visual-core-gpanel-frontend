@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   title = 'visual-core';
 
   ngOnInit(): void {
-    this.isAuth = this.authService.isAuth();
+    this.authService.isAuthenticated$.subscribe((auth) => {
+      this.isAuth = auth;
+    });
   }
 }

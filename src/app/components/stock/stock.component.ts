@@ -23,6 +23,7 @@ export class StockComponent implements OnInit {
   public searchTerm: string = '';
   public tierFilter: string = 'Select tier';
   public statusFilter: string = '';
+  public responseStatusMessage: string = '';
 
   public addShirt(): void {
     this.router.navigate(['add-shirt']);
@@ -148,11 +149,41 @@ export class StockComponent implements OnInit {
     stockManagement.classList.add('hidden');
     stockDeletion.classList.add('hidden');
 
-    this.stockService.delete(stockId).subscribe((response) => {
-      console.log(response);
-      this.displayedStocks = this.stocks.filter(
-        (stock) => stock.id !== stockId
-      );
+    this.stockService.delete(stockId).subscribe({
+      next: (_response) => {
+        this.stocks = this.stocks.filter((stock) => stock.id !== stockId);
+        this.displayedStocks = [...this.stocks];
+        this.isLoading = false;
+        this.responseStatusMessage = '';
+      },
+      error: (err) => {
+        const { error } = err;
+        this.responseStatusMessage = `Error trying to remove stock item: ${error.message}`;
+        this.isLoading = false;
+        const stockDeletion = document.getElementById(
+          `processing-stock-${stockId}`
+        );
+        if (!stockDeletion) {
+          return; //never
+        }
+
+        stockDeletion.classList.add('hidden');
+        stockManagement.classList.remove('hidden');
+      },
     });
+  }
+
+  public openStockModal(stockId: string) {
+    const modal = document.getElementById(`stock-modal-${stockId}`);
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  public closeStockModal(stockId: string) {
+    const modal = document.getElementById(`stock-modal-${stockId}`);
+    if (modal) {
+      modal.classList.add('hidden');
+    }
   }
 }

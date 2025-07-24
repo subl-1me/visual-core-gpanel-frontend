@@ -244,13 +244,15 @@
                     id="stock-management-{{ stock.id }}"
                   >
                     <span
+                      (click)="openStockModal(stock.id || '')"
                       class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100"
                       ><i class="fas fa-eye"></i
                     ></span>
-                    <span
+                    <!-- TODO: Add a function to edit stock -->
+                    <!-- <span
                       class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100"
                       ><i class="fas fa-edit"></i
-                    ></span>
+                    ></span> -->
                     <span
                       (click)="showStockDeletionButtons(stock.id || '')"
                       class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100"
@@ -302,6 +304,241 @@
                       <span class="text-gray-400 text-xs ms-1"
                         >Processing...</span
                       >
+                    </div>
+                  </div>
+
+                  <!-- Modal -->
+                  <div
+                    id="stock-modal-{{ stock.id }}"
+                    class="hidden fixed inset-0 z-50 overflow-y-auto"
+                  >
+                    <div
+                      class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+                    >
+                      <div
+                        class="fixed inset-0 transition-opacity"
+                        aria-hidden="true"
+                      >
+                        <div
+                          class="absolute inset-0 bg-gray-900 opacity-75"
+                        ></div>
+                      </div>
+
+                      <!-- Modal content -->
+                      <div
+                        class="inline-block align-bottom bg-[#1F2937] rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
+                      >
+                        <div class="px-6 py-4">
+                          <!-- Header -->
+                          <div class="flex justify-between items-start">
+                            <div>
+                              <h3
+                                class="text-xl font-semibold text-white"
+                                id="modal-title"
+                              >
+                                Stock details
+                              </h3>
+                              <p class="text-sm text-gray-400 mt-1">
+                                ID:
+                                <span id="stock-id" class="text-gray-300">{{
+                                  stock.id
+                                }}</span>
+                              </p>
+                            </div>
+                            <button
+                              (click)="closeStockModal(stock.id || '')"
+                              class="text-gray-400 hover:text-white"
+                            >
+                              <svg
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+
+                          <!-- main content -->
+                          <div
+                            class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6"
+                          >
+                            <div>
+                              <!-- Imagen principal -->
+                              <div
+                                class="bg-gray-800 rounded-lg overflow-hidden h-64 flex items-center justify-center"
+                              >
+                                <img
+                                  id="stock-image"
+                                  src="https://cdn.pixabay.com/photo/2024/05/09/13/35/ai-generated-8751039_960_720.png"
+                                  alt="Producto"
+                                  class="max-h-full max-w-full object-contain rounded-full shadow-md"
+                                />
+                              </div>
+
+                              <!--- TODO: -->
+                              <!-- Media/Galley -->
+                              <div
+                                class="mt-4 flex space-x-2 overflow-x-auto py-2"
+                              ></div>
+
+                              <!-- Details -->
+                              <div class="mt-4 space-y-2">
+                                <div class="flex justify-between">
+                                  <span class="text-gray-400">Tier:</span>
+                                  <span
+                                    id="stock-tier"
+                                    class="text-white font-bold"
+                                    >{{ stock.details.tier }}</span
+                                  >
+                                </div>
+                                <div class="flex justify-between">
+                                  <span class="text-gray-400">Price:</span>
+                                  <span
+                                    id="stock-price"
+                                    class="text-white font-medium"
+                                    >{{ stock.details.price }} MXN</span
+                                  >
+                                </div>
+                                <div class="flex justify-between">
+                                  <span class="text-gray-400"
+                                    >Stock status:</span
+                                  >
+                                  <span
+                                    id="stock-status"
+                                    class="text-white font-medium"
+                                    >{{ stock.status }}</span
+                                  >
+                                </div>
+                                <div class="flex justify-between">
+                                  <span class="text-gray-400"
+                                    >Total Stock:</span
+                                  >
+                                  <span
+                                    id="stock-total"
+                                    class="text-white font-medium"
+                                    >{{ stock.total }}</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Detailed -->
+                            <div>
+                              <!-- name & desc -->
+                              <h4
+                                id="stock-name"
+                                class="text-lg font-bold text-white"
+                              >
+                                {{ stock.details.name }}
+                              </h4>
+                              <p
+                                id="stock-description"
+                                class="text-gray-300 mt-2 text-sm"
+                              >
+                                <q> {{ stock.details.description }} </q>
+                              </p>
+
+                              <!-- available sizes quantity -->
+                              <div class="mt-6">
+                                <h5 class="text-md font-medium text-white mb-3">
+                                  Available sizes
+                                </h5>
+                                <div class="grid grid-cols-4 gap-3">
+                                  <div
+                                    class="bg-gray-800 rounded-md p-3 text-center"
+                                  >
+                                    <div class="text-white font-medium">S</div>
+                                    <div
+                                      id="size-S"
+                                      class="text-gray-300 text-sm"
+                                    >
+                                      {{ stock.sizes[0].quantity }} units
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="bg-gray-800 rounded-md p-3 text-center"
+                                  >
+                                    <div class="text-white font-medium">M</div>
+                                    <div
+                                      id="size-M"
+                                      class="text-gray-300 text-sm"
+                                    >
+                                      {{ stock.sizes[1].quantity }} units
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="bg-gray-800 rounded-md p-3 text-center"
+                                  >
+                                    <div class="text-white font-medium">L</div>
+                                    <div
+                                      id="size-L"
+                                      class="text-gray-300 text-sm"
+                                    >
+                                      {{ stock.sizes[2].quantity }} units
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="bg-gray-800 rounded-md p-3 text-center"
+                                  >
+                                    <div class="text-white font-medium">XL</div>
+                                    <div
+                                      id="size-XL"
+                                      class="text-gray-300 text-sm"
+                                    >
+                                      {{ stock.sizes[3].quantity }} units
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Available colors -->
+                              <div class="mt-6">
+                                <h5 class="text-md font-medium text-white mb-3">
+                                  Available colors
+                                </h5>
+                                <div class="flex flex-wrap gap-3">
+                                  <div *ngIf="stock.availableColors.length > 0">
+                                    <div
+                                      class="flex flex-wrap gap-3 p-2 bg-gray-800 rounded-lg min-h-10"
+                                    >
+                                      <div
+                                        class="flex items-center"
+                                        *ngFor="
+                                          let color of stock.availableColors
+                                        "
+                                      >
+                                        <div
+                                          class="h-6 w-6 rounded-full bg-[{{
+                                            color
+                                          }}] border-2 border-gray-300 shadow-md"
+                                          title="{{ color }}"
+                                        ></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Footer  -->
+                        <div class="bg-gray-800 px-6 py-3 flex justify-end">
+                          <button
+                            (click)="closeStockModal(stock.id || '')"
+                            class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 mr-3"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -963,5 +1200,38 @@
         </div>
       </div>
     </main>
+
+    <section class="absolute bottom-1" *ngIf="responseStatusMessage !== ''">
+      <div
+        id="toast-success"
+        class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+        role="alert"
+      >
+        <div class="ms-3 text-sm font-normal">{{ responseStatusMessage }}</div>
+        <button
+          type="button"
+          class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+          data-dismiss-target="#toast-success"
+          aria-label="Close"
+        >
+          <span class="sr-only">Close</span>
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+        </button>
+      </div>
+    </section>
   </div>
 </div>

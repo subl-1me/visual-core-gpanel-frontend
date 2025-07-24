@@ -34,6 +34,7 @@ export class AddManualSaleComponent {
         email: '',
         pastOrders: [],
         phone: '',
+        address: '',
       },
     };
   }

@@ -5,6 +5,7 @@ export default interface Customer {
   name: string;
   email: string;
   phone: string;
+  address: string;
   level?: number;
   pastOrders: Sale[];
   created_at?: Date;

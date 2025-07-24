@@ -1,0 +1,540 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white">Add new stock</h1>
+          <p class="text-sm text-gray-400">Fill the next form</p>
+        </div>
+        <button class="text-gray-600 hover:text-white" (click)="back()">
+          <i class="fas fa-chevron-left text-xl"> Back </i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Form Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <div class="max-w-4xl mx-auto">
+        <!-- Form Card -->
+        <div class="bg-[#1F2937] rounded-lg shadow-lg overflow-hidden">
+          <!-- Form Header -->
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h2 class="text-lg font-semibold text-white">New Shirt</h2>
+          </div>
+
+          <!-- Form Body -->
+          <div class="p-6">
+            <form
+              class="space-y-6"
+              #createStockForm="ngForm"
+              (ngSubmit)="createStock(createStockForm)"
+            >
+              <!-- Basic Info Section -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Name -->
+                <div>
+                  <label
+                    for="name"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Name *</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Ej: V8 Engine Motors DROP"
+                    name="name"
+                    [(ngModel)]="stock.details.name"
+                    required
+                  />
+                </div>
+
+                <!-- Price -->
+                <div>
+                  <label
+                    for="price"
+                    class="block text-sm font-medium text-white mb-1"
+                    >Price *</label
+                  >
+                  <div class="relative">
+                    <span
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"
+                      >$</span
+                    >
+                    <input
+                      type="number"
+                      id="price"
+                      step="0.01"
+                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 pl-8 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0.00"
+                      name="price"
+                      [(ngModel)]="stock.details.price"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stock -->
+              <div class="grid grid-cols-2 md:grid-cols-2">
+                <div class="flex flex-row gap-x-4">
+                  <div>
+                    <label
+                      for="stock-s"
+                      class="block text-sm font-medium text-white mb-1"
+                      >S stock</label
+                    >
+                    <input
+                      type="number"
+                      id="stock-s"
+                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0"
+                      name="stock-s"
+                      [(ngModel)]="stock.sizes[0].quantity"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="stock-m"
+                      class="block text-sm font-medium text-white mb-1"
+                      >M stock</label
+                    >
+                    <input
+                      type="number"
+                      id="stock-m"
+                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0"
+                      name="stock-m"
+                      [(ngModel)]="stock.sizes[1].quantity"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="stock-l"
+                      class="block text-sm font-medium text-white mb-1"
+                      >L stock</label
+                    >
+                    <input
+                      type="number"
+                      id="stock-l"
+                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0"
+                      name="stock-l"
+                      [(ngModel)]="stock.sizes[2].quantity"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="stock-xl"
+                      class="block text-sm font-medium text-white mb-1"
+                      >XL stock</label
+                    >
+                    <input
+                      type="number"
+                      id="stock-xl"
+                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0"
+                      name="stock-xl"
+                      [(ngModel)]="stock.sizes[3].quantity"
+                    />
+                  </div>
+                </div>
+
+                <!-- Tier -->
+                <div>
+                  <label class="block text-sm font-medium text-white mb-1"
+                    >Tier *</label
+                  >
+                  <select
+                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    name="tier"
+                    [(ngModel)]="stock.details.tier"
+                  >
+                    <option value="">Select a tier</option>
+                    <option value="{{ tiers.CUSTOM }}">
+                      {{ tiers.CUSTOM }}
+                    </option>
+                    <option value="{{ tiers.DROP }}">{{ tiers.DROP }}</option>
+                    <option value="{{ tiers.SEASON }}">
+                      {{ tiers.SEASON }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div>
+                <label
+                  for="description"
+                  class="block text-sm font-medium text-white mb-1"
+                  >Description *</label
+                >
+                <textarea
+                  id="description"
+                  rows="3"
+                  class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="A detailed description for your new shirt or drop..."
+                  name="description"
+                  [(ngModel)]="stock.details.description"
+                ></textarea>
+              </div>
+
+              <!--  Attributes -->
+              <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+                <!-- Colors -->
+                <!-- <div>
+                  <label class="block text-sm font-medium text-white mb-1"
+                    >Colores Disponibles*</label
+                  >
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="flex items-center">
+                      <input
+                        id="color-black"
+                        name="color"
+                        type="radio"
+                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <label
+                        for="color-black"
+                        class="ml-2 block text-sm text-gray-300"
+                      >
+                        <span
+                          class="inline-block h-4 w-4 rounded-full bg-black border border-gray-500 mr-1"
+                        ></span>
+                        Negro
+                      </label>
+                    </div>
+                    <div class="flex items-center">
+                      <input
+                        id="color-white"
+                        name="color"
+                        type="radio"
+                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <label
+                        for="color-white"
+                        class="ml-2 block text-sm text-gray-300"
+                      >
+                        <span
+                          class="inline-block h-4 w-4 rounded-full bg-white border border-gray-500 mr-1"
+                        ></span>
+                        Blanco
+                      </label>
+                    </div>
+                    <div class="flex items-center">
+                      <input
+                        id="color-blue"
+                        name="color"
+                        type="radio"
+                        checked
+                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <label
+                        for="color-blue"
+                        class="ml-2 block text-sm text-gray-300"
+                      >
+                        <span
+                          class="inline-block h-4 w-4 rounded-full bg-blue-600 border border-gray-500 mr-1"
+                        ></span>
+                        Azul
+                      </label>
+                    </div>
+                    <div class="flex items-center">
+                      <input
+                        id="color-red"
+                        name="color"
+                        type="radio"
+                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
+                      />
+                      <label
+                        for="color-red"
+                        class="ml-2 block text-sm text-gray-300"
+                      >
+                        <span
+                          class="inline-block h-4 w-4 rounded-full bg-red-600 border border-gray-500 mr-1"
+                        ></span>
+                        Rojo
+                      </label>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- Colors -->
+                <div>
+                  <label class="block text-sm font-medium text-white mb-2"
+                    >Set Available colors *</label
+                  >
+
+                  <!-- Color picker principal -->
+                  <div class="relative mb-4">
+                    <div
+                      class="h-10 w-full rounded-md cursor-pointer"
+                      id="color-preview"
+                      style="background-color: #fff"
+                    ></div>
+                    <input
+                      type="color"
+                      id="color-selector"
+                      name="lasSelectedColor"
+                      [(ngModel)]="lastSelectedColor"
+                      class="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
+                      value="{{ lastSelectedColor }}"
+                      (change)="addSelectedColorList('', $event)"
+                    />
+                  </div>
+
+                  <!-- Predefined colors -->
+                  <div class="grid grid-cols-4 md:grid-cols-6 gap-1">
+                    <!-- Black -->
+                    <div class="flex items-center">
+                      <input
+                        id="color-black"
+                        name="color"
+                        type="radio"
+                        value="#000000"
+                        class="hidden peer"
+                        data-color="#000000"
+                        (click)="addSelectedColorList('#000000')"
+                      />
+                      <label
+                        for="color-black"
+                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                      >
+                        <span
+                          class="inline-block h-5 w-5 rounded-full bg-black border border-gray-500 mr-2"
+                        ></span>
+                        <span class="text-sm text-gray-300">Black</span>
+                      </label>
+                    </div>
+
+                    <!-- White (default) -->
+                    <div class="flex items-center">
+                      <input
+                        id="color-white"
+                        name="color"
+                        type="radio"
+                        value="#ffffff"
+                        class="hidden peer"
+                        checked
+                        data-color="#ffffff"
+                        (click)="addSelectedColorList('#fff')"
+                      />
+                      <label
+                        for="color-white"
+                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                      >
+                        <span
+                          class="inline-block h-5 w-5 rounded-full bg-white border border-gray-500 mr-2"
+                        ></span>
+                        <span class="text-sm text-gray-300">White</span>
+                      </label>
+                    </div>
+
+                    <!-- Blue -->
+                    <div class="flex items-center">
+                      <input
+                        id="color-blue"
+                        name="color"
+                        type="radio"
+                        value="#3b82f6"
+                        class="hidden peer"
+                        data-color="#3b82f6"
+                        (click)="addSelectedColorList('#3b82f6')"
+                      />
+                      <label
+                        for="color-blue"
+                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                      >
+                        <span
+                          class="inline-block h-5 w-5 rounded-full bg-blue-600 border border-gray-500 mr-2"
+                        ></span>
+                        <span class="text-sm text-gray-300">Blue</span>
+                      </label>
+                    </div>
+
+                    <!-- Red -->
+                    <div class="flex items-center">
+                      <input
+                        id="color-red"
+                        name="color"
+                        type="radio"
+                        value="#ef4444"
+                        class="hidden peer"
+                        data-color="#ef4444"
+                        (click)="addSelectedColorList('#ef4444')"
+                      />
+                      <label
+                        for="color-red"
+                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                      >
+                        <span
+                          class="inline-block h-5 w-5 rounded-full bg-red-600 border border-gray-500 mr-2"
+                        ></span>
+                        <span class="text-sm text-gray-300">Red</span>
+                      </label>
+                    </div>
+
+                    <!-- Green -->
+                    <div class="flex items-center">
+                      <input
+                        id="color-green"
+                        name="color"
+                        type="radio"
+                        value="#10b981"
+                        class="hidden peer"
+                        data-color="#10b981"
+                        (click)="addSelectedColorList('#10b981')"
+                      />
+                      <label
+                        for="color-green"
+                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                      >
+                        <span
+                          class="inline-block h-5 w-5 rounded-full bg-green-600 border border-gray-500 mr-2"
+                        ></span>
+                        <span class="text-sm text-gray-300">Green</span>
+                      </label>
+                    </div>
+
+                    <!-- Custom -->
+                    <div class="flex items-center">
+                      <label
+                        for=""
+                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                      >
+                        <span class="text-sm text-gray-300">Custom</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Selected color list -->
+                  <div class="mt-4" *ngIf="availableColors.length > 0">
+                    <label class="block text-sm font-medium text-white"
+                      >Selected colors</label
+                    >
+                    <div
+                      class="flex flex-wrap gap-3 p-2 bg-gray-800 rounded-lg min-h-10"
+                    >
+                      <div
+                        class="flex items-center"
+                        *ngFor="let color of availableColors"
+                      >
+                        <div
+                          class="h-6 w-6 rounded-full bg-[{{
+                            color
+                          }}] border-2 border-gray-300 shadow-md"
+                          title="{{ color }}"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Some js -->
+                <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                    const colorPreview =
+                      document.getElementById("color-preview");
+                    const colorSelector =
+                      document.getElementById("color-selector");
+                    const colorHex = document.getElementById("color-hex");
+                    const colorRadios = document.querySelectorAll(
+                      'input[name="color"]'
+                    );
+
+                    // Actualizar cuando se selecciona un color predefinido
+                    colorRadios.forEach((radio) => {
+                      radio.addEventListener("change", function () {
+                        if (this.value !== "custom") {
+                          colorPreview.style.backgroundColor =
+                            this.dataset.color;
+                          colorHex.value = this.dataset.color;
+                        }
+                      });
+                    });
+
+                    // Actualizar cuando se usa el selector de color
+                    colorSelector.addEventListener("input", function () {
+                      colorPreview.style.backgroundColor = this.value;
+                      colorHex.value = this.value;
+                      document.getElementById("color-custom").checked = true;
+                    });
+
+                    // Actualizar cuando se escribe un código HEX
+                    colorHex.addEventListener("input", function () {
+                      if (/^#[0-9A-F]{6}$/i.test(this.value)) {
+                        colorPreview.style.backgroundColor = this.value;
+                        colorSelector.value = this.value;
+                        document.getElementById("color-custom").checked = true;
+                      }
+                    });
+                  });
+                </script>
+              </div>
+
+              <!-- Image Upload -->
+              <div>
+                <label class="block text-sm font-medium text-white mb-1"
+                  >Imágenes del Producto</label
+                >
+                <div
+                  class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md"
+                >
+                  <div class="space-y-1 text-center">
+                    <div class="flex text-sm text-gray-400">
+                      <label
+                        class="relative cursor-pointer bg-gray-700 rounded-md font-medium text-indigo-400 hover:text-indigo-300 focus-within:outline-none"
+                      >
+                        <span>Subir imágenes</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          class="sr-only"
+                          multiple
+                        />
+                      </label>
+                      <p class="pl-1">o arrastrar y soltar</p>
+                    </div>
+                    <p class="text-xs text-gray-500">
+                      PNG, JPG, GIF hasta 10MB
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-3 gap-2 mt-2 hidden"
+                  id="preview-container"
+                >
+                  <!-- Preview images will appear here -->
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div
+                class="flex justify-end space-x-4 pt-4 border-t border-gray-700"
+              >
+                <button
+                  type="button"
+                  class="px-4 py-2 border border-gray-600 rounded-md text-sm font-medium text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <i class="fas fa-save mr-2"></i>
+                  Guardar Camisa
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

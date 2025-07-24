@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StockComponent } from './components/stock/stock.component';
-import { AddShirtComponent } from './components/add-shirt/add-shirt.component';
+import { AddShirtStockComponent } from './components/add-shirt/add-shirt-stock.component';
 import { SalesComponent } from './components/sales/sales.component';
 import { AddManualSaleComponent } from './components/add-manual-sale/add-manual-sale.component';
 import { ConfigComponent } from './components/config/config.component';
@@ -27,7 +27,7 @@ export const routes: Routes = [
   },
   {
     path: 'add-shirt',
-    component: AddShirtComponent,
+    component: AddShirtStockComponent,
     canActivate: [authGuard],
   },
   {

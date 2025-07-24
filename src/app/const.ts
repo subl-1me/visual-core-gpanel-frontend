@@ -9,3 +9,10 @@ export const TAB_NAMES = {
   CONFIG: 'config',
   PROFILE: 'profile',
 };
+
+export const TIER_NAMES = {
+  CUSTOM: 'CUSTOM',
+  SEASON: 'SEASON',
+  DROP: 'DROP',
+  UNKNOWN: 'UNKNOWN',
+};

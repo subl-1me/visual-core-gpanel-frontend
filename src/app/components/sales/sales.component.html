@@ -6,7 +6,7 @@
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-xl font-semibold text-white">Sales Management</h1>
-          <p class="text-sm text-gray-400">Add & consult every sale</p>
+          <p class="text-sm text-gray-400">Add & Consulting Every Sale</p>
         </div>
         <button
           class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm flex items-center"
@@ -160,7 +160,7 @@
                   scope="col"
                   class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
                 >
-                  ID
+                  No.
                 </th>
                 <th
                   scope="col"
@@ -213,85 +213,47 @@
               <!-- Automatic Sale -->
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-white">#VC-10024</div>
-                  <div class="text-xs text-gray-400">Online</div>
+                  <div class="text-sm font-medium text-white">
+                    #{{ sale.no }}
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                  15/06/2023 10:45
+                  {{ sale.created_at | date }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-white">María González</div>
-                  <div class="text-xs text-gray-400">maria/mail.com</div>
+                  <div class="text-sm text-white">{{ sale.customer.name }}</div>
+                  <div class="text-xs text-gray-400">
+                    {{ sale.customer.email }}
+                  </div>
                 </td>
                 <td class="px-6 py-4">
-                  <div class="text-sm text-gray-300">2 productos</div>
-                  <div class="text-xs text-gray-500">
-                    Camisa Elegance (M), Camisa Classic (S)
+                  <div class="text-sm text-gray-300">
+                    {{ sale.items.length }} Products
+                  </div>
+                  <div
+                    class="text-xs text-gray-500"
+                    *ngFor="let item of sale.items"
+                  >
+                    {{ item.details.name }} ({{ item.size.size }} x{{
+                      item.quantity
+                    }}),
                   </div>
                 </td>
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
                 >
-                  $189.90
+                  {{ sale.total | number }} MXN
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
                     class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300 flex items-center"
+                    *ngIf="sale.type === 'AUTOMATIC'"
                   >
-                    <i class="fas fa-robot mr-1"></i> Automática
+                    <i class="fas fa-robot mr-1"></i> Automatic
                   </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
                   <span
-                    class="px-2 py-1 text-xs rounded-full bg-green-900/30 text-green-300"
-                    >Completada</span
-                  >
-                </td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                >
-                  <button
-                    class="text-indigo-400 hover:text-indigo-300 mr-3"
-                    title="Ver detalle"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </button>
-                  <button
-                    class="text-gray-400 hover:text-gray-300"
-                    title="Más opciones"
-                  >
-                    <i class="fas fa-ellipsis-v"></i>
-                  </button>
-                </td>
-              </tr>
-
-              <!-- Manual Sale -->
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-white">#VC-10023</div>
-                  <div class="text-xs text-gray-400">Tienda física</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                  14/06/2023 16:30
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-white">Venta directa</div>
-                  <div class="text-xs text-gray-400">
-                    Sin cliente registrado
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="text-sm text-gray-300">1 producto</div>
-                  <div class="text-xs text-gray-500">Camisa Limited (L)</div>
-                </td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
-                >
-                  $129.90
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span
-                    class="px-2 py-1 text-xs rounded-full bg-purple-900/30 text-purple-300 flex items-center"
+                    class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300 flex items-center"
+                    *ngIf="sale.type === 'MANUAL'"
                   >
                     <i class="fas fa-hand-paper mr-1"></i> Manual
                   </span>
@@ -299,62 +261,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
                     class="px-2 py-1 text-xs rounded-full bg-green-900/30 text-green-300"
-                    >Completada</span
-                  >
-                </td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                >
-                  <button
-                    class="text-indigo-400 hover:text-indigo-300 mr-3"
-                    title="Ver detalle"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </button>
-                  <button
-                    class="text-gray-400 hover:text-gray-300"
-                    title="Más opciones"
-                  >
-                    <i class="fas fa-ellipsis-v"></i>
-                  </button>
-                </td>
-              </tr>
-
-              <!-- Another Automatic Sale -->
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-white">#VC-10022</div>
-                  <div class="text-xs text-gray-400">Online</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                  14/06/2023 09:15
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-white">Carlos Martínez</div>
-                  <div class="text-xs text-gray-400">carlos/email.com</div>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="text-sm text-gray-300">3 productos</div>
-                  <div class="text-xs text-gray-500">
-                    Camisa Classic (M x2), Camisa Basic (XL)
-                  </div>
-                </td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
-                >
-                  $245.85
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span
-                    class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300 flex items-center"
-                  >
-                    <i class="fas fa-robot mr-1"></i> Automática
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span
-                    class="px-2 py-1 text-xs rounded-full bg-yellow-900/30 text-yellow-300"
-                    >En proceso</span
+                    >{{ sale.status }}</span
                   >
                 </td>
                 <td

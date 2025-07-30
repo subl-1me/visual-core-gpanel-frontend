@@ -6,24 +6,24 @@
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-xl font-semibold text-white">Add new stock</h1>
-          <p class="text-sm text-gray-400">Fill the next form</p>
+          <p class="text-sm text-gray-400">Fill The Next Form</p>
         </div>
-        <button class="text-gray-600 hover:text-white" (click)="back()">
-          <i class="fas fa-chevron-left text-xl"> Back </i>
+        <button
+          class="flex items-center text-gray-400 hover:text-white transition-colors"
+          (click)="back()"
+        >
+          <i class="fas fa-chevron-left mr-1"></i>
+          <span>Back</span>
         </button>
       </div>
     </header>
 
     <!-- Form Content -->
+
     <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
       <div class="max-w-4xl mx-auto">
         <!-- Form Card -->
         <div class="bg-[#1F2937] rounded-lg shadow-lg overflow-hidden">
-          <!-- Form Header -->
-          <!-- <div class="px-6 py-4 border-b border-gray-700">
-            <h2 class="text-lg font-semibold text-white">Add Stock</h2>
-          </div> -->
-
           <!-- Form Body -->
           <div class="p-6">
             <form
@@ -32,576 +32,558 @@
               (ngSubmit)="createStock()"
             >
               <!-- Basic Info Section -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Name -->
-                <div>
-                  <label
-                    for="name"
-                    class="block text-sm font-medium text-white mb-1"
-                    >Name *</label
-                  >
-                  <input
-                    type="text"
-                    id="name"
-                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    placeholder="Ej: V8 Engine Motors DROP"
-                    name="name"
-                    [(ngModel)]="stock.details.name"
-                    #nameInput="ngModel"
-                    required
-                  />
-                  <span
-                    class="text-sm text-red-600"
-                    *ngIf="nameInput.touched && stock.details.name === ''"
-                    >Please, type a product name.</span
-                  >
-                </div>
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
+                >
+                  <i class="fas fa-info-circle text-indigo-400 mr-2"></i>
+                  Basic Information
+                </h3>
 
-                <!-- Price -->
-                <div>
-                  <label
-                    for="price"
-                    class="block text-sm font-medium text-white mb-1"
-                    >Price * (min. 100 MXN)</label
-                  >
-                  <div class="relative">
-                    <span
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"
-                      >$</span
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Name -->
+                  <div>
+                    <label
+                      for="name"
+                      class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
                     >
-                    <input
-                      type="number"
-                      id="price"
-                      step="0.01"
-                      class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 pl-8 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="0.00"
-                      name="price"
-                      (change)="check()"
-                      [(ngModel)]="stock.details.price"
-                      #priceInput="ngModel"
-                      required
-                    />
+                      Product Name <span class="text-red-400 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-tag text-gray-500"></i>
+                      </div>
+                      <input
+                        type="text"
+                        id="name"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="e.g. V8 Engine Motors DROP"
+                        name="name"
+                        [(ngModel)]="stock.details.name"
+                        #nameInput="ngModel"
+                        required
+                      />
+                    </div>
                     <span
-                      class="text-sm text-red-600"
+                      class="text-xs text-red-500 mt-1 block"
+                      *ngIf="nameInput.touched && stock.details.name === ''"
+                    >
+                      Please enter a product name
+                    </span>
+                  </div>
+
+                  <!-- Price -->
+                  <div>
+                    <label
+                      for="price"
+                      class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
+                    >
+                      Price (min. 100 MXN)
+                      <span class="text-red-400 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-dollar-sign text-gray-500"></i>
+                      </div>
+                      <input
+                        type="number"
+                        id="price"
+                        step="0.01"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="0.00"
+                        name="price"
+                        (change)="check()"
+                        [(ngModel)]="stock.details.price"
+                        #priceInput="ngModel"
+                        required
+                      />
+                    </div>
+                    <span
+                      class="text-xs text-red-500 mt-1 block"
                       *ngIf="
                         priceInput.valueChanges && stock.details.price < 100
                       "
-                      >Price cannot be minor to 100 MXN.</span
                     >
+                      Price must be at least 100 MXN
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <!-- Stock & tier -->
-              <div class="grid grid-cols-2 md:grid-cols-2">
-                <div class="flex flex-row gap-x-4">
+              <!-- Stock & Tier Section -->
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
+                >
+                  <i class="fas fa-boxes text-yellow-400 mr-2"></i>
+                  Inventory Details
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+                  <!-- Stock Quantities -->
                   <div>
-                    <label
-                      for="stock-s"
-                      class="block text-sm font-medium text-white mb-1"
-                      >S stock</label
-                    >
-                    <input
-                      type="number"
-                      id="stock-s"
-                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="0"
-                      name="stock-s"
-                      (change)="checkStockValue('S')"
-                      [(ngModel)]="stock.sizes[0].quantity"
-                    />
+                    <label class="block text-sm font-medium text-gray-300 mb-3">
+                      Stock Quantities
+                    </label>
+                    <div class="flex flex-wrap gap-4">
+                      <div class="flex-1 min-w-[100px]">
+                        <label
+                          for="stock-s"
+                          class="block text-xs text-gray-400 mb-1"
+                          >Size S</label
+                        >
+                        <div class="relative">
+                          <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                          >
+                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
+                          </div>
+                          <input
+                            type="number"
+                            id="stock-s"
+                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="0"
+                            name="stock-s"
+                            (change)="checkStockValue('S')"
+                            [(ngModel)]="stock.sizes[0].quantity"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="flex-1 min-w-[100px]">
+                        <label
+                          for="stock-m"
+                          class="block text-xs text-gray-400 mb-1"
+                          >Size M</label
+                        >
+                        <div class="relative">
+                          <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                          >
+                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
+                          </div>
+                          <input
+                            type="number"
+                            id="stock-m"
+                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="0"
+                            name="stock-m"
+                            (change)="checkStockValue('M')"
+                            [(ngModel)]="stock.sizes[1].quantity"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="flex-1 min-w-[100px]">
+                        <label
+                          for="stock-l"
+                          class="block text-xs text-gray-400 mb-1"
+                          >Size L</label
+                        >
+                        <div class="relative">
+                          <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                          >
+                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
+                          </div>
+                          <input
+                            type="number"
+                            id="stock-l"
+                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="0"
+                            name="stock-l"
+                            (change)="checkStockValue('L')"
+                            [(ngModel)]="stock.sizes[2].quantity"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="flex-1 min-w-[100px]">
+                        <label
+                          for="stock-xl"
+                          class="block text-xs text-gray-400 mb-1"
+                          >Size XL</label
+                        >
+                        <div class="relative">
+                          <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                          >
+                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
+                          </div>
+                          <input
+                            type="number"
+                            id="stock-xl"
+                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="0"
+                            name="stock-xl"
+                            (change)="checkStockValue('XL')"
+                            [(ngModel)]="stock.sizes[3].quantity"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
+                  <!-- Tier -->
                   <div>
                     <label
-                      for="stock-m"
-                      class="block text-sm font-medium text-white mb-1"
-                      >M stock</label
+                      class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
                     >
-                    <input
-                      type="number"
-                      id="stock-m"
-                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="0"
-                      name="stock-m"
-                      (change)="checkStockValue('M')"
-                      [(ngModel)]="stock.sizes[1].quantity"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      for="stock-l"
-                      class="block text-sm font-medium text-white mb-1"
-                      >L stock</label
+                      Collection Tier <span class="text-red-400 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-layer-group text-gray-500"></i>
+                      </div>
+                      <select
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        name="tier"
+                        required
+                        #tierInput="ngModel"
+                        [(ngModel)]="stock.details.tier"
+                      >
+                        <option value="" disabled selected>
+                          Select a tier
+                        </option>
+                        <option value="{{ tiers.CUSTOM }}">
+                          {{ tiers.CUSTOM }}
+                        </option>
+                        <option value="{{ tiers.DROP }}">
+                          {{ tiers.DROP }}
+                        </option>
+                        <option value="{{ tiers.SEASON }}">
+                          {{ tiers.SEASON }}
+                        </option>
+                      </select>
+                    </div>
+                    <span
+                      class="text-xs text-red-500 mt-1 block"
+                      *ngIf="tierInput.touched && stock.details.tier === ''"
                     >
-                    <input
-                      type="number"
-                      id="stock-l"
-                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="0"
-                      name="stock-l"
-                      (change)="checkStockValue('L')"
-                      [(ngModel)]="stock.sizes[2].quantity"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      for="stock-xl"
-                      class="block text-sm font-medium text-white mb-1"
-                      >XL stock</label
-                    >
-                    <input
-                      type="number"
-                      id="stock-xl"
-                      class="w-20 bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="0"
-                      name="stock-xl"
-                      (change)="checkStockValue('XL')"
-                      [(ngModel)]="stock.sizes[3].quantity"
-                    />
+                      Please select a collection tier
+                    </span>
                   </div>
                 </div>
+              </div>
 
-                <!-- Tier -->
+              <!-- Description Section -->
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
+                >
+                  <i class="fas fa-align-left text-blue-400 mr-2"></i>
+                  Product Description
+                </h3>
+
                 <div>
-                  <label class="block text-sm font-medium text-white mb-1"
-                    >Tier *</label
+                  <label
+                    for="description"
+                    class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
                   >
-                  <select
-                    class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    name="tier"
-                    required
-                    #tierInput="ngModel"
-                    [(ngModel)]="stock.details.tier"
-                  >
-                    <option value="">Select a tier</option>
-                    <option value="{{ tiers.CUSTOM }}">
-                      {{ tiers.CUSTOM }}
-                    </option>
-                    <option value="{{ tiers.DROP }}">{{ tiers.DROP }}</option>
-                    <option value="{{ tiers.SEASON }}">
-                      {{ tiers.SEASON }}
-                    </option>
-                  </select>
+                    Description <span class="text-red-400 ml-1">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute top-3 left-3">
+                      <i class="fas fa-pen text-gray-500"></i>
+                    </div>
+                    <textarea
+                      id="description"
+                      rows="4"
+                      class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Describe the product features, materials, and other details..."
+                      name="description"
+                      [(ngModel)]="stock.details.description"
+                      #descInput="ngModel"
+                      required
+                    ></textarea>
+                  </div>
                   <span
-                    class="text-sm text-red-600"
-                    *ngIf="tierInput.touched && stock.details.tier === ''"
-                    >Please, select a tier.</span
+                    class="text-xs text-red-500 mt-1 block"
+                    *ngIf="
+                      descInput.touched && stock.details.description === ''
+                    "
                   >
+                    Please enter a product description
+                  </span>
                 </div>
               </div>
 
-              <!-- Description -->
-              <div>
-                <label
-                  for="description"
-                  class="block text-sm font-medium text-white mb-1"
-                  >Description *</label
+              <!-- Colors Section -->
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
                 >
-                <textarea
-                  id="description"
-                  rows="3"
-                  class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="A detailed description for your new shirt or drop..."
-                  name="description"
-                  [(ngModel)]="stock.details.description"
-                  #descInput="ngModel"
-                  required
-                ></textarea>
-                <span
-                  class="text-sm text-red-600"
-                  *ngIf="descInput.touched && stock.details.description === ''"
-                  >Please, type a product description.</span
-                >
-              </div>
+                  <i class="fas fa-palette text-purple-400 mr-2"></i>
+                  Color Options
+                </h3>
 
-              <!--  Attributes -->
-              <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
-                <!-- Colors -->
-                <!-- <div>
-                  <label class="block text-sm font-medium text-white mb-1"
-                    >Colores Disponibles*</label
-                  >
-                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="flex items-center">
-                      <input
-                        id="color-black"
-                        name="color"
-                        type="radio"
-                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
-                      />
-                      <label
-                        for="color-black"
-                        class="ml-2 block text-sm text-gray-300"
-                      >
-                        <span
-                          class="inline-block h-4 w-4 rounded-full bg-black border border-gray-500 mr-1"
-                        ></span>
-                        Negro
-                      </label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="color-white"
-                        name="color"
-                        type="radio"
-                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
-                      />
-                      <label
-                        for="color-white"
-                        class="ml-2 block text-sm text-gray-300"
-                      >
-                        <span
-                          class="inline-block h-4 w-4 rounded-full bg-white border border-gray-500 mr-1"
-                        ></span>
-                        Blanco
-                      </label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="color-blue"
-                        name="color"
-                        type="radio"
-                        checked
-                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
-                      />
-                      <label
-                        for="color-blue"
-                        class="ml-2 block text-sm text-gray-300"
-                      >
-                        <span
-                          class="inline-block h-4 w-4 rounded-full bg-blue-600 border border-gray-500 mr-1"
-                        ></span>
-                        Azul
-                      </label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="color-red"
-                        name="color"
-                        type="radio"
-                        class="h-4 w-4 border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-gray-700"
-                      />
-                      <label
-                        for="color-red"
-                        class="ml-2 block text-sm text-gray-300"
-                      >
-                        <span
-                          class="inline-block h-4 w-4 rounded-full bg-red-600 border border-gray-500 mr-1"
-                        ></span>
-                        Rojo
-                      </label>
-                    </div>
-                  </div>
-                </div> -->
-                <!-- Colors -->
                 <div>
-                  <label class="block text-sm font-medium text-white mb-2"
-                    >Set Available colors *</label
+                  <label
+                    class="block text-sm font-medium text-gray-300 mb-3 flex items-center"
                   >
+                    Available Colors <span class="text-red-400 ml-1">*</span>
+                  </label>
 
-                  <!-- Color picker principal -->
+                  <!-- Color picker -->
                   <div class="relative mb-4">
                     <div
-                      class="h-10 w-full rounded-md cursor-pointer"
+                      class="h-12 w-full rounded-lg cursor-pointer border-2 border-gray-600 overflow-hidden flex items-center justify-center"
                       id="color-preview"
-                      style="background-color: #fff"
-                    ></div>
+                    >
+                      <span
+                        class="text-gray-800 font-medium text-sm"
+                        id="color-hex-value"
+                        >{{ lastSelectedColor || "#FFFFFF" }}</span
+                      >
+                    </div>
                     <input
                       type="color"
                       id="color-selector"
-                      name="lasSelectedColor"
+                      name="lastSelectedColor"
                       [(ngModel)]="lastSelectedColor"
                       class="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
-                      value="{{ lastSelectedColor }}"
+                      value="{{ lastSelectedColor || '#FFFFFF' }}"
                       (change)="addSelectedColorList('', $event)"
                     />
                   </div>
 
-                  <!-- Predefined colors -->
-                  <div class="grid grid-cols-4 md:grid-cols-6 gap-1">
+                  <!-- Color presets -->
+                  <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
                     <!-- Black -->
-                    <div class="flex items-center">
+                    <div>
                       <input
                         id="color-black"
                         name="color"
                         type="radio"
                         value="#000000"
                         class="hidden peer"
-                        data-color="#000000"
                         (click)="addSelectedColorList('#000000')"
                       />
                       <label
                         for="color-black"
-                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
                       >
                         <span
-                          class="inline-block h-5 w-5 rounded-full bg-black border border-gray-500 mr-2"
+                          class="h-6 w-6 rounded-full bg-black border-2 border-gray-400 mb-1"
                         ></span>
-                        <span class="text-sm text-gray-300">Black</span>
+                        <span class="text-xs text-gray-300">Black</span>
                       </label>
                     </div>
 
-                    <!-- White (default) -->
-                    <div class="flex items-center">
+                    <!-- White -->
+                    <div>
                       <input
                         id="color-white"
                         name="color"
                         type="radio"
-                        value="#ffffff"
+                        value="#FFFFFF"
                         class="hidden peer"
                         checked
-                        data-color="#ffffff"
-                        (click)="addSelectedColorList('#fff')"
+                        (click)="addSelectedColorList('#FFFFFF')"
                       />
                       <label
                         for="color-white"
-                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
                       >
                         <span
-                          class="inline-block h-5 w-5 rounded-full bg-white border border-gray-500 mr-2"
+                          class="h-6 w-6 rounded-full bg-white border-2 border-gray-400 mb-1"
                         ></span>
-                        <span class="text-sm text-gray-300">White</span>
+                        <span class="text-xs text-gray-300">White</span>
                       </label>
                     </div>
 
                     <!-- Blue -->
-                    <div class="flex items-center">
+                    <div>
                       <input
                         id="color-blue"
                         name="color"
                         type="radio"
-                        value="#3b82f6"
+                        value="#3B82F6"
                         class="hidden peer"
-                        data-color="#3b82f6"
-                        (click)="addSelectedColorList('#3b82f6')"
+                        (click)="addSelectedColorList('#3B82F6')"
                       />
                       <label
                         for="color-blue"
-                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
                       >
                         <span
-                          class="inline-block h-5 w-5 rounded-full bg-blue-600 border border-gray-500 mr-2"
+                          class="h-6 w-6 rounded-full bg-blue-500 border-2 border-blue-300 mb-1"
                         ></span>
-                        <span class="text-sm text-gray-300">Blue</span>
+                        <span class="text-xs text-gray-300">Blue</span>
                       </label>
                     </div>
 
                     <!-- Red -->
-                    <div class="flex items-center">
+                    <div>
                       <input
                         id="color-red"
                         name="color"
                         type="radio"
-                        value="#ef4444"
+                        value="#EF4444"
                         class="hidden peer"
-                        data-color="#ef4444"
-                        (click)="addSelectedColorList('#ef4444')"
+                        (click)="addSelectedColorList('#EF4444')"
                       />
                       <label
                         for="color-red"
-                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
                       >
                         <span
-                          class="inline-block h-5 w-5 rounded-full bg-red-600 border border-gray-500 mr-2"
+                          class="h-6 w-6 rounded-full bg-red-500 border-2 border-red-300 mb-1"
                         ></span>
-                        <span class="text-sm text-gray-300">Red</span>
+                        <span class="text-xs text-gray-300">Red</span>
                       </label>
                     </div>
 
                     <!-- Green -->
-                    <div class="flex items-center">
+                    <div>
                       <input
                         id="color-green"
                         name="color"
                         type="radio"
-                        value="#10b981"
+                        value="#10B981"
                         class="hidden peer"
-                        data-color="#10b981"
-                        (click)="addSelectedColorList('#10b981')"
+                        (click)="addSelectedColorList('#10B981')"
                       />
                       <label
                         for="color-green"
-                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
+                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
                       >
                         <span
-                          class="inline-block h-5 w-5 rounded-full bg-green-600 border border-gray-500 mr-2"
+                          class="h-6 w-6 rounded-full bg-green-500 border-2 border-green-300 mb-1"
                         ></span>
-                        <span class="text-sm text-gray-300">Green</span>
+                        <span class="text-xs text-gray-300">Green</span>
                       </label>
                     </div>
 
                     <!-- Custom -->
-                    <div class="flex items-center">
-                      <label
-                        for=""
-                        class="flex items-center cursor-pointer px-3 py-2 rounded-md border border-gray-600 peer-checked:border-indigo-400"
-                      >
-                        <span class="text-sm text-gray-300">Custom</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <!-- Selected color list -->
-                  <div class="mt-4" *ngIf="availableColors.length > 0">
-                    <label class="block text-sm font-medium text-white"
-                      >Selected colors</label
-                    >
-                    <div
-                      class="flex flex-wrap gap-3 p-2 bg-gray-800 rounded-lg min-h-10"
-                    >
+                    <div>
                       <div
-                        class="flex items-center"
-                        *ngFor="let color of availableColors"
+                        class="flex flex-col items-center p-2 rounded-lg border border-dashed border-gray-600 bg-gray-800/50"
                       >
-                        <div
-                          (click)="removeColor(color)"
-                          class="h-6 w-6 rounded-full bg-[{{
-                            color
-                          }}] border-2 border-gray-300 shadow-md"
-                          title="Click to remove: {{ color }}"
-                        ></div>
+                        <span
+                          class="h-6 w-6 rounded-full mb-1 flex items-center justify-center text-gray-400"
+                        >
+                          <i class="fas fa-palette text-sm"></i>
+                        </span>
+                        <span class="text-xs text-gray-400">Custom</span>
                       </div>
                     </div>
                   </div>
 
+                  <!-- Selected colors -->
+                  <div class="mt-4" *ngIf="availableColors.length > 0">
+                    <label class="block text-sm font-medium text-white mb-2"
+                      >Selected Colors</label
+                    >
+                    <div
+                      class="flex flex-wrap gap-2 p-3 bg-gray-800 rounded-lg border border-gray-700"
+                    >
+                      <div
+                        *ngFor="let color of availableColors"
+                        (click)="removeColor(color)"
+                        class="h-8 w-8 rounded-full border-2 border-gray-300 shadow-md cursor-pointer transition-transform hover:scale-110"
+                        [style.backgroundColor]="color"
+                        [title]="'Click to remove: ' + color"
+                      ></div>
+                    </div>
+                  </div>
                   <span
-                    class="text-sm text-red-600"
+                    class="text-xs text-red-500 mt-1 block"
                     *ngIf="availableColors.length === 0"
-                    >Please, select at least 1 color.</span
+                    >Please select at least one color</span
                   >
                 </div>
-
-                <!-- Some js -->
-                <script>
-                  document.addEventListener("DOMContentLoaded", function () {
-                    const colorPreview =
-                      document.getElementById("color-preview");
-                    const colorSelector =
-                      document.getElementById("color-selector");
-                    const colorHex = document.getElementById("color-hex");
-                    const colorRadios = document.querySelectorAll(
-                      'input[name="color"]'
-                    );
-
-                    // Actualizar cuando se selecciona un color predefinido
-                    colorRadios.forEach((radio) => {
-                      radio.addEventListener("change", function () {
-                        if (this.value !== "custom") {
-                          colorPreview.style.backgroundColor =
-                            this.dataset.color;
-                          colorHex.value = this.dataset.color;
-                        }
-                      });
-                    });
-
-                    // Actualizar cuando se usa el selector de color
-                    colorSelector.addEventListener("input", function () {
-                      colorPreview.style.backgroundColor = this.value;
-                      colorHex.value = this.value;
-                      document.getElementById("color-custom").checked = true;
-                    });
-
-                    // Actualizar cuando se escribe un código HEX
-                    colorHex.addEventListener("input", function () {
-                      if (/^#[0-9A-F]{6}$/i.test(this.value)) {
-                        colorPreview.style.backgroundColor = this.value;
-                        colorSelector.value = this.value;
-                        document.getElementById("color-custom").checked = true;
-                      }
-                    });
-                  });
-                </script>
               </div>
 
-              <!-- Image Upload -->
-              <div>
-                <label class="block text-sm font-medium text-white mb-1"
-                  >Imágenes del Producto</label
+              <!-- Image Upload Section -->
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
                 >
-                <div
-                  class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md"
-                >
-                  <div class="space-y-1 text-center">
-                    <div class="flex text-sm text-gray-400">
-                      <label
-                        class="relative cursor-pointer bg-gray-700 rounded-md font-medium text-indigo-400 hover:text-indigo-300 focus-within:outline-none"
-                      >
-                        <span>Subir imágenes</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          class="sr-only"
-                          multiple
-                        />
-                      </label>
-                      <p class="pl-1">o arrastrar y soltar</p>
+                  <i class="fas fa-images text-yellow-400 mr-2"></i>
+                  Product Images
+                </h3>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-3">
+                    Upload Product Images
+                  </label>
+                  <div
+                    class="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-gray-700 border-dashed rounded-xl bg-gray-800/30 hover:bg-gray-800 transition-colors"
+                  >
+                    <div class="space-y-3 text-center">
+                      <div class="flex flex-col items-center">
+                        <i
+                          class="fas fa-cloud-upload-alt text-3xl text-indigo-500 mb-2"
+                        ></i>
+                        <div class="flex text-sm text-gray-400">
+                          <label
+                            class="relative cursor-pointer rounded-md font-medium text-indigo-400 hover:text-indigo-300"
+                          >
+                            <span>Upload images</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              type="file"
+                              class="sr-only"
+                              multiple
+                            />
+                          </label>
+                          <p class="ml-1">or drag and drop</p>
+                        </div>
+                      </div>
+                      <p class="text-xs text-gray-500">
+                        PNG, JPG, GIF up to 10MB each
+                      </p>
                     </div>
-                    <p class="text-xs text-gray-500">
-                      PNG, JPG, GIF hasta 10MB
-                    </p>
                   </div>
-                </div>
-                <div
-                  class="grid grid-cols-3 gap-2 mt-2 hidden"
-                  id="preview-container"
-                >
-                  <!-- Preview images will appear here -->
+
+                  <!-- Image preview grid (hidden by default) -->
+                  <div
+                    class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 hidden"
+                    id="preview-container"
+                  >
+                    <!-- Preview images would appear here -->
+                  </div>
                 </div>
               </div>
 
               <!-- Form Actions -->
               <div
-                class="flex flex-row space-x-4 pt-4 border-t border-gray-700 justify-end"
+                class="flex justify-between items-center pt-6 border-t border-gray-700"
               >
                 <div>
                   <span
-                    class="text-sm text-red-600"
+                    class="text-sm text-red-500"
                     *ngIf="!createStockForm.valid"
-                    >All fields are required.</span
                   >
+                    Please complete all required fields
+                  </span>
                 </div>
-                <div>
+                <div class="flex gap-3">
                   <button
                     *ngIf="!isLoading"
                     type="submit"
-                    class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
+                    [disabled]="!createStockForm.valid"
                   >
-                    <i class="fas fa-save mr-2"></i>
-                    Save
+                    <i class="fas fa-save mr-1"></i>
+                    Save New Stock
                   </button>
                   <button
                     *ngIf="isLoading"
-                    type="submit"
-                    [disabled]="!isLoading"
-                    class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-300 bg-indigo-700"
+                    type="button"
+                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-700 cursor-not-allowed"
+                    disabled
                   >
-                    <div role="status">
-                      <div class="flex flex-row justify-center">
-                        <svg
-                          aria-hidden="true"
-                          class="inline w-4 h-4 text-center me-2 text-gray-200 animate-spin dark:text-gray-600 fill-indigo-200/30"
-                          viewBox="0 0 100 101"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="currentColor"
-                          />
-                          <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentFill"
-                          />
-                        </svg>
-                        <span class="text-gray-400 text-medium"
-                          >Processing...</span
-                        >
-                      </div>
-                    </div>
+                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    Processing...
                   </button>
                 </div>
               </div>

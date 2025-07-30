@@ -1,0 +1,270 @@
+<div class="flex h-full bg-[#1F2937]">
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <header class="bg-[#111827] border-b border-gray-700 p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-white flex items-center">
+            Add New Customer
+          </h1>
+          <p class="text-sm text-gray-400 mt-1">
+            Complete All Required Fields to Register a New Customer
+          </p>
+        </div>
+
+        <button
+          class="flex items-center text-gray-400 hover:text-white transition-colors"
+          (click)="return()"
+        >
+          <i class="fas fa-chevron-left mr-1"></i>
+          <span>Back</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Form Content -->
+
+    <main class="flex-1 overflow-y-auto p-6 bg-[#111827]">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-[#1F2937] rounded-lg shadow-lg overflow-hidden">
+          <div class="p-6">
+            <form
+              class="space-y-6"
+              #createCustomerForm="ngForm"
+              (ngSubmit)="onSubmit(createCustomerForm)"
+            >
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
+                >
+                  <i class="fas fa-id-card text-indigo-400 mr-2"></i>
+                  Customer Information
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      for="client-name"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Full Name <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-user text-gray-500"></i>
+                      </div>
+                      <input
+                        type="text"
+                        id="client-name"
+                        name="name"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="John Doe"
+                        #nameInput="ngModel"
+                        [(ngModel)]="customer.name"
+                        required
+                      />
+                    </div>
+                    <ng-container
+                      *ngIf="nameInput.touched && nameInput.invalid"
+                    >
+                      <p
+                        *ngIf="nameInput.errors?.['required']"
+                        class="text-xs text-red-500 mt-1"
+                      >
+                        Type a valid name.
+                      </p>
+                    </ng-container>
+                  </div>
+
+                  <div>
+                    <label
+                      for="client-email"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Email <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-envelope text-gray-500"></i>
+                      </div>
+                      <input
+                        type="email"
+                        id="client-email"
+                        name="email"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="email@mail.com"
+                        #emailInput="ngModel"
+                        [(ngModel)]="customer.email"
+                        required
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                      />
+                    </div>
+                    <ng-container
+                      *ngIf="emailInput.touched && emailInput.invalid"
+                    >
+                      <p
+                        *ngIf="emailInput.errors?.['required']"
+                        class="text-xs text-red-500 mt-1"
+                      >
+                        Type a valid email.
+                      </p>
+                      <p
+                        *ngIf="emailInput.errors?.['pattern']"
+                        class="text-xs text-red-500 mt-1"
+                      >
+                        Invalid email.
+                      </p>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                <h3
+                  class="text-lg font-medium text-white mb-4 flex items-center"
+                >
+                  <i class="fas fa-address-book text-green-400 mr-2"></i>
+                  Contact & Address
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      for="client-phone"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Phone Number <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-mobile-alt text-gray-500"></i>
+                      </div>
+                      <input
+                        type="tel"
+                        id="client-phone"
+                        name="phone"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="(123) 456-7890"
+                        #phoneInput="ngModel"
+                        [(ngModel)]="customer.phone"
+                        required
+                      />
+                    </div>
+                    <ng-container
+                      *ngIf="phoneInput.touched && phoneInput.invalid"
+                    >
+                      <p
+                        *ngIf="phoneInput.errors?.['required']"
+                        class="text-xs text-red-500 mt-1"
+                      >
+                        Type a valid phone number.
+                      </p>
+                    </ng-container>
+                  </div>
+
+                  <div class="md:col-span-2">
+                    <label
+                      for="client-address"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Full Address <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <div class="absolute top-3 left-3">
+                        <i class="fas fa-home text-gray-500"></i>
+                      </div>
+                      <textarea
+                        id="client-address"
+                        name="address"
+                        rows="3"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Calle Principal #123, Ciudad, País"
+                        #addressInput="ngModel"
+                        [(ngModel)]="customer.address"
+                        required
+                      ></textarea>
+                    </div>
+                    <ng-container
+                      *ngIf="addressInput.touched && addressInput.invalid"
+                    >
+                      <p
+                        *ngIf="addressInput.errors?.['required']"
+                        class="text-xs text-red-500 mt-1"
+                      >
+                        Type a valid address.
+                      </p>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="flex justify-between items-center pt-6 border-t border-gray-700"
+              >
+                <div>
+                  <span
+                    class="text-sm text-red-500"
+                    *ngIf="
+                      createCustomerForm.invalid && createCustomerForm.touched
+                    "
+                  >
+                    Please, complete all the required fields.
+                  </span>
+                </div>
+                <div class="flex gap-3">
+                  <button
+                    type="submit"
+                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
+                    [disabled]="createCustomerForm.invalid"
+                  >
+                    <i class="fas fa-save mr-2"></i>
+                    Save
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="absolute bottom-1" *ngIf="addCustomerResponse !== ''">
+      <div
+        id="toast-success"
+        class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+        role="alert"
+      >
+        <div class="ms-3 text-sm font-normal">{{ addCustomerResponse }}</div>
+        <button
+          type="button"
+          class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+          data-dismiss-target="#toast-success"
+          aria-label="Close"
+        >
+          <span class="sr-only">Close</span>
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>

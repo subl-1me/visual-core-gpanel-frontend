@@ -7,7 +7,7 @@ export default interface Customer {
   phone: string;
   address: string;
   level?: number;
-  pastOrders: Sale[];
+  pastOrders?: Sale[];
   created_at?: Date;
   updated_at?: Date;
 }

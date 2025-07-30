@@ -15,7 +15,13 @@ export class SaleService {
   constructor(private http: HttpClient) {}
 
   public getSalesList(): Observable<any> {
-    return this.http.get(environment.apiUrl + '/sales', {
+    return this.http.get(environment.apiUrl + '/sale', {
+      headers: this.headers,
+    });
+  }
+
+  public addSale(sale: Sale): Observable<any> {
+    return this.http.post(environment.apiUrl + '/sale', sale, {
       headers: this.headers,
     });
   }

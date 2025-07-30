@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Sale from '../../models/sale';
 import { SaleService } from '../../services/sales/sale.service';
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-sales',
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, DatePipe, DecimalPipe],
   templateUrl: './sales.component.html',
   styleUrl: './sales.component.css',
 })
@@ -28,8 +28,24 @@ export class SalesComponent implements OnInit {
   private loadSales(): void {
     this.saleService.getSalesList().subscribe({
       next: (response) => {
-        this.sales = [response.items];
-        this.displayedSales = [response.items];
+        this.displayedSales = response.items.map((item: any) => {
+          return {
+            no: item.no,
+            id: item.id,
+            items: JSON.parse(item.items),
+            total: item.total,
+            type: item.type,
+            status: item.status,
+            paymentMethod: item.paymentMethod,
+            additionalNotes: item.additionalNotes,
+            customer: JSON.parse(item.customer),
+            created_at: item.created_at,
+            updated_at: item.updated_at,
+          };
+        });
+        this.sales = [...this.displayedSales];
+
+        console.log(this.displayedSales);
       },
       error: (err) => {
         const { error } = err;

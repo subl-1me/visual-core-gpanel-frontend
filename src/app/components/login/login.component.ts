@@ -18,6 +18,8 @@ export class LoginComponent {
   public user: Admin = {
     id: '',
     username: '',
+    name: '',
+    lastname: '',
     email: '',
   };
   constructor(

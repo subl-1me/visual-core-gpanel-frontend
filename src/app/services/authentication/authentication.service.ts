@@ -36,7 +36,16 @@ export class AuthenticationService {
 
   public getLoginSession(): any {
     const session = JSON.parse(localStorage.getItem('session') || '{}');
+    if (!session || !session.id || typeof session === 'undefined') {
+      return null;
+    }
+
     return session.id ? session : null;
+  }
+
+  public updateSession(session: any): void {
+    localStorage.setItem('session', JSON.stringify(session));
+    this.isAuthenticatedSubject.next(true);
   }
 
   public logOut(): void {

@@ -22,6 +22,8 @@ export class AddAdmComponent {
       username: '',
       email: '',
       password: '',
+      name: '',
+      lastname: '',
     };
     this.passConfirmation = '';
     this.isLoading = false;
@@ -43,6 +45,8 @@ export class AddAdmComponent {
       id: '',
       username: '',
       email: '',
+      name: '',
+      lastname: '',
       password: '',
     };
     this.passConfirmation = '';

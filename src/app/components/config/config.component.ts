@@ -34,8 +34,8 @@ export class ConfigComponent implements OnInit {
         return {
           username: item.username,
           id: item.id,
-          updatedAt: item.updatedAt,
-          createdAt: item.createdAt,
+          updatedAt: item.updated_at,
+          createdAt: item.created_at,
           email: item.email,
         };
       });

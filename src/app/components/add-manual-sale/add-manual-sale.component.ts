@@ -53,6 +53,7 @@ export class AddManualSaleComponent implements OnInit {
       paymentMethod: '',
       additionalNotes: '',
       customer: {
+        _id: '',
         name: '',
         email: '',
         pastOrders: [],
@@ -79,9 +80,9 @@ export class AddManualSaleComponent implements OnInit {
         const parsedItems = items.map((item: any) => {
           return {
             ...item,
-            availableColors: JSON.parse(item.availableColors),
-            details: JSON.parse(item.details),
-            sizes: JSON.parse(item.sizes),
+            availableColors: item.availableColors,
+            details: item.details,
+            sizes: item.sizes,
           };
         });
         this.displayedStock = [...parsedItems];
@@ -95,7 +96,7 @@ export class AddManualSaleComponent implements OnInit {
       next: (response) => {
         this.displayedCustomers = response.items.map((item: Customer) => {
           return {
-            id: item.id,
+            _id: item._id,
             name: item.name,
             email: item.email,
             phone: item.phone,
@@ -104,7 +105,7 @@ export class AddManualSaleComponent implements OnInit {
             pastOrders: item.pastOrders,
             created_at: item.created_at,
             updated_at: item.updated_at,
-          };
+          } as Customer;
         });
 
         console.log(this.displayedCustomers);
@@ -143,6 +144,8 @@ export class AddManualSaleComponent implements OnInit {
       quantity: this.selectedQuantity,
     });
 
+    console.log(this.selectedSize);
+
     this.selectedProductStock = null;
     this.selectedQuantity = '';
     this.selectedSize = null;
@@ -180,7 +183,7 @@ export class AddManualSaleComponent implements OnInit {
       return;
     }
     this.selectedCustomer = customer;
-    console.log(this.selectedCustomer);
+    console.log(customer);
   }
 
   private resetSelectedCustomer(): void {
@@ -281,6 +284,7 @@ export class AddManualSaleComponent implements OnInit {
       paymentMethod: '',
       additionalNotes: '',
       customer: {
+        _id: '',
         name: '',
         email: '',
         pastOrders: [],

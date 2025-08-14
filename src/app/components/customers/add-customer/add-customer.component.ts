@@ -21,6 +21,7 @@ export class AddCustomerComponent {
     private customerService: CustomerService
   ) {
     this.customer = {
+      _id: '',
       name: '',
       address: '',
       email: '',

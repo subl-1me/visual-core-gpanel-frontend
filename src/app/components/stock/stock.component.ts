@@ -39,9 +39,9 @@ export class StockComponent implements OnInit {
       const parsedItems = items.map((item: any) => {
         return {
           ...item,
-          availableColors: JSON.parse(item.availableColors),
-          details: JSON.parse(item.details),
-          sizes: JSON.parse(item.sizes),
+          availableColors: item.availableColors,
+          details: item.details,
+          sizes: item.sizes,
         };
       });
       this.stocks = [...parsedItems];

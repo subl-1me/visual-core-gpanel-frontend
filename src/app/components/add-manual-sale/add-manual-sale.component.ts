@@ -94,7 +94,7 @@ export class AddManualSaleComponent implements OnInit {
   private loadCustomerList(): void {
     this.customerService.getCustomerList().subscribe({
       next: (response) => {
-        this.displayedCustomers = response.items.map((item: Customer) => {
+        this.displayedCustomers = response.items.map((item: any) => {
           return {
             _id: item._id,
             name: item.name,
@@ -103,8 +103,8 @@ export class AddManualSaleComponent implements OnInit {
             address: item.address,
             level: item.level,
             pastOrders: item.pastOrders,
-            created_at: item.created_at,
-            updated_at: item.updated_at,
+            created_at: item.createdAt,
+            updated_at: item.updatedAt,
           } as Customer;
         });
 
@@ -144,8 +144,6 @@ export class AddManualSaleComponent implements OnInit {
       quantity: this.selectedQuantity,
     });
 
-    console.log(this.selectedSize);
-
     this.selectedProductStock = null;
     this.selectedQuantity = '';
     this.selectedSize = null;
@@ -177,13 +175,12 @@ export class AddManualSaleComponent implements OnInit {
     this.selectedQuantity = event;
   }
 
-  public onCustomerChange(customer: Customer): void {
+  public onCustomerChange(customer: any): void {
     if (typeof customer === 'string') {
       this.resetSelectedCustomer();
       return;
     }
     this.selectedCustomer = customer;
-    console.log(customer);
   }
 
   private resetSelectedCustomer(): void {

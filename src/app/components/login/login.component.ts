@@ -19,7 +19,7 @@ export class LoginComponent {
     id: '',
     username: '',
     name: '',
-    lastname: '',
+    lastName: '',
     email: '',
   };
   constructor(

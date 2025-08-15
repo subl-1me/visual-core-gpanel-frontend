@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
       email: session.email || 'null',
       username: session.username || 'null',
       name: session.name || 'null',
-      lastname: session.lastname || 'null',
+      lastName: session.lastName || 'null',
     };
   }
 
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
           email: this.admin.email,
           username: this.admin.username,
           name: this.admin.name,
-          lastname: this.admin.lastname,
+          lastName: this.admin.lastName,
         };
         this.authService.updateSession(session);
         this.updateMessage = 'Profile updated.';

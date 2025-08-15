@@ -3,7 +3,7 @@ export default interface Admin {
   password?: string;
   username?: string;
   name: string;
-  lastname: string;
+  lastName: string;
   email: string;
   createdAt?: Date;
   updatedAt?: Date;

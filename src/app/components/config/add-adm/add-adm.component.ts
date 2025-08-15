@@ -23,7 +23,7 @@ export class AddAdmComponent {
       email: '',
       password: '',
       name: '',
-      lastname: '',
+      lastName: '',
     };
     this.passConfirmation = '';
     this.isLoading = false;
@@ -46,7 +46,7 @@ export class AddAdmComponent {
       username: '',
       email: '',
       name: '',
-      lastname: '',
+      lastName: '',
       password: '',
     };
     this.passConfirmation = '';

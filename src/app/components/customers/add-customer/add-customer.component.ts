@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Form, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Customer from '../../../models/customer';
 import { NgIf } from '@angular/common';
@@ -40,7 +40,16 @@ export class AddCustomerComponent {
     this.isLoading = true;
     this.customerService.addCustomer(this.customer).subscribe({
       next: (response) => {
-        console.log(response);
+        this.customer = {
+          _id: '',
+          name: '',
+          address: '',
+          email: '',
+          pastOrders: [],
+          phone: '',
+        };
+
+        form.reset();
         this.addCustomerResponse = 'Customer created successfully.';
         this.isLoading = false;
       },

@@ -16,3 +16,6 @@ export const TIER_NAMES = {
   DROP: 'DROP',
   UNKNOWN: 'UNKNOWN',
 };
+
+export const MANUAL_SALE_TYPE = 'MANUAL';
+export const AUTOMATIC_SALE_TYPE = 'AUTOMATIC';

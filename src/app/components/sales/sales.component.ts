@@ -36,6 +36,10 @@ export class SalesComponent implements OnInit {
   public selectedToDate = signal('mm/dd/yyyy');
   public selectedFromDate = signal('mm/dd/yyyy');
 
+  public isConfirmingDeletion: boolean = false;
+
+  public deletingMessage: string = '';
+
   constructor(private router: Router, private saleService: SaleService) {}
 
   ngOnInit(): void {
@@ -53,7 +57,7 @@ export class SalesComponent implements OnInit {
         this.displayedSales = response.items.map((item: any) => {
           return {
             no: item.no,
-            id: item.id,
+            _id: item._id,
             items: item.items,
             total: item.total,
             type: item.type,
@@ -84,10 +88,6 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  private onAllSelected(): void {
-    this.displayedSales = [...this.sales];
-  }
-
   onSelectedPymntFilter(event: Event): void {
     const select = event.target as HTMLSelectElement;
     const value = select.value;
@@ -98,38 +98,6 @@ export class SalesComponent implements OnInit {
     const select = event.target as HTMLSelectElement;
     const value = select.value;
     this.selectedTypeFilter.set(value);
-  }
-
-  // public onApplyFilters(): void {
-  //   this.applyPaymentFilter();
-  //   this.applyTypeFilter();
-  //   // this.applyDateFilter();
-  // }
-
-  private applyPaymentFilter(): void {
-    const filter = this.selectedPymntFilter();
-
-    if (filter === this.filters.ALL) {
-      this.displayedSales = [...this.sales];
-      return;
-    }
-
-    this.displayedSales = this.sales.filter(
-      (sale) => sale.paymentMethod === this.selectedPymntFilter()
-    );
-  }
-
-  private applyTypeFilter(): void {
-    const filter = this.selectedTypeFilter();
-
-    if (filter === this.filters.ALL) {
-      this.displayedSales = [...this.sales];
-      return;
-    }
-
-    this.displayedSales = this.sales.filter(
-      (sale) => sale.type === this.selectedTypeFilter()
-    );
   }
 
   public onSelectedToDate(event: Event): void {
@@ -190,5 +158,88 @@ export class SalesComponent implements OnInit {
 
     const date = new Date(saleDate);
     return date >= startDate && date <= endDate;
+  }
+
+  public confirmSaleDeletion(saleId: string): void {
+    const saleElement = document.getElementById(`sale-deletion-${saleId}`);
+    if (!saleElement) {
+      this.responseStatusMessage =
+        'There was an error trying to delete sale. Try again.';
+      return;
+    }
+
+    const saleManagement = document.getElementById(`sale-management-${saleId}`);
+    if (!saleManagement) {
+      this.responseStatusMessage =
+        'There was a error performin that operation. Try again.';
+      return;
+    }
+
+    saleElement.classList.remove('hidden');
+    saleManagement.classList.add('hidden');
+  }
+
+  public cancelConfirmation(saleId: string): void {
+    const saleElement = document.getElementById(`sale-deletion-${saleId}`);
+    if (!saleElement) {
+      this.responseStatusMessage =
+        'There was an error trying to delete sale. Try again.';
+      return;
+    }
+
+    const saleManagement = document.getElementById(`sale-management-${saleId}`);
+    if (!saleManagement) {
+      this.responseStatusMessage =
+        'There was a error performin that operation. Try again.';
+      return;
+    }
+
+    saleElement.classList.add('hidden');
+    saleManagement.classList.remove('hidden');
+  }
+
+  public onDeleteSale(saleId: string): void {
+    const processingDeletion = document.getElementById(
+      `processing-sale-${saleId}`
+    );
+    if (!processingDeletion) {
+      this.responseStatusMessage =
+        'There was an error trying to delete sale. Try again.';
+      return;
+    }
+
+    const saleElement = document.getElementById(`sale-deletion-${saleId}`);
+    if (!saleElement) {
+      this.responseStatusMessage =
+        'There was an error trying to delete sale. Try again.';
+      return;
+    }
+
+    processingDeletion.classList.remove('hidden');
+    saleElement.classList.add('hidden');
+
+    this.saleService.removeSale(saleId).subscribe({
+      next: (response) => {
+        this.responseStatusMessage = 'Sale deleted';
+        processingDeletion.classList.add('hidden');
+
+        const saleManagement = document.getElementById(
+          `sale-management-${saleId}`
+        );
+        if (!saleManagement) {
+          this.responseStatusMessage =
+            'There was a error performin that operation. Try again.';
+          return;
+        }
+
+        this.sales = this.sales.filter((sale) => sale._id !== saleId);
+        this.displayedSales = [...this.sales];
+
+        saleElement.classList.remove('hidden');
+      },
+      error: (err) => {
+        this.responseStatusMessage = err.message;
+      },
+    });
   }
 }

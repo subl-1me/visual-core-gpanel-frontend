@@ -25,4 +25,12 @@ export class SaleService {
       headers: this.headers,
     });
   }
+
+  public removeSale(saleId: string): Observable<any> {
+    const params = new HttpParams().set('saleId', saleId);
+    return this.http.delete(environment.apiUrl + '/sale', {
+      headers: this.headers,
+      params,
+    });
+  }
 }

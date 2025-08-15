@@ -2,7 +2,7 @@ import Customer from './customer';
 
 export default interface Sale {
   no?: number;
-  id?: string;
+  _id?: string;
   items: any;
   total: number;
   type: 'AUTOMATIC' | 'MANUAL';

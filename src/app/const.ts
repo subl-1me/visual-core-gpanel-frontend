@@ -19,3 +19,12 @@ export const TIER_NAMES = {
 
 export const MANUAL_SALE_TYPE = 'MANUAL';
 export const AUTOMATIC_SALE_TYPE = 'AUTOMATIC';
+
+// filters
+export const ALL_TYPE_FILTER = 'ALL';
+
+export const PAYMENT_TYPES = {
+  CARD: 'CARD',
+  TRANSFER: 'TRANSFER',
+  CASH: 'CASH',
+};

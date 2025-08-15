@@ -188,6 +188,8 @@
                 type="date"
                 id="start-date"
                 [disabled]="isLoadingSales"
+                [value]="selectedToDate()"
+                (change)="onSelectedToDate($event)"
                 class="w-full bg-gray-700 border border-gray-600 rounded-l-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <span
@@ -213,11 +215,13 @@
             <select
               id="sales-type"
               [disabled]="isLoadingSales"
+              [value]="selectedTypeFilter()"
+              (change)="onSelectedTypeFilter($event)"
               class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              <option value="">All</option>
-              <option value="automatic">Automatic</option>
-              <option value="manual">Manual</option>
+              <option value="{{ filters.ALL }}">All</option>
+              <option value="{{ filters.AUTOMATIC }}">Automatic</option>
+              <option value="{{ filters.MANUAL }}">Manual</option>
             </select>
           </div>
 
@@ -231,12 +235,14 @@
             <select
               id="payment-method"
               [disabled]="isLoadingSales"
+              [value]="selectedPymntFilter()"
+              (change)="onSelectedPymntFilter($event)"
               class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              <option value="">All</option>
-              <option value="cash">Cash</option>
-              <option value="card">Card</option>
-              <option value="transfer">Transfer</option>
+              <option value="{{ filters.ALL }}">All</option>
+              <option value="{{ paymentFilters.CASH }}">Cash</option>
+              <option value="{{ paymentFilters.CARD }}">Card</option>
+              <option value="{{ paymentFilters.TRANSFER }}">Transfer</option>
             </select>
           </div>
 
@@ -244,11 +250,24 @@
           <div class="flex items-end">
             <button
               [disabled]="isLoadingSales"
+              (click)="onApplyFilters()"
               class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md flex items-center justify-center"
             >
               <i class="fas fa-search mr-2"></i> Search
             </button>
           </div>
+
+          <!-- <div>
+            <label
+              for="payment-method"
+              class="block text-sm font-medium text-white mb-1"
+              >Search by customer name</label
+            >
+            <input
+              type="text"
+              class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div> -->
         </div>
       </div>
 
@@ -296,7 +315,13 @@
                 </th>
                 <th
                   scope="col"
-                  class="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                >
+                  Payment Type
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs text-left font-medium text-gray-400 uppercase tracking-wider"
                 >
                   Manage
                 </th>
@@ -344,9 +369,13 @@
                     >{{ sale.status }}</span
                   >
                 </td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                >
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 py-1 text-xs rounded-full bg-purple-900/30 text-purple-300"
+                    >{{ sale.paymentMethod }}</span
+                  >
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <button
                     class="text-indigo-400 hover:text-indigo-300 mr-3"
                     title="Ver detalle"
@@ -391,7 +420,9 @@
                 </tr>
               </ng-container>
 
-              <ng-container *ngIf="sales.length === 0 && !isLoadingSales">
+              <ng-container
+                *ngIf="displayedSales.length === 0 && !isLoadingSales"
+              >
                 <tr>
                   <td
                     colspan="100%"

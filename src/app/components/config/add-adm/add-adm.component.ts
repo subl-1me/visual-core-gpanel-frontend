@@ -3,6 +3,7 @@ import Admin from '../../../models/admin';
 import { Form, FormsModule } from '@angular/forms';
 import { AddAdmService } from '../../../services/add-adm/add-adm.service';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-adm',
   imports: [FormsModule, NgIf],
@@ -16,7 +17,7 @@ export class AddAdmComponent {
   public isLoading: boolean;
   public statusMessage: string;
 
-  constructor(private admService: AddAdmService) {
+  constructor(private admService: AddAdmService, private router: Router) {
     this.adm = {
       id: '',
       username: '',
@@ -30,14 +31,24 @@ export class AddAdmComponent {
     this.statusMessage = '';
   }
 
-  public onSubmit(_form: Form): void {
+  public onSubmit(_form: any): void {
     this.isLoading = true;
-    this.admService.addNewAdm(this.adm).subscribe((response) => {
-      console.log(response);
-      this.statusMessage = 'New user created successfully.';
-      this.isLoading = false;
-      this.resetForm();
+    this.admService.addNewAdm(this.adm).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.statusMessage = 'Admin added successfully.';
+        this.isLoading = false;
+        this.resetForm();
+      },
+      error: (err) => {
+        this.statusMessage = err.message;
+        this.isLoading = false;
+      },
     });
+  }
+
+  public back(): void {
+    this.router.navigate(['/config']);
   }
 
   private resetForm(): void {

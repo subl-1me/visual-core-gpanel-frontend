@@ -27,19 +27,26 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  public login(form: Form): void {
+  public login(form: any): void {
     this.isLoading = true;
-    this.authService.requestAuthentication(this.user).subscribe((response) => {
-      const { error, authenticated, session, message } = response.authResponse;
-      if (error || !authenticated) {
-        this.errorLoginMessage = message;
-        this.isLoading = false;
-        return;
-      }
+    this.authService.requestAuthentication(this.user).subscribe({
+      next: (response) => {
+        const res = response.authResponse;
+        if (res.error || !res.session || !res.authenticated) {
+          this.errorLoginMessage = res.message;
+          this.isLoading = false;
+          return;
+        }
 
-      this.authService.saveLoginSession(session);
-      this.isLoading = false;
-      this.router.navigate(['']);
+        this.authService.saveLoginSession(res.session);
+        this.isLoading = false;
+        form.reset();
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        this.errorLoginMessage = err.error.message;
+        this.isLoading = false;
+      },
     });
   }
 }

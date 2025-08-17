@@ -558,12 +558,12 @@
                     [disabled]="isloading"
                     class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
                   >
-                    <ng-container *ngIf="!isloading">
+                    <ng-container *ngIf="isloading">
                       <i class="fas fa-save text-white mr-1"></i>
 
                       Save Sale
                     </ng-container>
-                    <ng-container *ngIf="isloading">
+                    <ng-container *ngIf="!isloading">
                       <i class="fas fa-spinner fa-spin mr-2"></i>
                       Processing...
                     </ng-container>

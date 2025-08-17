@@ -1,4 +1,4 @@
-export const environments = {
+export const environment = {
   production: true,
   apiUrl: '',
   API_KEY_PROD: '',

@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: '',
-  API_KEY_PROD: '',
+  apiUrl: process.env['API_KEY_PROD'] || 'http://localhost:3001',
 };

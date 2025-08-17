@@ -634,6 +634,52 @@
           </table>
         </div>
       </div>
+
+      <!-- Pagination -->
+      <div
+        class="bg-gray-800 px-6 py-3 flex items-center justify-between border-t border-gray-700"
+        *ngIf="displayedStocks.length > 0"
+      >
+        <div
+          class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+        >
+          <div>
+            <p class="text-sm text-gray-400">
+              Displaying {{ displayedStocks.length }} of
+              {{ stocks.length }} stocks
+            </p>
+          </div>
+          <!-- <div>
+              <nav
+                class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                aria-label="Pagination"
+              >
+                <a
+                  href="#"
+                  class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-600 bg-[#1F2937] text-sm font-medium text-gray-400 hover:bg-gray-700"
+                >
+                  <span class="sr-only">Anterior</span>
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+                <a
+                  href="#"
+                  aria-current="page"
+                  class="z-10 bg-indigo-600 border-indigo-600 text-white relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                >
+                  1
+                </a>
+
+                <a
+                  href="#"
+                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-600 bg-[#1F2937] text-sm font-medium text-gray-400 hover:bg-gray-700"
+                >
+                  <span class="sr-only">Siguiente</span>
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </nav>
+            </div> -->
+        </div>
+      </div>
     </main>
 
     <section class="absolute bottom-1" *ngIf="responseStatusMessage !== ''">

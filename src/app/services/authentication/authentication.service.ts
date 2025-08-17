@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import Admin from '../../models/admin';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments';
+import { environment } from '../../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

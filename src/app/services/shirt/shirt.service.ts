@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Shirt from '../../models/shirt';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments';
+import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({

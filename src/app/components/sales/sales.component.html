@@ -382,8 +382,9 @@
                     *ngIf="!isConfirmingDeletion"
                   >
                     <span
+                      (click)="openSaleModal(sale._id || '')"
                       class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100"
-                      ><i class="fas fa-edit"></i
+                      ><i class="fas fa-eye"></i
                     ></span>
                     <span
                       (click)="confirmSaleDeletion(sale._id || '')"
@@ -411,6 +412,305 @@
                     ></span>
                   </div>
 
+                  <!-- Modal -->
+                  <!-- Modal de Detalles de Venta -->
+                  <div
+                    id="sale-modal-{{ sale._id }}"
+                    class="hidden fixed inset-0 z-50 overflow-y-auto"
+                  >
+                    <div
+                      class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+                    >
+                      <div
+                        class="fixed inset-0 transition-opacity"
+                        aria-hidden="true"
+                      >
+                        <div
+                          class="absolute inset-0 bg-gray-900 opacity-90 backdrop-blur-sm"
+                        ></div>
+                      </div>
+
+                      <!-- Modal content -->
+                      <div
+                        class="inline-block align-bottom bg-[#1F2937] rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
+                      >
+                        <div class="px-6 py-5">
+                          <!-- Header -->
+                          <div class="flex justify-between items-start">
+                            <div>
+                              <h3 class="text-2xl font-bold text-white">
+                                Sale Details
+                              </h3>
+                              <div
+                                class="mt-2 flex flex-wrap items-center gap-2"
+                              >
+                                <span
+                                  class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
+                                >
+                                  ID: {{ sale._id }}
+                                </span>
+                                <span
+                                  class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
+                                >
+                                  {{ sale.created_at | date : "medium" }}
+                                </span>
+                              </div>
+                            </div>
+                            <button
+                              (click)="closeSaleModal(sale._id || '')"
+                              class="text-gray-400 hover:text-white transition-colors duration-200"
+                            >
+                              <svg
+                                class="h-7 w-7"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+
+                          <!-- main content -->
+                          <div
+                            class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6"
+                          >
+                            <div class="md:col-span-1 space-y-4">
+                              <!-- type & status -->
+                              <div
+                                class="bg-gray-800/50 p-4 rounded-xl border border-gray-700"
+                              >
+                                <div
+                                  class="flex justify-between items-center mb-3"
+                                >
+                                  <span class="text-gray-400 font-medium"
+                                    >Status:</span
+                                  >
+                                  <span
+                                    class="font-medium"
+                                    [ngClass]="{
+                                      'text-green-400':
+                                        sale.status === 'DELIVERED',
+                                      'text-yellow-400':
+                                        sale.status === 'IN PROCESS',
+                                      'text-blue-400':
+                                        sale.status === 'REQUESTED',
+                                      'text-red-400': sale.status === 'ERROR'
+                                    }"
+                                  >
+                                    {{ sale.status }}
+                                  </span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                  <span class="text-gray-400 font-medium"
+                                    >Type:</span
+                                  >
+                                  <span
+                                    class="font-medium"
+                                    [ngClass]="{
+                                      'text-purple-400':
+                                        sale.type === 'AUTOMATIC',
+                                      'text-orange-400': sale.type === 'MANUAL'
+                                    }"
+                                  >
+                                    {{ sale.type }}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <!-- Payment & total -->
+                              <div
+                                class="bg-gray-800/50 p-4 rounded-xl border border-gray-700"
+                              >
+                                <div
+                                  class="flex justify-between items-center mb-3"
+                                >
+                                  <span class="text-gray-400 font-medium"
+                                    >Payment Method:</span
+                                  >
+                                  <span class="font-medium text-blue-300">
+                                    {{ sale.paymentMethod }}
+                                  </span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                  <span class="text-gray-400 font-medium"
+                                    >Total:</span
+                                  >
+                                  <span
+                                    class="font-bold text-xl text-green-400"
+                                  >
+                                    ${{ sale.total | number : "1.2-2" }}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <!-- Notes -->
+                              <div
+                                class="bg-gray-800/50 p-4 rounded-xl border border-gray-700"
+                                *ngIf="sale.additionalNotes"
+                              >
+                                <h4 class="text-gray-400 font-medium mb-2">
+                                  Notes:
+                                </h4>
+                                <p class="text-gray-300 italic text-sm">
+                                  {{ sale.additionalNotes }}
+                                </p>
+                              </div>
+
+                              <!-- Owner -->
+                              <div
+                                class="bg-gray-800/50 p-4 rounded-xl border border-gray-700"
+                              >
+                                <h4 class="text-gray-400 font-medium mb-2">
+                                  Customer:
+                                </h4>
+                                <div *ngIf="sale.customer">
+                                  <p class="text-white font-medium">
+                                    {{ sale.customer.name }}
+                                  </p>
+                                  <p class="text-gray-300 text-sm">
+                                    {{ sale.customer.email }}
+                                  </p>
+                                  <p class="text-gray-300 text-sm mt-1">
+                                    {{ sale.customer.phone }}
+                                  </p>
+                                </div>
+                                <div
+                                  *ngIf="!sale.customer"
+                                  class="text-gray-400 text-sm italic"
+                                >
+                                  Information not available.
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="md:col-span-2">
+                              <h4
+                                class="text-lg font-semibold text-white mb-4 flex items-center"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="h-5 w-5 mr-2 text-blue-400"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                >
+                                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                Shirts ({{ sale.items.length }})
+                              </h4>
+
+                              <div
+                                class="space-y-4 max-h-96 overflow-y-auto pr-2"
+                              >
+                                <div
+                                  *ngFor="let item of sale.items"
+                                  class="bg-gray-800/50 p-4 rounded-xl border border-gray-700 hover:bg-gray-700/50 transition-colors duration-200"
+                                >
+                                  <div class="flex">
+                                    <!-- Cover image -->
+                                    <div
+                                      class="flex-shrink-0 h-24 w-24 bg-gray-700 rounded-lg overflow-hidden"
+                                    >
+                                      <img
+                                        [src]="
+                                          item.image ||
+                                          'https://via.placeholder.com/150'
+                                        "
+                                        alt="Producto"
+                                        class="h-full w-full object-cover"
+                                      />
+                                    </div>
+
+                                    <!-- Items details -->
+                                    <div class="ml-4 flex-1">
+                                      <div class="flex justify-between">
+                                        <h5
+                                          class="text-lg font-bold text-white"
+                                        >
+                                          {{ item.name }}
+                                        </h5>
+                                        <span class="text-green-400 font-medium"
+                                          >${{
+                                            item.price | number : "1.2-2"
+                                          }}</span
+                                        >
+                                      </div>
+                                      <p class="text-gray-300 text-sm mt-1">
+                                        {{ item.description }}
+                                      </p>
+
+                                      <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                          class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded"
+                                        >
+                                          Size: {{ item.size }}
+                                        </span>
+                                        <span
+                                          class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded"
+                                        >
+                                          Color:
+                                          <span
+                                            class="inline-block h-3 w-3 rounded-full border border-gray-300 align-middle"
+                                            [style.backgroundColor]="item.color"
+                                          ></span>
+                                          {{ item.color }}
+                                        </span>
+                                        <span
+                                          class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded"
+                                        >
+                                          ID: {{ item.identificator }}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div
+                          class="bg-gray-800/70 px-6 py-4 flex justify-between items-center border-t border-gray-700"
+                        >
+                          <div class="text-gray-400 text-sm">
+                            Last update:
+                            {{ sale.updated_at | date : "medium" }}
+                          </div>
+                          <div>
+                            <button
+                              (click)="closeSaleModal(sale._id || '')"
+                              class="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-200 flex items-center"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <!-- Deletion spinner while loading -->
                   <div
                     class="flex flex-row hidden"

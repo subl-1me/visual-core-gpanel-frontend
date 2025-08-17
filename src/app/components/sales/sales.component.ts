@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import Sale from '../../models/sale';
 import { SaleService } from '../../services/sales/sale.service';
-import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import {
   AUTOMATIC_SALE_TYPE,
   MANUAL_SALE_TYPE,
@@ -12,7 +12,7 @@ import {
 
 @Component({
   selector: 'app-sales',
-  imports: [NgIf, NgFor, DatePipe, DecimalPipe],
+  imports: [NgIf, NgFor, DatePipe, DecimalPipe, NgClass],
   templateUrl: './sales.component.html',
   styleUrl: './sales.component.css',
 })
@@ -241,5 +241,19 @@ export class SalesComponent implements OnInit {
         this.responseStatusMessage = err.message;
       },
     });
+  }
+
+  public openSaleModal(saleId: string): void {
+    const modal = document.getElementById(`sale-modal-${saleId}`);
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  public closeSaleModal(saleId: string): void {
+    const modal = document.getElementById(`sale-modal-${saleId}`);
+    if (modal) {
+      modal.classList.add('hidden');
+    }
   }
 }

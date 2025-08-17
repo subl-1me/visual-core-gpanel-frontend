@@ -19,6 +19,7 @@ export class StockComponent implements OnInit {
   public stocks: Stock[] = [];
   public displayedStocks: Stock[] = [];
   public isLoading: boolean = false;
+  public isLoadingStock: boolean = false;
   public totalStocks: number = 0;
   public searchTerm: string = '';
   public tierFilter: string = 'Select tier';
@@ -34,21 +35,28 @@ export class StockComponent implements OnInit {
   }
 
   private loadStocks(): void {
-    this.stockService.getStocks().subscribe((response) => {
-      const { items } = response;
-      const parsedItems = items.map((item: any) => {
-        return {
-          ...item,
-          availableColors: item.availableColors,
-          details: item.details,
-          sizes: item.sizes,
-        };
-      });
-      this.stocks = [...parsedItems];
-      this.displayedStocks = [...parsedItems];
-      this.totalStocks = this.stocks.reduce((accum, current) => {
-        return (accum += current.total);
-      }, 0);
+    this.isLoadingStock = true;
+    this.stockService.getStocks().subscribe({
+      next: (response) => {
+        const { items } = response;
+        const parsedItems = items.map((item: any) => {
+          return {
+            ...item,
+            availableColors: item.availableColors,
+            details: item.details,
+            sizes: item.sizes,
+          };
+        });
+        this.stocks = [...parsedItems];
+        this.displayedStocks = [...parsedItems];
+        this.totalStocks = this.stocks.reduce((accum, current) => {
+          return (accum += current.total);
+        }, 0);
+        this.isLoadingStock = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+      },
     });
   }
 

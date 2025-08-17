@@ -357,7 +357,7 @@
                     <i class="fas fa-robot mr-1"></i> Automatic
                   </span>
                   <span
-                    class="px-2 py-1 text-xs rounded-full bg-blue-900/30 text-blue-300"
+                    class="px-2 py-1 text-xs rounded-full bg-puple-900/30 text-purple-300"
                     *ngIf="sale.type === 'MANUAL'"
                   >
                     <i class="fas fa-hand-paper mr-1 text-center"></i> Manual
@@ -365,7 +365,14 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
-                    class="px-2 py-1 text-xs rounded-full bg-green-900/30 text-green-300"
+                    class="px-2 py-1 text-xs rounded-full"
+                    [ngClass]="{
+                      'text-green-400': sale.status === 'DELIVERED',
+                      'text-yellow-400 bg-yellow-900/30':
+                        sale.status === 'IN PROCESS',
+                      'text-blue-400': sale.status === 'REQUESTED',
+                      'text-red-400': sale.status === 'ERROR'
+                    }"
                     >{{ sale.status }}</span
                   >
                 </td>
@@ -413,7 +420,6 @@
                   </div>
 
                   <!-- Modal -->
-                  <!-- Modal de Detalles de Venta -->
                   <div
                     id="sale-modal-{{ sale._id }}"
                     class="hidden fixed inset-0 z-50 overflow-y-auto"
@@ -513,9 +519,9 @@
                                   <span
                                     class="font-medium"
                                     [ngClass]="{
-                                      'text-purple-400':
+                                      'text-blue-400':
                                         sale.type === 'AUTOMATIC',
-                                      'text-orange-400': sale.type === 'MANUAL'
+                                      'text-purple-400': sale.type === 'MANUAL'
                                     }"
                                   >
                                     {{ sale.type }}
@@ -612,8 +618,8 @@
                               <div
                                 class="space-y-4 max-h-96 overflow-y-auto pr-2"
                               >
+                                @for(item of sale.items; track $index){
                                 <div
-                                  *ngFor="let item of sale.items"
                                   class="bg-gray-800/50 p-4 rounded-xl border border-gray-700 hover:bg-gray-700/50 transition-colors duration-200"
                                 >
                                   <div class="flex">
@@ -674,6 +680,7 @@
                                     </div>
                                   </div>
                                 </div>
+                                }
                               </div>
                             </div>
                           </div>

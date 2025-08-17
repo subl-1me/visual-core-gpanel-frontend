@@ -342,37 +342,41 @@
                         aria-hidden="true"
                       >
                         <div
-                          class="absolute inset-0 bg-gray-900 opacity-75"
+                          class="absolute inset-0 bg-gray-900 opacity-90 backdrop-blur-sm"
                         ></div>
                       </div>
 
                       <!-- Modal content -->
                       <div
-                        class="inline-block align-bottom bg-[#1F2937] rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
+                        class="inline-block align-bottom bg-[#1F2937] rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
                       >
-                        <div class="px-6 py-4">
+                        <div class="px-6 py-5">
                           <!-- Header -->
                           <div class="flex justify-between items-start">
                             <div>
                               <h3
-                                class="text-xl font-semibold text-white"
+                                class="text-2xl font-bold text-white"
                                 id="modal-title"
                               >
-                                Stock details
+                                <span
+                                  class="bg-white bg-clip-text text-transparent"
+                                  >Stock Details</span
+                                >
                               </h3>
-                              <p class="text-sm text-gray-400 mt-1">
-                                ID:
-                                <span id="stock-id" class="text-gray-300">{{
-                                  stock.id
-                                }}</span>
-                              </p>
+                              <div class="mt-2 flex items-center">
+                                <span
+                                  class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
+                                >
+                                  ID: <span id="stock-id">{{ stock.id }}</span>
+                                </span>
+                              </div>
                             </div>
                             <button
                               (click)="closeStockModal(stock.id || '')"
-                              class="text-gray-400 hover:text-white"
+                              class="text-gray-400 hover:text-white transition-colors duration-200"
                             >
                               <svg
-                                class="h-6 w-6"
+                                class="h-7 w-7"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -389,64 +393,79 @@
 
                           <!-- main content -->
                           <div
-                            class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6"
+                            class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8"
                           >
                             <div>
-                              <!-- Imagen principal -->
+                              <!-- shirt cover -->
                               <div
-                                class="bg-gray-800 rounded-lg overflow-hidden h-64 flex items-center justify-center"
+                                class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden h-72 flex items-center justify-center p-4 border border-gray-700"
                               >
                                 <img
                                   id="stock-image"
                                   src="https://cdn.pixabay.com/photo/2024/05/09/13/35/ai-generated-8751039_960_720.png"
                                   alt="Producto"
-                                  class="max-h-full max-w-full object-contain rounded-full shadow-md"
+                                  class="max-h-full max-w-full object-contain rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
                                 />
                               </div>
 
-                              <!--- TODO: -->
-                              <!-- Media/Galley -->
-                              <div
-                                class="mt-4 flex space-x-2 overflow-x-auto py-2"
-                              ></div>
-
                               <!-- Details -->
-                              <div class="mt-4 space-y-2">
-                                <div class="flex justify-between">
-                                  <span class="text-gray-400">Tier:</span>
+                              <div class="mt-6 space-y-3">
+                                <div
+                                  class="flex justify-between items-center bg-gray-800/50 px-4 py-3 rounded-lg border border-gray-700"
+                                >
+                                  <span class="text-gray-400 font-medium"
+                                    >Tier:</span
+                                  >
                                   <span
                                     id="stock-tier"
-                                    class="text-white font-bold"
-                                    >{{ stock.details.tier }}</span
+                                    class="text-white font-bold bg-blue-500/20 px-3 py-1 rounded-full text-sm"
                                   >
+                                    {{ stock.details.tier }}
+                                  </span>
                                 </div>
-                                <div class="flex justify-between">
-                                  <span class="text-gray-400">Price:</span>
+                                <div
+                                  class="flex justify-between items-center bg-gray-800/50 px-4 py-3 rounded-lg border border-gray-700"
+                                >
+                                  <span class="text-gray-400 font-medium"
+                                    >Price:</span
+                                  >
                                   <span
                                     id="stock-price"
-                                    class="text-white font-medium"
-                                    >{{ stock.details.price }} MXN</span
+                                    class="text-green-400 font-bold"
                                   >
+                                    {{ stock.details.price }} MXN
+                                  </span>
                                 </div>
-                                <div class="flex justify-between">
-                                  <span class="text-gray-400"
+                                <div
+                                  class="flex justify-between items-center bg-gray-800/50 px-4 py-3 rounded-lg border border-gray-700"
+                                >
+                                  <span class="text-gray-400 font-medium"
                                     >Stock status:</span
                                   >
                                   <span
                                     id="stock-status"
                                     class="text-white font-medium"
-                                    >{{ stock.status }}</span
                                   >
+                                    <span class="inline-flex items-center">
+                                      <span
+                                        class="h-2 w-2 rounded-full bg-green-500 mr-2"
+                                      ></span>
+                                      {{ stock.status }}
+                                    </span>
+                                  </span>
                                 </div>
-                                <div class="flex justify-between">
-                                  <span class="text-gray-400"
+                                <div
+                                  class="flex justify-between items-center bg-gray-800/50 px-4 py-3 rounded-lg border border-gray-700"
+                                >
+                                  <span class="text-gray-400 font-medium"
                                     >Total Stock:</span
                                   >
                                   <span
                                     id="stock-total"
-                                    class="text-white font-medium"
-                                    >{{ stock.total }}</span
+                                    class="text-white font-bold text-lg"
                                   >
+                                    {{ stock.total }}
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -454,94 +473,98 @@
                             <!-- Detailed -->
                             <div>
                               <!-- name & desc -->
-                              <h4
-                                id="stock-name"
-                                class="text-lg font-bold text-white"
-                              >
-                                {{ stock.details.name }}
-                              </h4>
-                              <p
-                                id="stock-description"
-                                class="text-gray-300 mt-2 text-sm"
-                              >
-                                <q> {{ stock.details.description }} </q>
-                              </p>
+                              <div class="border-b border-gray-700 pb-4">
+                                <h4
+                                  id="stock-name"
+                                  class="text-2xl font-extrabold text-white"
+                                >
+                                  {{ stock.details.name }}
+                                </h4>
+                                <p
+                                  id="stock-description"
+                                  class="text-gray-300 mt-3 text-sm leading-relaxed italic"
+                                >
+                                  "{{ stock.details.description }}"
+                                </p>
+                              </div>
 
                               <!-- available sizes quantity -->
                               <div class="mt-6">
-                                <h5 class="text-md font-medium text-white mb-3">
+                                <h5
+                                  class="text-md font-semibold text-white mb-3 flex items-center"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 mr-2 text-blue-400"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                      clip-rule="evenodd"
+                                    />
+                                  </svg>
                                   Available sizes
                                 </h5>
                                 <div class="grid grid-cols-4 gap-3">
                                   <div
-                                    class="bg-gray-800 rounded-md p-3 text-center"
+                                    *ngFor="let size of stock.sizes"
+                                    class="bg-gray-800/70 hover:bg-gray-700 transition-colors duration-200 rounded-lg p-3 text-center border border-gray-700"
                                   >
-                                    <div class="text-white font-medium">S</div>
-                                    <div
-                                      id="size-S"
-                                      class="text-gray-300 text-sm"
-                                    >
-                                      {{ stock.sizes[0].quantity }} units
+                                    <div class="text-white font-bold text-lg">
+                                      {{ size.size }}
                                     </div>
-                                  </div>
-                                  <div
-                                    class="bg-gray-800 rounded-md p-3 text-center"
-                                  >
-                                    <div class="text-white font-medium">M</div>
-                                    <div
-                                      id="size-M"
-                                      class="text-gray-300 text-sm"
-                                    >
-                                      {{ stock.sizes[1].quantity }} units
-                                    </div>
-                                  </div>
-                                  <div
-                                    class="bg-gray-800 rounded-md p-3 text-center"
-                                  >
-                                    <div class="text-white font-medium">L</div>
-                                    <div
-                                      id="size-L"
-                                      class="text-gray-300 text-sm"
-                                    >
-                                      {{ stock.sizes[2].quantity }} units
-                                    </div>
-                                  </div>
-                                  <div
-                                    class="bg-gray-800 rounded-md p-3 text-center"
-                                  >
-                                    <div class="text-white font-medium">XL</div>
-                                    <div
-                                      id="size-XL"
-                                      class="text-gray-300 text-sm"
-                                    >
-                                      {{ stock.sizes[3].quantity }} units
+                                    <div class="text-gray-300 text-sm mt-1">
+                                      {{ size.quantity }} units
                                     </div>
                                   </div>
                                 </div>
                               </div>
 
                               <!-- Available colors -->
-                              <div class="mt-6">
-                                <h5 class="text-md font-medium text-white mb-3">
+                              <div class="mt-8">
+                                <h5
+                                  class="text-md font-semibold text-white mb-3 flex items-center"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 mr-2 text-purple-400"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z"
+                                      clip-rule="evenodd"
+                                    />
+                                  </svg>
                                   Available colors
                                 </h5>
-                                <div class="flex flex-wrap gap-3">
-                                  <div *ngIf="stock.availableColors.length > 0">
+                                <div
+                                  *ngIf="stock.availableColors.length > 0"
+                                  class="p-3 bg-gray-800/50 rounded-xl border border-gray-700"
+                                >
+                                  <div class="flex flex-wrap gap-3">
                                     <div
-                                      class="flex flex-wrap gap-3 p-2 bg-gray-800 rounded-lg min-h-10"
+                                      *ngFor="
+                                        let color of stock.availableColors
+                                      "
+                                      class="relative group"
                                     >
                                       <div
-                                        class="flex items-center"
-                                        *ngFor="
-                                          let color of stock.availableColors
-                                        "
+                                        class="h-8 w-8 rounded-full border-2 border-gray-300 shadow-md"
+                                        [style.backgroundColor]="color"
+                                        [title]="color"
                                       >
                                         <div
-                                          class="h-6 w-6 rounded-full bg-[{{
-                                            color
-                                          }}] border-2 border-gray-300 shadow-md"
-                                          title="{{ color }}"
+                                          class="absolute inset-0 rounded-full border-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                                         ></div>
+                                      </div>
+                                      <div
+                                        class="absolute z-10 hidden group-hover:block bg-gray-900 text-white text-xs px-2 py-1 rounded mt-1 whitespace-nowrap"
+                                      >
+                                        {{ color }}
                                       </div>
                                     </div>
                                   </div>
@@ -552,11 +575,25 @@
                         </div>
 
                         <!-- Footer  -->
-                        <div class="bg-gray-800 px-6 py-3 flex justify-end">
+                        <div
+                          class="bg-gray-800/70 px-6 py-4 flex justify-end border-t border-gray-700"
+                        >
                           <button
                             (click)="closeStockModal(stock.id || '')"
-                            class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 mr-3"
+                            class="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-200 flex items-center"
                           >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-5 w-5 mr-2"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
                             Close
                           </button>
                         </div>

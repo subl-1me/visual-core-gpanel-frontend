@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-config',
-  imports: [NgFor, DatePipe, NgIf],
+  imports: [DatePipe, NgIf],
   templateUrl: './config.component.html',
   styleUrl: './config.component.css',
 })

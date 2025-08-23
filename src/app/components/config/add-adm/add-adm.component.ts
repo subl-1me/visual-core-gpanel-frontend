@@ -34,14 +34,13 @@ export class AddAdmComponent {
   public onSubmit(_form: any): void {
     this.isLoading = true;
     this.admService.addNewAdm(this.adm).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.statusMessage = 'Admin added successfully.';
+      next: (_response) => {
+        this.statusMessage = `Ok ✅`;
         this.isLoading = false;
         this.resetForm();
       },
       error: (err) => {
-        this.statusMessage = err.message;
+        this.statusMessage = `${err.error.message} `;
         this.isLoading = false;
       },
     });

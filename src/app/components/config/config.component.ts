@@ -30,8 +30,9 @@ export class ConfigComponent implements OnInit {
   private getAdminList(): void {
     this.isLoadingAdminList = true;
     this.configService.getAdminList().subscribe({
-      next: (response) => {
-        this.adminList = [...response.users].map((item) => {
+      next: (res) => {
+        const { response } = res;
+        this.adminList = [...response].map((item) => {
           return {
             username: item.username,
             id: item.id,

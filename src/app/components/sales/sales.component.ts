@@ -53,8 +53,9 @@ export class SalesComponent implements OnInit {
   private loadSales(): void {
     this.isLoadingSales = true;
     this.saleService.getSalesList().subscribe({
-      next: (response) => {
-        this.displayedSales = response.items.map((item: any) => {
+      next: (res) => {
+        const { response } = res;
+        this.displayedSales = response.map((item: any) => {
           return {
             no: item.no,
             _id: item._id,

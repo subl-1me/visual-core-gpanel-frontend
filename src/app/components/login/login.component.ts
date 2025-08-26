@@ -30,15 +30,15 @@ export class LoginComponent {
   public login(form: any): void {
     this.isLoading = true;
     this.authService.requestAuthentication(this.user).subscribe({
-      next: (response) => {
-        const res = response.authResponse;
-        if (res.error || !res.session || !res.authenticated) {
-          this.errorLoginMessage = res.message;
+      next: (res) => {
+        const { response } = res;
+        if (!response.session || !response.authenticated) {
+          this.errorLoginMessage = 'Error trying to authenticate.';
           this.isLoading = false;
           return;
         }
 
-        this.authService.saveLoginSession(res.session);
+        this.authService.saveLoginSession(response.session);
         this.isLoading = false;
         form.reset();
         this.router.navigate(['']);

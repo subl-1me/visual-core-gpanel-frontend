@@ -75,9 +75,9 @@ export class AddManualSaleComponent implements OnInit {
 
   private loadStock(): void {
     this.stockService.getStocks().subscribe({
-      next: (response) => {
-        const { items } = response;
-        const parsedItems = items.map((item: any) => {
+      next: (res) => {
+        const { response } = res;
+        const parsedItems = response.map((item: any) => {
           return {
             ...item,
             availableColors: item.availableColors,
@@ -93,8 +93,9 @@ export class AddManualSaleComponent implements OnInit {
 
   private loadCustomerList(): void {
     this.customerService.getCustomerList().subscribe({
-      next: (response) => {
-        this.displayedCustomers = response.items.map((item: any) => {
+      next: (res) => {
+        const { response } = res;
+        this.displayedCustomers = response.map((item: any) => {
           return {
             _id: item._id,
             name: item.name,
@@ -107,8 +108,6 @@ export class AddManualSaleComponent implements OnInit {
             updated_at: item.updatedAt,
           } as Customer;
         });
-
-        console.log(this.displayedCustomers);
       },
       error: (err) => {},
     });

@@ -37,14 +37,15 @@ export class StockComponent implements OnInit {
   private loadStocks(): void {
     this.isLoadingStock = true;
     this.stockService.getStocks().subscribe({
-      next: (response) => {
-        const { items } = response;
-        const parsedItems = items.map((item: any) => {
+      next: (res) => {
+        const { response } = res;
+        const parsedItems = response.map((item: any) => {
           return {
             ...item,
             availableColors: item.availableColors,
             details: item.details,
             sizes: item.sizes,
+            id: item._id,
           };
         });
         this.stocks = [...parsedItems];

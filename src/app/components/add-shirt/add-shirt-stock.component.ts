@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TIER_NAMES } from '../../const';
 import { NgFor, NgIf } from '@angular/common';
 import Stock from '../../models/stock';
-import { FormsModule, Form, NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { StockService } from '../../services/stock/stock.service';
 import { ViewChild } from '@angular/core';
 

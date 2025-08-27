@@ -40,7 +40,7 @@
                   Basic Information
                 </h3>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                   <!-- Name -->
                   <div>
                     <label
@@ -74,8 +74,220 @@
                     </span>
                   </div>
 
-                  <!-- Price -->
+                  <!-- Description -->
                   <div>
+                    <label
+                      for="description"
+                      class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
+                    >
+                      Description <span class="text-red-400 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                      <div class="absolute top-3 left-3">
+                        <i class="fas fa-pen text-gray-500"></i>
+                      </div>
+                      <textarea
+                        id="description"
+                        rows="4"
+                        class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Describe the product features, materials, and other details..."
+                        name="description"
+                        [(ngModel)]="stock.details.description"
+                        #descInput="ngModel"
+                        required
+                      ></textarea>
+                    </div>
+                    <span
+                      class="text-xs text-red-500 mt-1 block"
+                      *ngIf="
+                        descInput.touched && stock.details.description === ''
+                      "
+                    >
+                      Please enter a product description
+                    </span>
+                  </div>
+
+                  <!-- Colors Section -->
+
+                  <div>
+                    <label
+                      class="block text-sm font-medium text-gray-300 mb-3 flex items-center"
+                    >
+                      Available Colors
+                      <span class="text-red-400 ml-1">*</span>
+                    </label>
+
+                    <!-- Color picker -->
+                    <div class="relative mb-4">
+                      <div
+                        class="h-12 w-full rounded-lg cursor-pointer border-2 border-gray-600 overflow-hidden flex items-center justify-center"
+                        id="color-preview"
+                      >
+                        <span
+                          class="text-gray-800 font-medium text-sm"
+                          id="color-hex-value"
+                          >{{ lastSelectedColor || "#FFFFFF" }}</span
+                        >
+                      </div>
+                      <input
+                        type="color"
+                        id="color-selector"
+                        name="lastSelectedColor"
+                        [(ngModel)]="lastSelectedColor"
+                        class="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
+                        value="{{ lastSelectedColor || '#FFFFFF' }}"
+                        (change)="addSelectedColorList('', $event)"
+                      />
+                    </div>
+
+                    <!-- Color presets -->
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                      <!-- Black -->
+                      <div>
+                        <input
+                          id="color-black"
+                          name="color"
+                          type="radio"
+                          value="#000000"
+                          class="hidden peer"
+                          (click)="addSelectedColorList('#000000')"
+                        />
+                        <label
+                          for="color-black"
+                          class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
+                        >
+                          <span
+                            class="h-6 w-6 rounded-full bg-black border-2 border-gray-400 mb-1"
+                          ></span>
+                          <span class="text-xs text-gray-300">Black</span>
+                        </label>
+                      </div>
+
+                      <!-- White -->
+                      <div>
+                        <input
+                          id="color-white"
+                          name="color"
+                          type="radio"
+                          value="#FFFFFF"
+                          class="hidden peer"
+                          checked
+                          (click)="addSelectedColorList('#FFFFFF')"
+                        />
+                        <label
+                          for="color-white"
+                          class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
+                        >
+                          <span
+                            class="h-6 w-6 rounded-full bg-white border-2 border-gray-400 mb-1"
+                          ></span>
+                          <span class="text-xs text-gray-300">White</span>
+                        </label>
+                      </div>
+
+                      <!-- Blue -->
+                      <div>
+                        <input
+                          id="color-blue"
+                          name="color"
+                          type="radio"
+                          value="#3B82F6"
+                          class="hidden peer"
+                          (click)="addSelectedColorList('#3B82F6')"
+                        />
+                        <label
+                          for="color-blue"
+                          class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
+                        >
+                          <span
+                            class="h-6 w-6 rounded-full bg-blue-500 border-2 border-blue-300 mb-1"
+                          ></span>
+                          <span class="text-xs text-gray-300">Blue</span>
+                        </label>
+                      </div>
+
+                      <!-- Red -->
+                      <div>
+                        <input
+                          id="color-red"
+                          name="color"
+                          type="radio"
+                          value="#EF4444"
+                          class="hidden peer"
+                          (click)="addSelectedColorList('#EF4444')"
+                        />
+                        <label
+                          for="color-red"
+                          class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
+                        >
+                          <span
+                            class="h-6 w-6 rounded-full bg-red-500 border-2 border-red-300 mb-1"
+                          ></span>
+                          <span class="text-xs text-gray-300">Red</span>
+                        </label>
+                      </div>
+
+                      <!-- Green -->
+                      <div>
+                        <input
+                          id="color-green"
+                          name="color"
+                          type="radio"
+                          value="#10B981"
+                          class="hidden peer"
+                          (click)="addSelectedColorList('#10B981')"
+                        />
+                        <label
+                          for="color-green"
+                          class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
+                        >
+                          <span
+                            class="h-6 w-6 rounded-full bg-green-500 border-2 border-green-300 mb-1"
+                          ></span>
+                          <span class="text-xs text-gray-300">Green</span>
+                        </label>
+                      </div>
+
+                      <!-- Custom -->
+                      <div>
+                        <div
+                          class="flex flex-col items-center p-2 rounded-lg border border-dashed border-gray-600 bg-gray-800/50"
+                        >
+                          <span
+                            class="h-6 w-6 rounded-full mb-1 flex items-center justify-center text-gray-400"
+                          >
+                            <i class="fas fa-palette text-sm"></i>
+                          </span>
+                          <span class="text-xs text-gray-400">Custom</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Selected colors -->
+                    <div class="mt-4" *ngIf="availableColors.length > 0">
+                      <label class="block text-sm font-medium text-white mb-2"
+                        >Selected Colors</label
+                      >
+                      <div
+                        class="flex flex-wrap gap-2 p-3 bg-gray-800 rounded-lg border border-gray-700"
+                      >
+                        <div
+                          *ngFor="let color of availableColors"
+                          (click)="removeColor(color)"
+                          class="h-8 w-8 rounded-full border-2 border-gray-300 shadow-md cursor-pointer transition-transform hover:scale-110"
+                          [style.backgroundColor]="color"
+                          [title]="'Click to remove: ' + color"
+                        ></div>
+                      </div>
+                    </div>
+                    <span
+                      class="text-xs text-red-500 mt-1 block"
+                      *ngIf="availableColors.length === 0"
+                      >Please select at least one color</span
+                    >
+                  </div>
+                  <!-- Price -->
+                  <!-- <div>
                     <label
                       for="price"
                       class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
@@ -110,124 +322,21 @@
                     >
                       Price must be at least 100 MXN
                     </span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
-              <!-- Stock & Tier Section -->
+              <!-- Select Tier & stock quantity-->
               <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
                 <h3
                   class="text-lg font-medium text-white mb-4 flex items-center"
                 >
+                  <i class="fas fa-layer-group text-gray-400 mr-2"></i>
                   <i class="fas fa-boxes text-yellow-400 mr-2"></i>
-                  Inventory Details
+                  Tier & Stock quantities
                 </h3>
 
-                <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
-                  <!-- Stock Quantities -->
-                  <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">
-                      Stock Quantities
-                    </label>
-                    <div class="flex flex-wrap gap-4">
-                      <div class="flex-1 min-w-[100px]">
-                        <label
-                          for="stock-s"
-                          class="block text-xs text-gray-400 mb-1"
-                          >Size S</label
-                        >
-                        <div class="relative">
-                          <div
-                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                          >
-                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
-                          </div>
-                          <input
-                            type="number"
-                            id="stock-s"
-                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="0"
-                            name="stock-s"
-                            (change)="checkStockValue('S')"
-                            [(ngModel)]="stock.sizes[0].quantity"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="flex-1 min-w-[100px]">
-                        <label
-                          for="stock-m"
-                          class="block text-xs text-gray-400 mb-1"
-                          >Size M</label
-                        >
-                        <div class="relative">
-                          <div
-                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                          >
-                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
-                          </div>
-                          <input
-                            type="number"
-                            id="stock-m"
-                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="0"
-                            name="stock-m"
-                            (change)="checkStockValue('M')"
-                            [(ngModel)]="stock.sizes[1].quantity"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="flex-1 min-w-[100px]">
-                        <label
-                          for="stock-l"
-                          class="block text-xs text-gray-400 mb-1"
-                          >Size L</label
-                        >
-                        <div class="relative">
-                          <div
-                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                          >
-                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
-                          </div>
-                          <input
-                            type="number"
-                            id="stock-l"
-                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="0"
-                            name="stock-l"
-                            (change)="checkStockValue('L')"
-                            [(ngModel)]="stock.sizes[2].quantity"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="flex-1 min-w-[100px]">
-                        <label
-                          for="stock-xl"
-                          class="block text-xs text-gray-400 mb-1"
-                          >Size XL</label
-                        >
-                        <div class="relative">
-                          <div
-                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                          >
-                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
-                          </div>
-                          <input
-                            type="number"
-                            id="stock-xl"
-                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="0"
-                            name="stock-xl"
-                            (change)="checkStockValue('XL')"
-                            [(ngModel)]="stock.sizes[3].quantity"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+                <div class="grid grid-cols-1 md:grid-cols-1 grap-4">
                   <!-- Tier -->
                   <div>
                     <label
@@ -257,9 +366,6 @@
                         <option value="{{ tiers.DROP }}">
                           {{ tiers.DROP }}
                         </option>
-                        <option value="{{ tiers.SEASON }}">
-                          {{ tiers.SEASON }}
-                        </option>
                       </select>
                     </div>
                     <span
@@ -269,235 +375,163 @@
                       Please select a collection tier
                     </span>
                   </div>
-                </div>
-              </div>
 
-              <!-- Description Section -->
-              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
-                <h3
-                  class="text-lg font-medium text-white mb-4 flex items-center"
-                >
-                  <i class="fas fa-align-left text-blue-400 mr-2"></i>
-                  Product Description
-                </h3>
+                  <!-- Stock Section -->
 
-                <div>
-                  <label
-                    for="description"
-                    class="block text-sm font-medium text-gray-300 mb-2 flex items-center"
+                  <div
+                    class="mt-4"
+                    *ngIf="stock.details.tier === '' || !stock.details.tier"
                   >
-                    Description <span class="text-red-400 ml-1">*</span>
-                  </label>
-                  <div class="relative">
-                    <div class="absolute top-3 left-3">
-                      <i class="fas fa-pen text-gray-500"></i>
-                    </div>
-                    <textarea
-                      id="description"
-                      rows="4"
-                      class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="Describe the product features, materials, and other details..."
-                      name="description"
-                      [(ngModel)]="stock.details.description"
-                      #descInput="ngModel"
-                      required
-                    ></textarea>
-                  </div>
-                  <span
-                    class="text-xs text-red-500 mt-1 block"
-                    *ngIf="
-                      descInput.touched && stock.details.description === ''
-                    "
-                  >
-                    Please enter a product description
-                  </span>
-                </div>
-              </div>
-
-              <!-- Colors Section -->
-              <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
-                <h3
-                  class="text-lg font-medium text-white mb-4 flex items-center"
-                >
-                  <i class="fas fa-palette text-purple-400 mr-2"></i>
-                  Color Options
-                </h3>
-
-                <div>
-                  <label
-                    class="block text-sm font-medium text-gray-300 mb-3 flex items-center"
-                  >
-                    Available Colors <span class="text-red-400 ml-1">*</span>
-                  </label>
-
-                  <!-- Color picker -->
-                  <div class="relative mb-4">
                     <div
-                      class="h-12 w-full rounded-lg cursor-pointer border-2 border-gray-600 overflow-hidden flex items-center justify-center"
-                      id="color-preview"
+                      class="p-4 text-center text-gray-500 border border-gray-700 rounded-lg bg-gray-800/50"
                     >
-                      <span
-                        class="text-gray-800 font-medium text-sm"
-                        id="color-hex-value"
-                        >{{ lastSelectedColor || "#FFFFFF" }}</span
-                      >
+                      <p>Select a tier to continue adding stock.</p>
                     </div>
-                    <input
-                      type="color"
-                      id="color-selector"
-                      name="lastSelectedColor"
-                      [(ngModel)]="lastSelectedColor"
-                      class="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
-                      value="{{ lastSelectedColor || '#FFFFFF' }}"
-                      (change)="addSelectedColorList('', $event)"
-                    />
                   </div>
 
-                  <!-- Color presets -->
-                  <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                    <!-- Black -->
-                    <div>
-                      <input
-                        id="color-black"
-                        name="color"
-                        type="radio"
-                        value="#000000"
-                        class="hidden peer"
-                        (click)="addSelectedColorList('#000000')"
-                      />
-                      <label
-                        for="color-black"
-                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
-                      >
-                        <span
-                          class="h-6 w-6 rounded-full bg-black border-2 border-gray-400 mb-1"
-                        ></span>
-                        <span class="text-xs text-gray-300">Black</span>
-                      </label>
-                    </div>
-
-                    <!-- White -->
-                    <div>
-                      <input
-                        id="color-white"
-                        name="color"
-                        type="radio"
-                        value="#FFFFFF"
-                        class="hidden peer"
-                        checked
-                        (click)="addSelectedColorList('#FFFFFF')"
-                      />
-                      <label
-                        for="color-white"
-                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
-                      >
-                        <span
-                          class="h-6 w-6 rounded-full bg-white border-2 border-gray-400 mb-1"
-                        ></span>
-                        <span class="text-xs text-gray-300">White</span>
-                      </label>
-                    </div>
-
-                    <!-- Blue -->
-                    <div>
-                      <input
-                        id="color-blue"
-                        name="color"
-                        type="radio"
-                        value="#3B82F6"
-                        class="hidden peer"
-                        (click)="addSelectedColorList('#3B82F6')"
-                      />
-                      <label
-                        for="color-blue"
-                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
-                      >
-                        <span
-                          class="h-6 w-6 rounded-full bg-blue-500 border-2 border-blue-300 mb-1"
-                        ></span>
-                        <span class="text-xs text-gray-300">Blue</span>
-                      </label>
-                    </div>
-
-                    <!-- Red -->
-                    <div>
-                      <input
-                        id="color-red"
-                        name="color"
-                        type="radio"
-                        value="#EF4444"
-                        class="hidden peer"
-                        (click)="addSelectedColorList('#EF4444')"
-                      />
-                      <label
-                        for="color-red"
-                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
-                      >
-                        <span
-                          class="h-6 w-6 rounded-full bg-red-500 border-2 border-red-300 mb-1"
-                        ></span>
-                        <span class="text-xs text-gray-300">Red</span>
-                      </label>
-                    </div>
-
-                    <!-- Green -->
-                    <div>
-                      <input
-                        id="color-green"
-                        name="color"
-                        type="radio"
-                        value="#10B981"
-                        class="hidden peer"
-                        (click)="addSelectedColorList('#10B981')"
-                      />
-                      <label
-                        for="color-green"
-                        class="flex flex-col items-center p-2 rounded-lg border border-gray-700 peer-checked:border-indigo-500 bg-gray-800 cursor-pointer transition-colors hover:bg-gray-700"
-                      >
-                        <span
-                          class="h-6 w-6 rounded-full bg-green-500 border-2 border-green-300 mb-1"
-                        ></span>
-                        <span class="text-xs text-gray-300">Green</span>
-                      </label>
-                    </div>
-
-                    <!-- Custom -->
-                    <div>
-                      <div
-                        class="flex flex-col items-center p-2 rounded-lg border border-dashed border-gray-600 bg-gray-800/50"
-                      >
-                        <span
-                          class="h-6 w-6 rounded-full mb-1 flex items-center justify-center text-gray-400"
-                        >
-                          <i class="fas fa-palette text-sm"></i>
-                        </span>
-                        <span class="text-xs text-gray-400">Custom</span>
+                  <div *ngIf="stock.details.tier === tiers.DROP" class="mt-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-3">
+                      Total quantiy
+                      <span class="text-red-400 ml-1">*</span>
+                    </label>
+                    <div class="flex flex-wrap gap-4">
+                      <div class="flex-1 min-w-[100px]">
+                        <div class="relative">
+                          <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                          >
+                            <i class="fas fa-hashtag text-gray-500 text-xs"></i>
+                          </div>
+                          <input
+                            type="number"
+                            id="stock-s"
+                            class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="0"
+                            name="stock-s"
+                            (change)="checkStockValue('S')"
+                            [(ngModel)]="stock.sizes[0].quantity"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Selected colors -->
-                  <div class="mt-4" *ngIf="availableColors.length > 0">
-                    <label class="block text-sm font-medium text-white mb-2"
-                      >Selected Colors</label
-                    >
-                    <div
-                      class="flex flex-wrap gap-2 p-3 bg-gray-800 rounded-lg border border-gray-700"
-                    >
-                      <div
-                        *ngFor="let color of availableColors"
-                        (click)="removeColor(color)"
-                        class="h-8 w-8 rounded-full border-2 border-gray-300 shadow-md cursor-pointer transition-transform hover:scale-110"
-                        [style.backgroundColor]="color"
-                        [title]="'Click to remove: ' + color"
-                      ></div>
+                  <div *ngIf="stock.details.tier === tiers.CUSTOM" class="mt-4">
+                    <!-- Stock Quantities -->
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-300 mb-3"
+                      >
+                        Quantities per Size
+                        <span class="text-red-400 ml-1">*</span>
+                      </label>
+                      <div class="flex flex-wrap gap-4">
+                        <div class="flex-1 min-w-[100px]">
+                          <label
+                            for="stock-s"
+                            class="block text-xs text-gray-400 mb-1"
+                            >Size S</label
+                          >
+                          <div class="relative">
+                            <div
+                              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                            >
+                              <i
+                                class="fas fa-hashtag text-gray-500 text-xs"
+                              ></i>
+                            </div>
+                            <input
+                              type="number"
+                              id="stock-s"
+                              class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              placeholder="0"
+                              name="stock-s"
+                              (change)="checkStockValue('S')"
+                              [(ngModel)]="stock.sizes[0].quantity"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="flex-1 min-w-[100px]">
+                          <label
+                            for="stock-m"
+                            class="block text-xs text-gray-400 mb-1"
+                            >Size M</label
+                          >
+                          <div class="relative">
+                            <div
+                              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                            >
+                              <i
+                                class="fas fa-hashtag text-gray-500 text-xs"
+                              ></i>
+                            </div>
+                            <input
+                              type="number"
+                              id="stock-m"
+                              class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              placeholder="0"
+                              name="stock-m"
+                              (change)="checkStockValue('M')"
+                              [(ngModel)]="stock.sizes[1].quantity"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="flex-1 min-w-[100px]">
+                          <label
+                            for="stock-l"
+                            class="block text-xs text-gray-400 mb-1"
+                            >Size L</label
+                          >
+                          <div class="relative">
+                            <div
+                              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                            >
+                              <i
+                                class="fas fa-hashtag text-gray-500 text-xs"
+                              ></i>
+                            </div>
+                            <input
+                              type="number"
+                              id="stock-l"
+                              class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              placeholder="0"
+                              name="stock-l"
+                              (change)="checkStockValue('L')"
+                              [(ngModel)]="stock.sizes[2].quantity"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="flex-1 min-w-[100px]">
+                          <label
+                            for="stock-xl"
+                            class="block text-xs text-gray-400 mb-1"
+                            >Size XL</label
+                          >
+                          <div class="relative">
+                            <div
+                              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                            >
+                              <i
+                                class="fas fa-hashtag text-gray-500 text-xs"
+                              ></i>
+                            </div>
+                            <input
+                              type="number"
+                              id="stock-xl"
+                              class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              placeholder="0"
+                              name="stock-xl"
+                              (change)="checkStockValue('XL')"
+                              [(ngModel)]="stock.sizes[3].quantity"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <span
-                    class="text-xs text-red-500 mt-1 block"
-                    *ngIf="availableColors.length === 0"
-                    >Please select at least one color</span
-                  >
                 </div>
               </div>
 
@@ -506,50 +540,94 @@
                 <h3
                   class="text-lg font-medium text-white mb-4 flex items-center"
                 >
-                  <i class="fas fa-images text-yellow-400 mr-2"></i>
+                  <i class="fas fa-images text-blue-400 mr-2"></i>
                   Product Images
                 </h3>
 
-                <div>
-                  <label class="block text-sm font-medium text-gray-300 mb-3">
-                    Upload Product Images
-                  </label>
-                  <div
-                    class="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-gray-700 border-dashed rounded-xl bg-gray-800/30 hover:bg-gray-800 transition-colors"
-                  >
-                    <div class="space-y-3 text-center">
-                      <div class="flex flex-col items-center">
-                        <i
-                          class="fas fa-cloud-upload-alt text-3xl text-indigo-500 mb-2"
-                        ></i>
-                        <div class="flex text-sm text-gray-400">
-                          <label
-                            class="relative cursor-pointer rounded-md font-medium text-indigo-400 hover:text-indigo-300"
-                          >
-                            <span>Upload images</span>
-                            <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              class="sr-only"
-                              multiple
-                            />
-                          </label>
-                          <p class="ml-1">or drag and drop</p>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-3">
+                      Cover image
+                    </label>
+                    <div
+                      class="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-gray-700 border-dashed rounded-xl bg-gray-800/30 hover:bg-gray-800 transition-colors"
+                    >
+                      <div class="space-y-3 text-center">
+                        <div class="flex flex-col items-center">
+                          <i
+                            class="fas fa-cloud-upload-alt text-3xl text-indigo-500 mb-2"
+                          ></i>
+                          <div class="flex text-sm text-gray-400">
+                            <label
+                              class="relative cursor-pointer rounded-md font-medium text-indigo-400 hover:text-indigo-300"
+                            >
+                              <span>Upload </span>
+                              <input
+                                id="file-upload"
+                                name="file-upload"
+                                type="file"
+                                class="sr-only"
+                                multiple
+                              />
+                            </label>
+                            <p class="ml-1">or drag and drop</p>
+                          </div>
                         </div>
+                        <p class="text-xs text-gray-500">
+                          PNG, JPG, GIF up to 10MB each
+                        </p>
                       </div>
-                      <p class="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB each
-                      </p>
+                    </div>
+
+                    <!-- Image preview grid (hidden by default) -->
+                    <div
+                      class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 hidden"
+                      id="preview-container"
+                    >
+                      <!-- Preview images would appear here -->
                     </div>
                   </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-3">
+                      Gallery
+                    </label>
+                    <div
+                      class="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-gray-700 border-dashed rounded-xl bg-gray-800/30 hover:bg-gray-800 transition-colors"
+                    >
+                      <div class="space-y-3 text-center">
+                        <div class="flex flex-col items-center">
+                          <i
+                            class="fas fa-cloud-upload-alt text-3xl text-indigo-500 mb-2"
+                          ></i>
+                          <div class="flex text-sm text-gray-400">
+                            <label
+                              class="relative cursor-pointer rounded-md font-medium text-indigo-400 hover:text-indigo-300"
+                            >
+                              <span>Upload images</span>
+                              <input
+                                id="file-upload"
+                                name="file-upload"
+                                type="file"
+                                class="sr-only"
+                                multiple
+                              />
+                            </label>
+                            <p class="ml-1">or drag and drop</p>
+                          </div>
+                        </div>
+                        <p class="text-xs text-gray-500">
+                          PNG, JPG, GIF up to 10MB each
+                        </p>
+                      </div>
+                    </div>
 
-                  <!-- Image preview grid (hidden by default) -->
-                  <div
-                    class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 hidden"
-                    id="preview-container"
-                  >
-                    <!-- Preview images would appear here -->
+                    <!-- Image preview grid (hidden by default) -->
+                    <div
+                      class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 hidden"
+                      id="preview-container"
+                    >
+                      <!-- Preview images would appear here -->
+                    </div>
                   </div>
                 </div>
               </div>

@@ -12,7 +12,6 @@ export const TAB_NAMES = {
 
 export const TIER_NAMES = {
   CUSTOM: 'CUSTOM',
-  SEASON: 'SEASON',
   DROP: 'DROP',
   UNKNOWN: 'UNKNOWN',
 };

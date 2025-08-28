@@ -355,7 +355,8 @@
                         name="tier"
                         required
                         #tierInput="ngModel"
-                        [(ngModel)]="stock.details.tier"
+                        [(ngModel)]="selectedTier"
+                        (selectionchange)="resetQuantityInputs()"
                       >
                         <option value="" disabled selected>
                           Select a tier
@@ -370,7 +371,7 @@
                     </div>
                     <span
                       class="text-xs text-red-500 mt-1 block"
-                      *ngIf="tierInput.touched && stock.details.tier === ''"
+                      *ngIf="tierInput.touched && selectedTier === ''"
                     >
                       Please select a collection tier
                     </span>
@@ -380,7 +381,7 @@
 
                   <div
                     class="mt-4"
-                    *ngIf="stock.details.tier === '' || !stock.details.tier"
+                    *ngIf="selectedTier === '' || !selectedTier"
                   >
                     <div
                       class="p-4 text-center text-gray-500 border border-gray-700 rounded-lg bg-gray-800/50"
@@ -389,7 +390,7 @@
                     </div>
                   </div>
 
-                  <div *ngIf="stock.details.tier === tiers.DROP" class="mt-4">
+                  <div *ngIf="selectedTier === tiers.DROP" class="mt-4">
                     <label class="block text-sm font-medium text-gray-300 mb-3">
                       Total quantiy
                       <span class="text-red-400 ml-1">*</span>
@@ -404,19 +405,19 @@
                           </div>
                           <input
                             type="number"
+                            min="0"
                             id="stock-s"
                             class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             placeholder="0"
-                            name="stock-s"
-                            (change)="checkStockValue('S')"
-                            [(ngModel)]="stock.sizes[0].quantity"
+                            name="quantity"
+                            [(ngModel)]="selectedQuantity"
                           />
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div *ngIf="stock.details.tier === tiers.CUSTOM" class="mt-4">
+                  <div *ngIf="selectedTier === tiers.CUSTOM" class="mt-4">
                     <!-- Stock Quantities -->
                     <div>
                       <label
@@ -442,11 +443,11 @@
                             </div>
                             <input
                               type="number"
+                              min="0"
                               id="stock-s"
                               class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                               placeholder="0"
                               name="stock-s"
-                              (change)="checkStockValue('S')"
                               [(ngModel)]="stock.sizes[0].quantity"
                             />
                           </div>
@@ -468,11 +469,11 @@
                             </div>
                             <input
                               type="number"
+                              min="0"
                               id="stock-m"
                               class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                               placeholder="0"
                               name="stock-m"
-                              (change)="checkStockValue('M')"
                               [(ngModel)]="stock.sizes[1].quantity"
                             />
                           </div>
@@ -494,11 +495,11 @@
                             </div>
                             <input
                               type="number"
+                              min="0"
                               id="stock-l"
                               class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                               placeholder="0"
                               name="stock-l"
-                              (change)="checkStockValue('L')"
                               [(ngModel)]="stock.sizes[2].quantity"
                             />
                           </div>
@@ -520,11 +521,11 @@
                             </div>
                             <input
                               type="number"
+                              min="0"
                               id="stock-xl"
                               class="pl-8 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                               placeholder="0"
                               name="stock-xl"
-                              (change)="checkStockValue('XL')"
                               [(ngModel)]="stock.sizes[3].quantity"
                             />
                           </div>

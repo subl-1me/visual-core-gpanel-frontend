@@ -25,6 +25,9 @@ export class AddShirtStockComponent {
   public isLoading: boolean = false;
   public responseMessage: string = '';
 
+  public selectedQuantity: number = 0;
+  public selectedTier: '' | 'SEASON' | 'DROP' | 'CUSTOM' | 'UNKNOWN' = '';
+
   constructor(private router: Router, private stockService: StockService) {
     this.lastSelectedColor = this.selectedColor;
     this.stock = {
@@ -58,29 +61,18 @@ export class AddShirtStockComponent {
     }
   }
 
-  public checkStockValue(stockType: string): void {
-    switch (stockType) {
-      case 'S':
-        if (this.stock.sizes[0].quantity < 0) {
-          this.stock.sizes[0].quantity = 0;
-        }
-        break;
-      case 'M':
-        if (this.stock.sizes[1].quantity < 0) {
-          this.stock.sizes[1].quantity = 0;
-        }
-        break;
-      case 'L':
-        if (this.stock.sizes[2].quantity < 0) {
-          this.stock.sizes[2].quantity = 0;
-        }
-        break;
-      case 'XL':
-        if (this.stock.sizes[3].quantity < 0) {
-          this.stock.sizes[3].quantity = 0;
-        }
-        break;
+  public resetQuantityInputs(): void {
+    if (this.selectedTier === TIER_NAMES.DROP) {
+      this.stock.sizes = [];
+      return;
     }
+
+    // custom
+    this.selectedQuantity = 0;
+    this.stock.sizes[0].quantity = 0;
+    this.stock.sizes[1].quantity = 0;
+    this.stock.sizes[2].quantity = 0;
+    this.stock.sizes[3].quantity = 0;
   }
 
   public createStock(): void {
@@ -88,27 +80,33 @@ export class AddShirtStockComponent {
       return;
     }
 
-    this.isLoading = true;
     this.stock.availableColors = [...this.availableColors];
+    this.stock.details.tier = this.selectedTier;
 
     // calculate total
-    const stockSum = this.stock.sizes.reduce((accum, current) => {
-      return (accum += current.quantity);
-    }, 0);
+    if (this.selectedTier === TIER_NAMES.DROP) {
+      this.stock.total = this.selectedQuantity;
+    } else {
+      const stockSum = this.stock.sizes.reduce((accum, current) => {
+        return (accum += current.quantity);
+      }, 0);
 
-    this.stock.total = stockSum;
-    this.stockService.add(this.stock).subscribe({
-      next: (_response) => {
-        this.isLoading = false;
-        this.responseMessage = '';
-        this.router.navigate(['/stock']);
-      },
-      error: (err) => {
-        const { error } = err;
-        this.responseMessage = `Error trying to add new stock: ${error.message}`;
-        this.isLoading = false;
-      },
-    });
+      this.stock.total = stockSum;
+    }
+
+    console.log(this.stock);
+    // this.stockService.add(this.stock).subscribe({
+    //   next: (_response) => {
+    //     this.isLoading = false;
+    //     this.responseMessage = '';
+    //     this.router.navigate(['/stock']);
+    //   },
+    //   error: (err) => {
+    //     const { error } = err;
+    //     this.responseMessage = `Error trying to add new stock: ${error.message}`;
+    //     this.isLoading = false;
+    //   },
+    // });
   }
 
   public addSelectedColorList(color: string, event?: any) {

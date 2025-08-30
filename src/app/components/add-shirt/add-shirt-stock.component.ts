@@ -28,6 +28,10 @@ export class AddShirtStockComponent {
   public selectedQuantity: number = 0;
   public selectedTier: '' | 'SEASON' | 'DROP' | 'CUSTOM' | 'UNKNOWN' = '';
 
+  public selectedCoverImage: File | null = null;
+  public selectedGallery: File[] = [];
+  public onUploadingImagesMessage: string = '';
+
   constructor(private router: Router, private stockService: StockService) {
     this.lastSelectedColor = this.selectedColor;
     this.stock = {
@@ -94,19 +98,27 @@ export class AddShirtStockComponent {
       this.stock.total = stockSum;
     }
 
-    console.log(this.stock);
-    // this.stockService.add(this.stock).subscribe({
-    //   next: (_response) => {
-    //     this.isLoading = false;
-    //     this.responseMessage = '';
-    //     this.router.navigate(['/stock']);
-    //   },
-    //   error: (err) => {
-    //     const { error } = err;
-    //     this.responseMessage = `Error trying to add new stock: ${error.message}`;
-    //     this.isLoading = false;
-    //   },
-    // });
+    if (this.selectedCoverImage) {
+      this.selectedGallery.unshift(this.selectedCoverImage);
+    }
+
+    this.stockService.add(this.stock, this.selectedGallery).subscribe({
+      next: (_response) => {
+        if (this.selectedCoverImage) {
+          this.responseMessage = '';
+          this.isLoading = false;
+          this.selectedGallery = [];
+          this.selectedCoverImage = null;
+        }
+      },
+      error: (err) => {
+        const { error } = err;
+        this.responseMessage = `Error trying to add new stock: ${error.message}`;
+        this.selectedGallery = [];
+        this.selectedCoverImage = null;
+        this.isLoading = false;
+      },
+    });
   }
 
   public addSelectedColorList(color: string, event?: any) {
@@ -144,5 +156,17 @@ export class AddShirtStockComponent {
     }
 
     colorPicker.style.backgroundColor = this.lastSelectedColor;
+  }
+
+  public onSelectedCoverImage(event: any): void {
+    const file = event.target.files[0];
+    if (!file) {
+      this.onUploadingImagesMessage =
+        'Error loading selected file. Try another.';
+      return;
+    }
+
+    this.onUploadingImagesMessage = '';
+    this.selectedCoverImage = file;
   }
 }

@@ -567,13 +567,17 @@
                                 id="file-upload"
                                 name="file-upload"
                                 type="file"
+                                accept=".jpg,.png,.jpeg"
                                 class="sr-only"
-                                multiple
+                                (change)="onSelectedCoverImage($event)"
                               />
                             </label>
                             <p class="ml-1">or drag and drop</p>
                           </div>
                         </div>
+                        <p class="text-xm text-red-500">
+                          {{ onUploadingImagesMessage }}
+                        </p>
                         <p class="text-xs text-gray-500">
                           PNG, JPG, GIF up to 10MB each
                         </p>

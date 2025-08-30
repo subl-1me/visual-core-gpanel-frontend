@@ -14,10 +14,14 @@ export class StockService {
     'application/json'
   );
 
-  public add(stock: Stock): Observable<any> {
-    return this.http.post(environment.apiUrl + '/stock', stock, {
-      headers: this.headers,
+  public add(stock: Stock, files: File[]): Observable<any> {
+    const formData = new FormData();
+    formData.append('stockPayload', JSON.stringify(stock));
+    files.forEach((file, _index) => {
+      formData.append('images', file);
     });
+
+    return this.http.post(environment.apiUrl + '/stock', formData);
   }
 
   public getStocks(): Observable<any> {

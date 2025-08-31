@@ -30,6 +30,7 @@ export class AddShirtStockComponent {
 
   public selectedCoverImage: File | null = null;
   public selectedGallery: File[] = [];
+  public selectedGalleryPreview: any[] = [];
   public onUploadingImagesMessage: string = '';
 
   constructor(private router: Router, private stockService: StockService) {
@@ -84,6 +85,7 @@ export class AddShirtStockComponent {
       return;
     }
 
+    this.isLoading = true;
     this.stock.availableColors = [...this.availableColors];
     this.stock.details.tier = this.selectedTier;
 
@@ -98,27 +100,46 @@ export class AddShirtStockComponent {
       this.stock.total = stockSum;
     }
 
-    if (this.selectedCoverImage) {
-      this.selectedGallery.unshift(this.selectedCoverImage);
-    }
-
-    this.stockService.add(this.stock, this.selectedGallery).subscribe({
+    const gallery = this.reGroupGallery();
+    this.stockService.add(this.stock, gallery).subscribe({
       next: (_response) => {
-        if (this.selectedCoverImage) {
-          this.responseMessage = '';
-          this.isLoading = false;
-          this.selectedGallery = [];
-          this.selectedCoverImage = null;
-        }
+        this.responseMessage = '';
+        this.isLoading = false;
+        this.selectedGallery = [];
+        this.selectedGalleryPreview = [];
+        this.router.navigate(['/stock']);
       },
       error: (err) => {
         const { error } = err;
         this.responseMessage = `Error trying to add new stock: ${error.message}`;
         this.selectedGallery = [];
-        this.selectedCoverImage = null;
         this.isLoading = false;
       },
     });
+  }
+
+  private reGroupGallery(): File[] {
+    // regroup gallery to place selected cover image on index 0
+    const gallery = [...this.selectedGallery];
+
+    // detect cover image selected
+    const coverImgSelected = this.selectedGalleryPreview.find(
+      (image) => image.isCoverImg
+    );
+    if (!coverImgSelected) {
+      return gallery;
+    }
+
+    const coverImageIndex = gallery.findIndex(
+      (image) => image.name === coverImgSelected.fileName
+    );
+    if (coverImageIndex < 0) {
+      return gallery;
+    }
+
+    const [item] = gallery.splice(coverImageIndex, 1);
+    gallery.splice(0, 0, item);
+    return gallery;
   }
 
   public addSelectedColorList(color: string, event?: any) {
@@ -158,15 +179,72 @@ export class AddShirtStockComponent {
     colorPicker.style.backgroundColor = this.lastSelectedColor;
   }
 
-  public onSelectedCoverImage(event: any): void {
-    const file = event.target.files[0];
-    if (!file) {
+  public onSelectedImages(event: any): void {
+    const files = event.target.files;
+    if (!files || files.length === 0) {
       this.onUploadingImagesMessage =
         'Error loading selected file. Try another.';
       return;
     }
 
-    this.onUploadingImagesMessage = '';
-    this.selectedCoverImage = file;
+    this.selectedGallery = [...this.selectedGallery, ...files];
+    for (const file of files) {
+      this.loadImagesPreview(file);
+    }
+
+    console.log(this.selectedGalleryPreview);
+    console.log(this.selectedGallery);
+  }
+
+  private loadImagesPreview(file: File): void {
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.selectedGalleryPreview.push({
+        tempId: new Date().getTime(),
+        url: e.target.result as string,
+        fileName: file.name,
+        isCoverImg: false,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  public removeImage(name: string): void {
+    this.selectedGalleryPreview = this.selectedGalleryPreview.filter(
+      (preview) => preview.fileName !== name
+    );
+
+    this.selectedGallery = this.selectedGallery.filter(
+      (image) => image.name !== name
+    );
+  }
+
+  public selectAsCoverImage(imageId: string): void {
+    const image = this.selectedGalleryPreview.findIndex(
+      (image) => image.tempId === imageId
+    );
+    if (image < 0) {
+      alert('Image not found.');
+      return;
+    }
+
+    this.selectedGalleryPreview.forEach(
+      (preview) => (preview.isCoverImg = false)
+    );
+    this.selectedGalleryPreview[image].isCoverImg = true;
+  }
+
+  public removeAsCoverImg(imageId: string): void {
+    const image = this.selectedGalleryPreview.findIndex(
+      (image) => image.tempId === imageId
+    );
+    if (image < 0) {
+      alert('Image not found.');
+      return;
+    }
+
+    this.selectedGalleryPreview[image].isCoverImg = false;
   }
 }

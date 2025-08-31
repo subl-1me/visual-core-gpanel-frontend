@@ -602,6 +602,7 @@
                           <button
                             class="absolute top-1 right-1 bg-black bg-opacity-50 rounded-full p-1 w-10 h-10 hover:bg-opacity-80 z-10"
                             (click)="removeImage(image.fileName)"
+                            *ngIf="!isLoading"
                           >
                             <i class="fa-solid fa-xmark text-white text-sm"></i>
                           </button>
@@ -615,12 +616,22 @@
                             Select as cover image
                           </div>
 
+                          <!-- remove selected cover img -->
                           <div
                             class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer"
                             (click)="removeAsCoverImg(image.tempId)"
                             *ngIf="image.isCoverImg"
                           >
                             Cover Image
+                          </div>
+
+                          <div
+                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100"
+                            (click)="selectAsCoverImage(image.tempId)"
+                            *ngIf="isLoading"
+                          >
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Uploading...
                           </div>
 
                           <!-- Image -->

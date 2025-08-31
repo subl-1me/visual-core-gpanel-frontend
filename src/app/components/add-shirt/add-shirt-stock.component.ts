@@ -212,6 +212,10 @@ export class AddShirtStockComponent {
   }
 
   public removeImage(name: string): void {
+    if (this.isLoading) {
+      return;
+    }
+
     this.selectedGalleryPreview = this.selectedGalleryPreview.filter(
       (preview) => preview.fileName !== name
     );
@@ -222,6 +226,10 @@ export class AddShirtStockComponent {
   }
 
   public selectAsCoverImage(imageId: string): void {
+    if (this.isLoading) {
+      return;
+    }
+
     const image = this.selectedGalleryPreview.findIndex(
       (image) => image.tempId === imageId
     );

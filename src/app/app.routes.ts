@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AddAdmComponent } from './components/config/add-adm/add-adm.component';
 import { authGuard } from './guards/auth.guard';
 import { AddCustomerComponent } from './components/customers/add-customer/add-customer.component';
+import { EditStockComponent } from './components/edit-stock/edit-stock.component';
 
 export const routes: Routes = [
   {
@@ -59,6 +60,11 @@ export const routes: Routes = [
   {
     path: 'add-customer',
     component: AddCustomerComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'stock/:id',
+    component: EditStockComponent,
     canActivate: [authGuard],
   },
   {

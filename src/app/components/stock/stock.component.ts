@@ -95,93 +95,6 @@ export class StockComponent implements OnInit {
     }
   }
 
-  // stock management
-  public showStockDeletionButtons(stockId: string): void {
-    if (stockId === '' || !stockId) {
-      alert('Stock ID undefined');
-      return;
-    }
-
-    const stockDeletion = document.getElementById(`stock-deletion-${stockId}`);
-    if (!stockDeletion) {
-      return; //never
-    }
-    const stockManagement = document.getElementById(
-      `stock-management-${stockId}`
-    );
-    if (!stockManagement) {
-      return; // never
-    }
-
-    stockDeletion.classList.remove('hidden');
-    stockManagement.classList.add('hidden');
-  }
-
-  public cancelStockDeletion(stockId: string): void {
-    if (stockId === '' || !stockId) {
-      alert('Stock ID undefined');
-      return;
-    }
-    const stockManagement = document.getElementById(
-      `stock-management-${stockId}`
-    );
-    const stockDeletion = document.getElementById(`stock-deletion-${stockId}`);
-    if (!stockDeletion || !stockManagement) {
-      alert('Stock ID undefined');
-      return;
-    }
-
-    stockDeletion.classList.add('hidden');
-    stockManagement.classList.remove('hidden');
-  }
-
-  public confirmStockDeletion(stockId: string): void {
-    const processingStock = document.getElementById(
-      `processing-stock-${stockId}`
-    );
-    if (!processingStock) {
-      alert('Stock ID undefined');
-      return;
-    }
-    const stockManagement = document.getElementById(
-      `stock-management-${stockId}`
-    );
-    if (!stockManagement) {
-      return; // never
-    }
-    const stockDeletion = document.getElementById(`stock-deletion-${stockId}`);
-    if (!stockDeletion) {
-      return; //never
-    }
-
-    processingStock.classList.remove('hidden');
-    stockManagement.classList.add('hidden');
-    stockDeletion.classList.add('hidden');
-
-    this.stockService.delete(stockId).subscribe({
-      next: (_response) => {
-        this.stocks = this.stocks.filter((stock) => stock.id !== stockId);
-        this.displayedStocks = [...this.stocks];
-        this.isLoading = false;
-        this.responseStatusMessage = '';
-      },
-      error: (err) => {
-        const { error } = err;
-        this.responseStatusMessage = `Error trying to remove stock item: ${error.message}`;
-        this.isLoading = false;
-        const stockDeletion = document.getElementById(
-          `processing-stock-${stockId}`
-        );
-        if (!stockDeletion) {
-          return; //never
-        }
-
-        stockDeletion.classList.add('hidden');
-        stockManagement.classList.remove('hidden');
-      },
-    });
-  }
-
   public openStockModal(stockId: string) {
     const modal = document.getElementById(`stock-modal-${stockId}`);
     if (modal) {
@@ -194,5 +107,14 @@ export class StockComponent implements OnInit {
     if (modal) {
       modal.classList.add('hidden');
     }
+  }
+
+  public navigateToEditStock(stockId: string): void {
+    if (!stockId) {
+      alert('Product not found.');
+      return;
+    }
+
+    this.router.navigate([`/stock/${stockId}`]);
   }
 }

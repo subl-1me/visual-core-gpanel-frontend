@@ -37,4 +37,10 @@ export class StockService {
       headers: this.headers,
     });
   }
+
+  public getStock(stockId: string): Observable<any> {
+    return this.http.get(environment.apiUrl + `/stock/${stockId}`, {
+      headers: this.headers,
+    });
+  }
 }

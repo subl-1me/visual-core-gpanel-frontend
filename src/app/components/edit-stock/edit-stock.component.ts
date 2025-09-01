@@ -302,7 +302,9 @@ export class EditStockComponent implements OnInit {
 
   public markAsRemoved(imageUrl: string): void {
     this.selectedToRemove.push(imageUrl);
-    console.log(this.selectedToRemove);
+    if (this.selectedToCover === imageUrl) {
+      this.selectedToCover = '';
+    }
   }
 
   public selectAsCoverImage(imageId: string): void {
@@ -315,6 +317,9 @@ export class EditStockComponent implements OnInit {
     );
     if (image < 0) {
       this.selectedToCover = imageId;
+      this.selectedGalleryPreview.forEach(
+        (preview) => (preview.isCoverImg = false)
+      );
       return;
     }
 

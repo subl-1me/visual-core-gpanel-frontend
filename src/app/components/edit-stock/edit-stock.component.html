@@ -684,7 +684,8 @@
                             *ngIf="
                               $index === 0 &&
                               !hasSelectedAnotherCoverImage() &&
-                              selectedToCover === ''
+                              selectedToCover === '' &&
+                              !selectedToRemove.includes(image)
                             "
                           >
                             Cover Image
@@ -693,7 +694,10 @@
                           <div
                             class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer"
                             (click)="deselectAsCover(image)"
-                            *ngIf="selectedToCover === image"
+                            *ngIf="
+                              selectedToCover === image &&
+                              !selectedToRemove.includes(image)
+                            "
                           >
                             New Cover Image
                           </div>
@@ -708,7 +712,7 @@
 
                           <!-- marked as removed -->
                           <div
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-red-400 text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-0"
+                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-red-400 text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-0"
                             *ngIf="selectedToRemove.includes(image)"
                           >
                             Remove

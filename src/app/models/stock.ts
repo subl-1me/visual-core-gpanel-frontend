@@ -1,5 +1,5 @@
 export default interface Stock {
-  id?: string;
+  _id?: string;
   sizes: Sizes[];
   availableColors: string[];
   details: ShortShirtDetails;
@@ -13,7 +13,12 @@ interface ShortShirtDetails {
   price: number;
   imageUrl: string;
   tier: 'SEASON' | 'DROP' | 'CUSTOM' | 'UNKNOWN' | '';
-  media: string[];
+  media: Media[];
+}
+
+interface Media {
+  public_id: string;
+  url: string;
 }
 
 interface Sizes {

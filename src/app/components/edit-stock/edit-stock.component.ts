@@ -145,14 +145,14 @@ export class EditStockComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.displayedStock.availableColors = [...this.availableColors];
-    this.displayedStock.details.tier = this.selectedTier;
+    this.newStock.availableColors = [...this.availableColors];
+    this.newStock.details.tier = this.selectedTier;
 
     // calculate total
     if (this.selectedTier === TIER_NAMES.DROP) {
-      this.displayedStock.total = this.selectedQuantity;
+      this.newStock.total = this.selectedQuantity;
     } else {
-      const stockSum = this.displayedStock.sizes.reduce((accum, current) => {
+      const stockSum = this.newStock.sizes.reduce((accum, current) => {
         return (accum += current.quantity);
       }, 0);
 
@@ -160,22 +160,58 @@ export class EditStockComponent implements OnInit {
     }
 
     const gallery = this.reGroupGallery();
-    console.log(this.newStock);
-    // this.stockService.add(this.stock, gallery).subscribe({
-    //   next: (_response) => {
-    //     this.responseMessage = '';
-    //     this.isLoading = false;
-    //     this.selectedGallery = [];
-    //     this.selectedGalleryPreview = [];
-    //     this.router.navigate(['/stock']);
-    //   },
-    //   error: (err) => {
-    //     const { error } = err;
-    //     this.responseMessage = `Error trying to add new stock: ${error.message}`;
-    //     this.selectedGallery = [];
-    //     this.isLoading = false;
-    //   },
-    // });
+    const newCoverFromUploads = this.selectedGalleryPreview.find(
+      (img) => img.isCoverImg
+    );
+    const coverName = newCoverFromUploads ? newCoverFromUploads.fileName : null;
+    this.reGroupMedia();
+    console.log(this.selectedToRemove);
+    this.stockService
+      .update(this.newStock, gallery, this.selectedToRemove, coverName)
+      .subscribe({
+        next: (response) => {
+          this.responseMessage = 'Stock updated ✅';
+          this.isLoading = false;
+          this.selectedGallery = [];
+          this.selectedGalleryPreview = [];
+          this.displayedStock = response.update || response.response;
+        },
+        error: (err) => {
+          const { error } = err;
+          this.responseMessage = `Error trying to add new stock: ${error.message}`;
+          this.selectedGallery = [];
+          this.isLoading = false;
+        },
+      });
+  }
+
+  public onDeleteStock(): void {
+    this.isLoading = true;
+    this.stockService
+      .delete(this.stockId || this.displayedStock._id || '')
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.router.navigate(['/stock']);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.responseMessage = err;
+        },
+      });
+  }
+
+  private reGroupMedia(): void {
+    const coverImageIndex = this.newStock.details.media.findIndex(
+      (image) => image.public_id === this.selectedToCover
+    );
+    if (coverImageIndex < 0) {
+      return;
+    }
+
+    const [item] = this.newStock.details.media.splice(coverImageIndex, 1);
+    this.newStock.details.media.splice(0, 0, item);
   }
 
   private reGroupGallery(): File[] {
@@ -332,7 +368,7 @@ export class EditStockComponent implements OnInit {
 
   public deselectAsCover(imageId: string): void {
     const imageIndex = this.displayedStock.details.media.findIndex(
-      (image) => image === imageId
+      (image) => image.url === imageId
     );
 
     if (imageIndex === 0) {

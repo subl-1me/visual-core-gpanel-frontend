@@ -661,83 +661,104 @@
                           <button
                             type="button"
                             class="absolute top-1 right-1 bg-black bg-opacity-50 rounded-full p-1 w-10 h-10 hover:bg-opacity-80 z-10"
-                            (click)="markAsRemoved(image)"
+                            (click)="markAsRemoved(image.public_id)"
                             *ngIf="
-                              !isLoading && !selectedToRemove.includes(image)
+                              !isLoading &&
+                              !selectedToRemove.includes(image.public_id)
                             "
                           >
                             <i class="fa-solid fa-xmark text-white text-sm"></i>
                           </button>
 
-                          <!-- centered overlay -->
+                          <!-- select as cover -->
                           <div
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
-                            (click)="selectAsCoverImage(image)"
+                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 text-white text-sm font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                            (click)="selectAsCoverImage(image.public_id)"
+                            *ngIf="!isLoading"
                           >
-                            Select as Cover
+                            <div class="cover-indicator">
+                              <div class="text-center">
+                                <div class="icon-box">
+                                  <i class="fas fa-check text-xl"></i>
+                                </div>
+                                <p class="font-semibold">Select as Cover</p>
+                              </div>
+                            </div>
                           </div>
 
                           <!-- remove selected cover img -->
                           <div
                             class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer"
-                            (click)="deselectAsCover(image)"
+                            (click)="deselectAsCover(image.public_id)"
                             *ngIf="
                               $index === 0 &&
                               !hasSelectedAnotherCoverImage() &&
                               selectedToCover === '' &&
-                              !selectedToRemove.includes(image)
+                              !selectedToRemove.includes(image.public_id)
                             "
                           >
-                            Cover Image
+                            <div class="cover-indicator">
+                              <div class="text-center">
+                                <p class="font-semibold">Cover Image</p>
+                              </div>
+                            </div>
                           </div>
 
+                          <!-- Marked as cover image -->
                           <div
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer"
-                            (click)="deselectAsCover(image)"
+                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-0"
+                            (click)="deselectAsCover(image.public_id)"
                             *ngIf="
-                              selectedToCover === image &&
-                              !selectedToRemove.includes(image)
+                              selectedToCover === image.public_id &&
+                              !selectedToRemove.includes(image.public_id)
                             "
                           >
-                            New Cover Image
-                          </div>
+                            <div class="cover-indicator" *ngIf="!isLoading">
+                              <div class="text-center">
+                                <p class="font-semibold">Cover Image</p>
+                              </div>
+                              <div class="deselect-label">
+                                <p class="font-medium">(tap to deselect)</p>
+                              </div>
+                            </div>
 
-                          <div
-                            class="absolute inset-0 flex items-center justify-center bg-black text-white text-sm font-semibold opacity-0 transition-opacity duration-300 cursor-pointer hover:opacity-100"
-                            (click)="deselectAsCover(image)"
-                            *ngIf="selectedToCover === image"
-                          >
-                            Remove as Cover
+                            <div class="cover-indicator" *ngIf="isLoading">
+                              <div class="text-center">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>
+                                Adding Cover Image...
+                              </div>
+                            </div>
                           </div>
 
                           <!-- marked as removed -->
                           <div
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-red-400 text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-0"
-                            *ngIf="selectedToRemove.includes(image)"
+                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-sm text-white font-semibold opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-0"
+                            *ngIf="selectedToRemove.includes(image.public_id)"
+                            (click)="cancelRemove(image.public_id)"
                           >
-                            Remove
-                          </div>
-                          <!-- marked as removed -->
-                          <div
-                            class="absolute inset-0 flex items-center justify-center bg-black text-white text-sm font-semibold opacity-0 transition-opacity duration-300 cursor-pointer hover:opacity-100"
-                            *ngIf="selectedToRemove.includes(image)"
-                            (click)="cancelRemove(image)"
-                          >
-                            Click to Cancel Removing
-                          </div>
+                            <div class="cover-indicator" *ngIf="!isLoading">
+                              <div class="text-center text-red-400">
+                                <p class="font-semibold">
+                                  <i class="fa-solid fa-trash-can"></i>
+                                  Remove
+                                </p>
+                              </div>
+                              <div class="deselect-label">
+                                <p class="font-medium">(tap to undo)</p>
+                              </div>
+                            </div>
 
-                          <div
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100"
-                            (click)="selectAsCoverImage(image)"
-                            *ngIf="isLoading"
-                          >
-                            <i class="fas fa-spinner fa-spin mr-2"></i>
-                            Uploading...
+                            <div class="cover-indicator" *ngIf="isLoading">
+                              <div class="text-center">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>
+                                Removing...
+                              </div>
+                            </div>
                           </div>
 
                           <!-- Image -->
                           <img
-                            [src]="image"
+                            [src]="image.url"
                             class="h-full w-full object-cover rounded-lg shadow"
                           />
                         </div>
@@ -755,21 +776,32 @@
                             <i class="fa-solid fa-xmark text-white text-sm"></i>
                           </button>
 
-                          <!-- centered overlay -->
-                          <!-- remove selected cover img -->
+                          <!-- added -->
                           <div
                             class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-0"
                             *ngIf="!image.isCoverImg"
-                          >
-                            New
-                          </div>
-
-                          <div
-                            class="absolute inset-0 flex items-center justify-center bg-black text-white text-sm font-semibold opacity-0 transition-opacity duration-300 cursor-pointer hover:opacity-100"
-                            *ngIf="!image.isCoverImg"
                             (click)="selectAsCoverImage(image.tempId)"
                           >
-                            Select as Cover
+                            <div class="cover-indicator" *ngIf="!isLoading">
+                              <div class="text-center text-green-400">
+                                <p class="font-semibold">
+                                  <i class="fa-solid fa-add"></i>
+                                  New
+                                </p>
+                              </div>
+                              <div class="deselect-label">
+                                <p class="font-medium">
+                                  (tap to select as Cover)
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="cover-indicator" *ngIf="isLoading">
+                              <div class="text-center">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>
+                                Adding...
+                              </div>
+                            </div>
                           </div>
 
                           <div
@@ -777,15 +809,25 @@
                             *ngIf="image.isCoverImg"
                             (click)="removeAsCoverImg(image.tempId)"
                           >
-                            New Cover Image
-                          </div>
+                            <div class="cover-indicator" *ngIf="!isLoading">
+                              <div class="text-center">
+                                <p class="font-semibold text-green-400">
+                                  <i class="fa-solid fa-add"></i>
+                                  New
+                                </p>
+                                <p class="font-semibold">Cover Image</p>
+                              </div>
+                              <div class="deselect-label">
+                                <p class="font-medium">(tap to deselect)</p>
+                              </div>
+                            </div>
 
-                          <div
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 text-white text-sm font-semibold opacity-100"
-                            *ngIf="isLoading"
-                          >
-                            <i class="fas fa-spinner fa-spin mr-2"></i>
-                            Adding...
+                            <div class="cover-indicator" *ngIf="isLoading">
+                              <div class="text-center">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>
+                                Adding Cover Image...
+                              </div>
+                            </div>
                           </div>
 
                           <!-- Image -->
@@ -813,11 +855,22 @@
                     Please complete all required fields
                   </span>
                 </div>
+
                 <div class="flex gap-3">
                   <button
                     *ngIf="!isLoading"
+                    type="button"
+                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-red-500/80 hover:bg-red-600/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
+                    [disabled]="!createStockForm.valid"
+                    (click)="onDeleteStock()"
+                  >
+                    <i class="fas fa-trash-can mr-1"></i>
+                    Delete Stock
+                  </button>
+                  <button
+                    *ngIf="!isLoading"
                     type="submit"
-                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-500/80 hover:bg-blue-600/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
+                    class="px-6 py-2.5 border border-transparent float-right rounded-lg shadow-sm text-sm font-medium text-white bg-blue-500/80 hover:bg-blue-600/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
                     [disabled]="!createStockForm.valid"
                   >
                     <i class="fas fa-save mr-1"></i>

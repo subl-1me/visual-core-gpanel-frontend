@@ -208,7 +208,7 @@
                     <div class="flex-shrink-0 h-10 w-10">
                       <img
                         class="w-9 h-9 rounded-full border-2 border-indigo-400"
-                        src="{{ stock.details.media[0] }}"
+                        src="{{ stock.details.media[0].url }}"
                         alt=""
                       />
                     </div>
@@ -260,10 +260,10 @@
                 >
                   <div
                     class="flex flex-row gap-1 text-center"
-                    id="stock-management-{{ stock.id }}"
+                    id="stock-management-{{ stock._id }}"
                   >
                     <span
-                      (click)="openStockModal(stock.id || '')"
+                      (click)="openStockModal(stock._id || '')"
                       class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100"
                       ><i class="fas fa-gear"></i
                     ></span>
@@ -271,7 +271,7 @@
 
                   <!-- Modal -->
                   <div
-                    id="stock-modal-{{ stock.id }}"
+                    id="stock-modal-{{ stock._id }}"
                     class="hidden fixed inset-0 z-50 overflow-y-auto"
                   >
                     <div
@@ -307,12 +307,12 @@
                                 <span
                                   class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
                                 >
-                                  ID: <span id="stock-id">{{ stock.id }}</span>
+                                  ID: <span id="stock-id">{{ stock._id }}</span>
                                 </span>
                               </div>
                             </div>
                             <button
-                              (click)="closeStockModal(stock.id || '')"
+                              (click)="closeStockModal(stock._id || '')"
                               class="text-gray-400 hover:text-white transition-colors duration-200"
                             >
                               <svg
@@ -342,7 +342,7 @@
                               >
                                 <img
                                   id="stock-image"
-                                  src="{{ stock.details.media[0] }}"
+                                  src="{{ stock.details.media[0].url }}"
                                   alt="Producto"
                                   class="max-h-full max-w-full object-contain rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
                                 />
@@ -519,14 +519,14 @@
                           class="bg-gray-800/70 px-6 py-4 flex justify-end border-t border-gray-700"
                         >
                           <button
-                            (click)="navigateToEditStock(stock.id || '')"
+                            (click)="navigateToEditStock(stock._id || '')"
                             class="px-5 py-2.5 bg-blue-500/80 me-2 hover:bg-blue-500/50 text-white rounded-lg font-medium transition-colors duration-200 flex items-center"
                           >
                             <i class="far fa-edit mr-2"></i>
                             Edit
                           </button>
                           <button
-                            (click)="closeStockModal(stock.id || '')"
+                            (click)="closeStockModal(stock._id || '')"
                             class="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-200 flex items-center"
                           >
                             <svg

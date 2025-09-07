@@ -33,6 +33,8 @@ export class EditStockComponent implements OnInit {
   public selectedQuantity: number = 0;
   public selectedTier: '' | 'SEASON' | 'DROP' | 'CUSTOM' | 'UNKNOWN' = '';
 
+  public isModalActive: boolean = false;
+
   public selectedToRemove: string[] = [];
   public selectedToCover: string = '';
 
@@ -200,6 +202,14 @@ export class EditStockComponent implements OnInit {
           this.responseMessage = err;
         },
       });
+  }
+
+  public openDeleteStockModal(): void {
+    this.isModalActive = true;
+  }
+
+  public closeDeleteStockModal(): void {
+    this.isModalActive = false;
   }
 
   private reGroupMedia(): void {

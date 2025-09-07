@@ -862,7 +862,7 @@
                     type="button"
                     class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-red-500/80 hover:bg-red-600/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
                     [disabled]="!createStockForm.valid"
-                    (click)="onDeleteStock()"
+                    (click)="openDeleteStockModal()"
                   >
                     <i class="fas fa-trash-can mr-1"></i>
                     Delete Stock
@@ -879,7 +879,7 @@
                   <button
                     *ngIf="isLoading"
                     type="button"
-                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-700 cursor-not-allowed"
+                    class="px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-500/50 cursor-not-allowed"
                     disabled
                   >
                     <i class="fas fa-spinner fa-spin mr-2"></i>
@@ -923,6 +923,137 @@
             />
           </svg>
         </button>
+      </div>
+    </section>
+
+    <section>
+      <!-- Modal -->
+      <div
+        id="stock-deletion-modal"
+        class="fixed inset-0 z-50 overflow-y-auto"
+        *ngIf="isModalActive"
+      >
+        <div
+          class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+        >
+          <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div
+              class="absolute inset-0 bg-gray-900 opacity-90 backdrop-blur-sm"
+            ></div>
+          </div>
+
+          <!-- Modal content -->
+          <div
+            class="inline-block align-bottom bg-[#1F2937] rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
+          >
+            <div class="px-6 py-5">
+              <!-- Header -->
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="text-2xl font-bold text-white" id="modal-title">
+                    <span class="bg-white bg-clip-text text-transparent"
+                      >Deleting Stock: {{ displayedStock.details.name }}</span
+                    >
+                  </h3>
+                </div>
+                <button
+                  (click)="closeDeleteStockModal()"
+                  [disabled]="isLoading"
+                  class="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  <svg
+                    class="h-7 w-7"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- main content -->
+              <div class="mt-6 border border-gray-600 p-4">
+                <div class="flex items-center">
+                  <svg
+                    class="h-8 w-8 text-red-500 mr-3"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.257 3.099c.765-1.427 2.658-1.427 3.423 0l5.418 10.088a1.5 1.5 0 01-1.282 2.298H4.121a1.5 1.5 0 01-1.282-2.298L8.257 3.099z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <div>
+                    <h3 class="text-xl font-bold text-white">
+                      Confirm Deletion
+                    </h3>
+                    <p class="text-gray-400 mt-2">
+                      You're going to delete stock
+                      <span class="text-white font-semibold">{{
+                        displayedStock.details.name
+                      }}</span
+                      >. This action is not reversable & all attached data will
+                      be removed as well.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer  -->
+              <div
+                class="bg-gray-800/70 px-6 py-4 flex justify-end border-t border-gray-700"
+              >
+                <button
+                  type="button"
+                  (click)="onDeleteStock()"
+                  *ngIf="!isLoading"
+                  class="px-5 py-2.5 bg-red-500/80 me-2 hover:bg-red-500/50 text-white rounded-lg font-medium text-sm transition-colors duration-200 flex items-center"
+                >
+                  <i class="far fa-circle-check mr-2"></i>
+                  Confirm
+                </button>
+                <button
+                  type="button"
+                  (click)="onDeleteStock()"
+                  [disabled]="isLoading"
+                  *ngIf="isLoading"
+                  class="px-5 py-2.5 bg-red-500/80 me-2 hover:bg-red-500/50 text-white rounded-lg font-medium text-sm transition-colors duration-200 flex items-center"
+                >
+                  <i class="fas fa-spinner fa-spin mr-2"></i>
+
+                  Deleting...
+                </button>
+                <button
+                  (click)="closeDeleteStockModal()"
+                  [disabled]="isLoading"
+                  class="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium text-sm transition-colors duration-200 flex items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>

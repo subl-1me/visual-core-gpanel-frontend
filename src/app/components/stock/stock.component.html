@@ -195,9 +195,7 @@
                 <th
                   scope="col"
                   class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
-                >
-                  Manage
-                </th>
+                ></th>
               </tr>
             </thead>
             <tbody class="bg-[#1F2937] divide-y divide-gray-700">
@@ -264,8 +262,8 @@
                   >
                     <span
                       (click)="openStockModal(stock._id || '')"
-                      class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100"
-                      ><i class="fas fa-gear"></i
+                      class="px-2 py-1 text-xs rounded-full bg-indigo-900/30 text-indigo-300 hover:bg-indigo-700/30 hover:text-indigo-100 hover:cursor-pointer"
+                      ><i class="fas fa-eye"></i
                     ></span>
                   </div>
 
@@ -308,6 +306,22 @@
                                   class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
                                 >
                                   ID: <span id="stock-id">{{ stock._id }}</span>
+                                </span>
+                                <span
+                                  class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
+                                >
+                                  Created on:
+                                  <span id="stock-id">{{
+                                    stock.createdAt | date
+                                  }}</span>
+                                </span>
+                                <span
+                                  class="text-xs font-mono bg-gray-800 text-gray-300 px-2 py-1 rounded"
+                                >
+                                  Last update:
+                                  <span id="stock-id">{{
+                                    stock.updatedAt | date
+                                  }}</span>
                                 </span>
                               </div>
                             </div>
@@ -428,8 +442,11 @@
                                 </p>
                               </div>
 
-                              <!-- available sizes quantity -->
-                              <div class="mt-6">
+                              <!-- available sizes quantity ~ only if stock is custom-->
+                              <div
+                                class="mt-6"
+                                *ngIf="stock.details.tier === TIERS.CUSTOM"
+                              >
                                 <h5
                                   class="text-md font-semibold text-white mb-3 flex items-center"
                                 >

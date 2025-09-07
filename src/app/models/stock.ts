@@ -5,6 +5,8 @@ export default interface Stock {
   details: ShortShirtDetails;
   status: string;
   total: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface ShortShirtDetails {

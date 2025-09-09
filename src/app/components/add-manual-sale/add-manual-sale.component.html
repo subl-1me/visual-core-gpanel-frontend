@@ -307,10 +307,13 @@
                             </option>
                             <option
                               [ngValue]="stock"
+                              [disabled]="
+                                stock.total - getTotalStockAdded(stock) <= 0
+                              "
                               *ngFor="let stock of displayedStock"
                             >
                               {{ stock.details.name }} (Available:
-                              {{ stock.total }})
+                              {{ stock.total - getTotalStockAdded(stock) }})
                             </option>
                           </select>
                         </div>
@@ -349,11 +352,21 @@
                             >
                               <option
                                 [ngValue]="size"
-                                *ngFor="let size of selectedProductStock?.sizes"
-                                [disabled]="size.quantity === 0"
+                                *ngFor="
+                                  let size of selectedProductStock?.sizes;
+                                  index as i
+                                "
+                                [disabled]="
+                                  size.quantity === 0 ||
+                                  size.quantity -
+                                    getTotalStockAdded(selectedProductStock) <=
+                                    0
+                                "
                               >
                                 {{ size.size
-                                }}{{ size.quantity === 0 ? " (Out of stock)" : ` (Qty: ${size.quantity})` }}
+                                }}{{ size.quantity === 0  ||                    size.quantity -
+                                    getTotalStockAdded(selectedProductStock) <=
+                                    0  ? " (Out of stock)" : ` (Qty: ${size.quantity - getTotalStockAdded(selectedProductStock)})` }}
                               </option>
                             </ng-container>
                             <ng-container

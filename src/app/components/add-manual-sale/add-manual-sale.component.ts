@@ -158,14 +158,12 @@ export class AddManualSaleComponent implements OnInit {
     this.calculateTotal();
   }
 
+  public updateDisplayStock(id: string): void {}
+
   public onQuantityChange(event: string): void {
     let inputQty = document.getElementById('inputQuantity') as HTMLInputElement;
 
     if (!inputQty) return;
-
-    console.log(this.selectedProductStock);
-    console.log(this.selectedQuantity);
-    console.log(this.selectedSize);
 
     if (Number(event) <= 0) {
       // when string
@@ -174,17 +172,18 @@ export class AddManualSaleComponent implements OnInit {
       return;
     }
 
+    let remaining =
+      this.selectedProductStock.total -
+      this.getTotalStockAdded(this.selectedProductStock);
+    this.selectedQuantity =
+      Number(event) > remaining ? String(remaining) : event;
     if (this.selectedProductStock.details.tier === TIER_NAMES.DROP) {
-      inputQty.value =
-        event > this.selectedProductStock.total
-          ? this.selectedProductStock.total
-          : event;
+      inputQty.value = Number(event) > remaining ? String(remaining) : event;
       return;
     }
 
     // custom case
-    inputQty.value = event;
-    this.selectedQuantity = event;
+    inputQty.value = Number(event) > remaining ? String(remaining) : event;
   }
 
   public onCustomerChange(customer: any): void {
@@ -202,6 +201,28 @@ export class AddManualSaleComponent implements OnInit {
       phone: '',
       address: '',
     };
+  }
+
+  public hasStockInProcess(stock: Stock): boolean {
+    if (this.productsToBeProcessed.length === 0 || !stock) return false;
+    return this.productsToBeProcessed.some(
+      (p: any) => p.details?.name === stock.details?.name
+    );
+  }
+
+  public getTotalStockAdded(stock: Stock): number {
+    if (this.productsToBeProcessed.length === 0 || !stock) return 0;
+
+    const totalInProcess = this.productsToBeProcessed.reduce(
+      (accum: number, current: any) => {
+        if (current.details?.name === stock.details?.name) {
+          return (accum += current.quantity);
+        }
+        return accum;
+      },
+      0
+    );
+    return totalInProcess;
   }
 
   private resetSelectedProduct(): void {
@@ -240,6 +261,16 @@ export class AddManualSaleComponent implements OnInit {
     this.productsToBeProcessed = this.productsToBeProcessed.filter(
       (p: any) => p.tempId !== product.tempId
     );
+
+    this.restoreStock(product);
+  }
+
+  public restoreStock(product: any): void {
+    this.selectedProductStock = this.displayedStock.find(
+      (stock) => stock.details.name === product.details.name
+    );
+
+    this.calculateTotal();
   }
 
   public completeSale(): void {

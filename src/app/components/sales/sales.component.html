@@ -628,12 +628,9 @@
                                       class="flex-shrink-0 h-24 w-24 bg-gray-700 rounded-lg overflow-hidden"
                                     >
                                       <img
-                                        [src]="
-                                          item.url ||
-                                          'https://via.placeholder.com/150'
-                                        "
+                                        src="{{ item.media[0].url }}"
                                         alt="Producto"
-                                        class="h-full w-full object-cover"
+                                        class="h-full w-full object-cover transition-all hover:transform hover:scale-110"
                                       />
                                     </div>
 

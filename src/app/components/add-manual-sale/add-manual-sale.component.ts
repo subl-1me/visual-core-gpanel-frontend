@@ -10,6 +10,7 @@ import { StockService } from '../../services/stock/stock.service';
 import Stock from '../../models/stock';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import * as uuid from 'uuid';
+import { TIER_NAMES } from '../../const';
 
 @Component({
   selector: 'app-add-manual-sale',
@@ -20,6 +21,7 @@ import * as uuid from 'uuid';
 export class AddManualSaleComponent implements OnInit {
   @ViewChild('createSaleForm') form!: NgForm;
 
+  public tiers = TIER_NAMES;
   public sale: Sale;
   public selectedShirts: Shirt[] = [];
   public displayedStock: Stock[] = [];

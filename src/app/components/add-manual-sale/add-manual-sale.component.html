@@ -197,11 +197,11 @@
                       >
                         <div class="flex-shrink-0 mr-4">
                           <div
-                            class="h-12 w-12 bg-gray-700 rounded-md overflow-hidden flex items-center justify-center"
+                            class="h-16 w-16 bg-gray-700 rounded-md overflow-hidden flex items-center justify-center"
                           >
                             <img
-                              class="w-9 h-9 rounded-full border-2 border-indigo-400"
-                              src="https://via.placeholder.com/40"
+                              class="w-16 h-16 object-cover rounded-full border-2 border-indigo-400"
+                              src="{{ product.details.media[0].url }}"
                               alt=""
                             />
                           </div>
@@ -340,14 +340,35 @@
                             <option [ngValue]="null" disabled>
                               Select a size
                             </option>
-                            <option
-                              [ngValue]="size"
-                              *ngFor="let size of selectedProductStock?.sizes"
-                              [disabled]="size.quantity === 0"
+                            <ng-container
+                              *ngIf="
+                                selectedProductStock &&
+                                selectedProductStock.details.tier ===
+                                  tiers.CUSTOM
+                              "
                             >
-                              {{ size.size
-                              }}{{ size.quantity === 0 ? " (Out of stock)" : ` (Qty: ${size.quantity})` }}
-                            </option>
+                              <option
+                                [ngValue]="size"
+                                *ngFor="let size of selectedProductStock?.sizes"
+                                [disabled]="size.quantity === 0"
+                              >
+                                {{ size.size
+                                }}{{ size.quantity === 0 ? " (Out of stock)" : ` (Qty: ${size.quantity})` }}
+                              </option>
+                            </ng-container>
+                            <ng-container
+                              *ngIf="
+                                selectedProductStock &&
+                                selectedProductStock.details.tier === tiers.DROP
+                              "
+                            >
+                              <option
+                                [ngValue]="size"
+                                *ngFor="let size of selectedProductStock?.sizes"
+                              >
+                                {{ size.size }}
+                              </option>
+                            </ng-container>
                           </select>
                         </div>
                       </div>

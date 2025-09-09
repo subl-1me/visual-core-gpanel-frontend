@@ -9,6 +9,8 @@ import {
   ALL_TYPE_FILTER,
   PAYMENT_TYPES,
 } from '../../const';
+import { SafeUrl } from '@angular/platform-browser';
+import { ShirtQrService } from '../../services/shirt-qr.service';
 
 @Component({
   selector: 'app-sales',
@@ -36,11 +38,20 @@ export class SalesComponent implements OnInit {
   public selectedToDate = signal('mm/dd/yyyy');
   public selectedFromDate = signal('mm/dd/yyyy');
 
+  public qrCodeUrl: SafeUrl | null = null;
+
+  public showGenerateQr: boolean = false;
+  public activeQrShirt: any = null;
+
   public isConfirmingDeletion: boolean = false;
 
   public deletingMessage: string = '';
 
-  constructor(private router: Router, private saleService: SaleService) {}
+  constructor(
+    private router: Router,
+    private saleService: SaleService,
+    private shirtQRService: ShirtQrService
+  ) {}
 
   ngOnInit(): void {
     this.loadSales();
@@ -48,6 +59,30 @@ export class SalesComponent implements OnInit {
 
   public navigateToAddSale(): void {
     this.router.navigate(['add-manual-sale']);
+  }
+
+  public showGenerateQrModal(item: any): void {
+    this.activeQrShirt = item;
+    this.showGenerateQr = true;
+
+    this.shirtQRService.generateQrCode(item.identificator).subscribe({
+      next: (res) => {
+        const blob = new Blob([res], { type: 'image/png' });
+        this.qrCodeUrl = URL.createObjectURL(blob);
+      },
+      error: (err) => {
+        this.responseStatusMessage = `Error generating QR code: ${
+          err.message || err
+        }`;
+      },
+    });
+  }
+
+  public goToShirtDetails(identificator: string): void {}
+
+  public closeGenerateQrModal(): void {
+    this.activeQrShirt = null;
+    this.showGenerateQr = false;
   }
 
   private loadSales(): void {

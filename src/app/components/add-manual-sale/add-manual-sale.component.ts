@@ -126,6 +126,11 @@ export class AddManualSaleComponent implements OnInit {
   }
 
   public onSizeChange(event: any): void {
+    if (this.selectedProductStock.details.tier === TIER_NAMES.DROP) {
+      this.selectedSize = event;
+      return;
+    }
+
     if (event.quantity === 0) {
       return;
     }
@@ -154,25 +159,31 @@ export class AddManualSaleComponent implements OnInit {
   }
 
   public onQuantityChange(event: string): void {
+    let inputQty = document.getElementById('inputQuantity') as HTMLInputElement;
+
+    if (!inputQty) return;
+
+    console.log(this.selectedProductStock);
+    console.log(this.selectedQuantity);
+    console.log(this.selectedSize);
+
     if (Number(event) <= 0) {
       // when string
-      const inputQty = document.getElementById(
-        'inputQuantity'
-      ) as HTMLInputElement;
       inputQty.value = '';
       this.selectedQuantity = '';
       return;
     }
 
-    if (event > this.selectedSize.quantity) {
-      const inputQty = document.getElementById(
-        'inputQuantity'
-      ) as HTMLInputElement;
-      inputQty.value = this.selectedSize.quantity;
-      this.selectedQuantity = this.selectedSize.quantity;
+    if (this.selectedProductStock.details.tier === TIER_NAMES.DROP) {
+      inputQty.value =
+        event > this.selectedProductStock.total
+          ? this.selectedProductStock.total
+          : event;
       return;
     }
 
+    // custom case
+    inputQty.value = event;
     this.selectedQuantity = event;
   }
 

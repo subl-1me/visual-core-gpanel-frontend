@@ -385,26 +385,77 @@
                           >
                             <i class="fas fa-hashtag text-gray-500"></i>
                           </div>
-                          <input
-                            [(ngModel)]="selectedQuantity"
-                            [ngModelOptions]="{ standalone: true }"
-                            (ngModelChange)="onQuantityChange($event)"
-                            #quantityInputAdd="ngModel"
-                            [disabled]="
-                              !selectedSize || selectedSize.quantity === 0
+                          <ng-container
+                            *ngIf="
+                              selectedProductStock &&
+                              selectedProductStock.details.tier === tiers.DROP
                             "
-                            type="number"
-                            min="1"
-                            [max]="selectedSize?.quantity"
-                            name="quantityAdd"
-                            id="inputQuantityAdd"
-                            class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            [class.border-red-500]="
-                              quantityInputAdd.invalid &&
-                              (quantityInputAdd.dirty ||
-                                quantityInputAdd.touched)
+                          >
+                            <input
+                              [(ngModel)]="selectedQuantity"
+                              [ngModelOptions]="{ standalone: true }"
+                              (ngModelChange)="onQuantityChange($event)"
+                              #quantityInputAdd="ngModel"
+                              [disabled]="
+                                !selectedProductStock || !selectedSize
+                              "
+                              type="number"
+                              min="1"
+                              [max]="selectedProductStock.total"
+                              name="quantityAdd"
+                              id="inputQuantity"
+                              class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              [class.border-red-500]="
+                                quantityInputAdd.invalid &&
+                                (quantityInputAdd.dirty ||
+                                  quantityInputAdd.touched)
+                              "
+                            />
+                          </ng-container>
+
+                          <ng-container
+                            *ngIf="
+                              selectedProductStock &&
+                              selectedProductStock.details.tier === tiers.CUSTOM
                             "
-                          />
+                          >
+                            <input
+                              [(ngModel)]="selectedQuantity"
+                              [ngModelOptions]="{ standalone: true }"
+                              (ngModelChange)="onQuantityChange($event)"
+                              #quantityInputAdd="ngModel"
+                              [disabled]="
+                                !selectedProductStock || !selectedSize
+                              "
+                              type="number"
+                              min="1"
+                              [max]="selectedProductStock.total || 1"
+                              name="quantityAdd"
+                              id="inputQuantity"
+                              class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              [class.border-red-500]="
+                                quantityInputAdd.invalid &&
+                                (quantityInputAdd.dirty ||
+                                  quantityInputAdd.touched)
+                              "
+                            />
+                          </ng-container>
+
+                          <ng-container *ngIf="!selectedProductStock">
+                            <input
+                              [(ngModel)]="selectedQuantity"
+                              [ngModelOptions]="{ standalone: true }"
+                              (ngModelChange)="onQuantityChange($event)"
+                              #quantityInputAdd="ngModel"
+                              [disabled]="!selectedProductStock"
+                              type="number"
+                              min="1"
+                              [max]="1"
+                              name="quantityAdd"
+                              id="inputQuantity"
+                              class="pl-10 w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            />
+                          </ng-container>
                         </div>
                       </div>
 
@@ -416,8 +467,7 @@
                           [disabled]="
                             !selectedProductStock ||
                             !selectedSize ||
-                            !selectedQuantity ||
-                            selectedQuantity > selectedSize.quantity
+                            !selectedQuantity
                           "
                         >
                           <i class="fas fa-plus-circle mr-2"></i> Add

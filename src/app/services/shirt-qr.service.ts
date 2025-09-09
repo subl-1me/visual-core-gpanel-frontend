@@ -7,11 +7,15 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ShirtQrService {
+  private headers: HttpHeaders = new HttpHeaders().set(
+    'content-type',
+    'application/json'
+  );
   constructor(private http: HttpClient) {}
 
   public generateQrCode(identificator: string): Observable<any> {
     return this.http.get(environment.apiUrl + `/qr/${identificator}`, {
-      responseType: 'blob',
+      headers: this.headers,
     });
   }
 }

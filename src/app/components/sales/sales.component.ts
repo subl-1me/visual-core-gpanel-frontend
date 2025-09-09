@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import Sale from '../../models/sale';
 import { SaleService } from '../../services/sales/sale.service';
 import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import {
   AUTOMATIC_SALE_TYPE,
@@ -51,7 +52,8 @@ export class SalesComponent implements OnInit {
   constructor(
     private router: Router,
     private saleService: SaleService,
-    private shirtQRService: ShirtQrService
+    private shirtQRService: ShirtQrService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -68,8 +70,9 @@ export class SalesComponent implements OnInit {
 
     this.shirtQRService.generateQrCode(item.identificator).subscribe({
       next: (res) => {
-        const blob = new Blob([res], { type: 'image/png' });
-        this.qrCodeUrl = URL.createObjectURL(blob);
+        console.log(res);
+        this.qrCodeUrl = this.sanitizer.bypassSecurityTrustUrl(res.response);
+        console.log(this.qrCodeUrl);
       },
       error: (err) => {
         this.responseStatusMessage = `Error generating QR code: ${

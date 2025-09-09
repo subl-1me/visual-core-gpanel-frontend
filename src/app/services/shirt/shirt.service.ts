@@ -25,4 +25,10 @@ export class ShirtService {
       headers: this.headers,
     });
   }
+
+  public getShirtByIdentificator(identificator: string): Observable<any> {
+    return this.http.get(environment.apiUrl + `/shirt/${identificator}`, {
+      headers: this.headers,
+    });
+  }
 }

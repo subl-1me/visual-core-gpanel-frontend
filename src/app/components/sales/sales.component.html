@@ -918,11 +918,17 @@
                     >.
                   </p>
 
-                  <p
-                    class="text-indigo-400 mt-2 text-center underline hover:cursor-pointer"
-                    (click)="goToShirtDetails(activeQrShirt.identificator)"
-                  >
-                    Or click here
+                  <p class="text-indigo-400 mt-2 text-center">
+                    <a
+                      class="underline hover:cursor-pointer"
+                      [routerLink]="[
+                        '/shirt-visualization',
+                        activeQrShirt.identificator
+                      ]"
+                      target="_blank"
+                    >
+                      Or click here
+                    </a>
                   </p>
                 </div>
               </div>

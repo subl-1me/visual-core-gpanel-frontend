@@ -11,6 +11,7 @@ import { AddAdmComponent } from './components/config/add-adm/add-adm.component';
 import { authGuard } from './guards/auth.guard';
 import { AddCustomerComponent } from './components/customers/add-customer/add-customer.component';
 import { EditStockComponent } from './components/edit-stock/edit-stock.component';
+import { ShirtVisualizationComponent } from './components/shirt-visualization/shirt-visualization.component';
 
 export const routes: Routes = [
   {
@@ -66,6 +67,10 @@ export const routes: Routes = [
     path: 'stock/:id',
     component: EditStockComponent,
     canActivate: [authGuard],
+  },
+  {
+    path: 'shirt-visualization/:identificator',
+    component: ShirtVisualizationComponent,
   },
   {
     path: '**',

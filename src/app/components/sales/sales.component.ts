@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import Sale from '../../models/sale';
 import { SaleService } from '../../services/sales/sale.service';
 import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import {
   AUTOMATIC_SALE_TYPE,
   MANUAL_SALE_TYPE,
@@ -14,7 +15,7 @@ import { ShirtQrService } from '../../services/shirt-qr.service';
 
 @Component({
   selector: 'app-sales',
-  imports: [NgIf, NgFor, DatePipe, DecimalPipe, NgClass],
+  imports: [NgIf, NgFor, DatePipe, DecimalPipe, NgClass, RouterLink],
   templateUrl: './sales.component.html',
   styleUrl: './sales.component.css',
 })
@@ -78,7 +79,9 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  public goToShirtDetails(identificator: string): void {}
+  public goToShirtDetails(identificator: string): void {
+    this.router.navigate([`shirt-visualization/${identificator}`]);
+  }
 
   public closeGenerateQrModal(): void {
     this.activeQrShirt = null;

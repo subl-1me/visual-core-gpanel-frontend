@@ -1,0 +1,199 @@
+<div
+  class="px-6 py-12 bg-gradient-to-br from-gray-800 to-gray-900 min-h-screen"
+>
+  <div class="max-w-7xl mx-auto" *ngIf="isLoadingShirt">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <!-- Sección de imagen principal -->
+      <div class="relative group">
+        <div
+          class="rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-700 product-image"
+        >
+          <img
+            *ngIf="shirt.media.length > 0"
+            src="{{ shirt.media[0].url || '' }}"
+            alt="Camiseta principal"
+            class="w-full h-auto object-cover"
+          />
+        </div>
+
+        <!-- Badge de estado -->
+        <div
+          class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center shadow-lg"
+        >
+          <i class="fas fa-tag mr-1"></i> NOT AVAILABLE
+        </div>
+
+        <!-- Acciones -->
+        <div class="flex mt-6 space-x-4">
+          <button
+            class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 shine-effect"
+          >
+            <i class="far fa-heart mr-2"></i> Like
+          </button>
+          <button
+            class="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 border border-gray-700"
+          >
+            <i class="fas fa-share-alt mr-2"></i>
+            Share
+          </button>
+        </div>
+      </div>
+
+      <!-- Información del producto -->
+      <div class="space-y-8">
+        <div>
+          <h1 class="text-5xl font-bold text-white mb-2 leading-tight">
+            {{ shirt.name }}
+
+            <span
+              class="text-gray-400 text-sm border border-gray-600 px-2 py-1 rounded-lg ml-3 mt-auto mb-auto"
+            >
+              <i class="fas fa-shirt mr-1"></i>
+              {{ shirt.identificator }}</span
+            >
+          </h1>
+          <p class="text-xl text-gray-300 italic">
+            {{ shirt.description }}
+          </p>
+        </div>
+
+        <!-- Información destacada -->
+        <div
+          class="bg-gray-600/10 p-6 rounded-2xl border border-gray-700 shadow-xl"
+        >
+          <div class="grid grid-cols-2 gap-6">
+            <div class="flex items-center">
+              <div class="bg-indigo-900/30 p-3 rounded-xl mr-4">
+                <i class="fas fa-user text-indigo-400 text-xl"></i>
+              </div>
+              <div>
+                <span class="block text-gray-400 text-sm">Owner</span>
+                <span class="block text-white font-medium">Juan Pérez</span>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="bg-indigo-900/30 p-3 rounded-xl mr-4">
+                <i class="fas fa-calendar text-indigo-400 text-xl"></i>
+              </div>
+              <div>
+                <span class="block text-gray-400 text-sm">Bought Date</span>
+                <span class="block text-white font-medium">{{
+                  shirt.createdAt | date : "short"
+                }}</span>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="bg-indigo-900/30 p-3 rounded-xl mr-4">
+                <i class="fas fa-paint-brush text-indigo-400 text-xl"></i>
+              </div>
+              <div>
+                <span class="block text-gray-400 text-sm">Color</span>
+                <span class="block text-white font-medium">Color:</span>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="bg-indigo-900/30 p-3 rounded-xl mr-4">
+                <i class="fas fa-gem text-indigo-400 text-xl"></i>
+              </div>
+              <div>
+                <span class="block text-gray-400 text-sm">Tier</span>
+                <span class="block text-blue-400 font-bold">{{
+                  shirt.tier
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Galería de imágenes -->
+    <div class="mt-20">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold text-white">
+          <span class="gradient-text">Gallery</span>
+        </h2>
+        <div class="flex space-x-2">
+          <button
+            class="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button
+            class="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        @for (item of shirt.media; track $index) {
+        <div
+          class="rounded-2xl overflow-hidden border-2 border-gray-700 shadow-md transform hover:-translate-y-2 transition-transform duration-300"
+        >
+          <img
+            src="{{ item.url || '' }}"
+            alt="Detalle del logo"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Detalles del producto -->
+    <div
+      class="mt-20 p-8 bg-gray-600/10 rounded-2xl border border-gray-700 shadow-xl"
+    >
+      <h2 class="text-3xl font-bold text-white mb-6">
+        <span class="gradient-text">Detalles</span> del Producto
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-8">
+        <div>
+          <p class="text-gray-300 leading-relaxed text-lg mb-6">
+            Confeccionada con una mezcla de algodón orgánico y poliéster
+            reciclado, esta camiseta no solo es increíblemente suave al tacto,
+            sino que también representa nuestro compromiso con la
+            sostenibilidad. El estampado del lobo, diseñado por el artista de
+            renombre <strong class="text-white">Alejandro Ortiz</strong>,
+            utiliza tintas ecológicas que garantizan colores vibrantes y
+            durabilidad a largo plazo. Perfecta para cualquier ocasión, esta
+            pieza única te hará destacar en cualquier lugar.
+          </p>
+
+          <div class="bg-gray-800/50 p-5 rounded-xl border border-gray-700">
+            <h3 class="text-xl font-semibold text-white mb-3 flex items-center">
+              <i class="fas fa-info-circle text-indigo-400 mr-2"></i>
+              Especificaciones
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                <span class="text-gray-300"
+                  ><strong class="text-white">Material:</strong> 60% Algodón
+                  Orgánico, 40% Poliéster Reciclado.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                <span class="text-gray-300"
+                  ><strong class="text-white">Cuidado:</strong> Lavar a máquina
+                  en frío con colores similares. Secar a baja temperatura.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                <span class="text-gray-300"
+                  ><strong class="text-white">Edición:</strong> Parte de la
+                  colección "Fauna Urbana", limitada a 500 unidades.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

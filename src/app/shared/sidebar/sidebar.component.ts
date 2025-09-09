@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TAB_NAMES } from '../../const';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private routed: ActivatedRoute
   ) {}
 
   public TAB_NAMES = TAB_NAMES;
